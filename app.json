@@ -3,7 +3,7 @@
     "scheme": "tamagui-app",
     "userInterfaceStyle": "automatic",
     "splash": {
-      "backgroundColor": "#ddffe2",
+      "backgroundColor": "#ffffff",
       "image": "./assets/splash.png",
       "resizeMode": "contain"
     },

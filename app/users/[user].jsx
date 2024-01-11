@@ -7,16 +7,21 @@ import { MyStack } from "../../components/MyStack";
 import SelectDemo from "../../components/SelectDemo";
 import SpinnerDemo from "../../components/SpinnerDemo";
 import SwitchDemo from "../../components/SwitchDemo";
+import { CardDemo } from "../../components/CardDemo/CardDemo";
 
 export default function User() {
   const router = useRouter();
   const params = useSearchParams();
 
   return (
-    <MyStack justifyContent="flex-start">
+    <MyStack
+      paddingTop="$7"
+      justifyContent="flex-start"
+    >
       <Stack.Screen
         options={{
           headerShown: true,
+
           headerTitle: `${params.user}'s user page`,
           headerLeft() {
             return (
@@ -30,8 +35,6 @@ export default function User() {
           }
         }}
       />
-
-      <H6>Some Tamagui components in action.</H6>
 
       <DialogDemo />
       <SelectDemo />

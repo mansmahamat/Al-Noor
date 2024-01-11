@@ -1,6 +1,7 @@
 import { H5, Tabs, Text } from "tamagui";
 
 import { MyStack } from "../../components/MyStack";
+import { CardDemo } from "../../components/CardDemo/CardDemo";
 
 export default function Tab1() {
   return (
@@ -9,10 +10,11 @@ export default function Tab1() {
         defaultValue="tab1"
         orientation="horizontal"
         flexDirection="column"
+        overflow="hidden"
         width="100%"
       >
         <Tabs.List>
-          <Tabs.Tab value="tab1">
+          <Tabs.Tab marginBottom="$5" value="tab1">
             <Text>SubTab 1</Text>
           </Tabs.Tab>
           <Tabs.Tab value="tab2">
@@ -24,7 +26,7 @@ export default function Tab1() {
         </Tabs.List>
 
         <Tabs.Content value="tab1">
-          <H5>SubTab 1 Content</H5>
+          <CardDemo />
         </Tabs.Content>
         <Tabs.Content value="tab2">
           <H5>SubTab 2 Content</H5>

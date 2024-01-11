@@ -1,4 +1,4 @@
-import { styled, YStack } from "tamagui";
+import { styled, YStack } from "tamagui"
 
 export const MyStack = styled(YStack, {
   name: "MyStack",
@@ -6,5 +6,4 @@ export const MyStack = styled(YStack, {
   flex: 1,
   justifyContent: "space-between",
   padding: "$4",
-  space: "$true"
-});
+})
