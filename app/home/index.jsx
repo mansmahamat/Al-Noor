@@ -2,12 +2,14 @@ import { Button, H5, Tabs, Text, View, YStack } from "tamagui";
 
 import { MyStack } from "../../components/MyStack";
 import { CardDemo } from "../../components/CardDemo/CardDemo";
-import { MySafeAreaView } from "../../components/MySafeAreaView";
 import { PrayerList } from "../../components/PrayerList/PrayerList";
-import { ArrowBigLeft } from "@tamagui/lucide-icons";
-import { Stack } from "expo-router";
+import useGetPrayer from "../utils/useGetPrayer";
+
 
 export default function Home() {
+
+    const { prayerTimesArray, transformedArray } = useGetPrayer()
+
     return (
         <>
             <MyStack>
@@ -16,7 +18,10 @@ export default function Home() {
                     space="$4"
                 >
                     <CardDemo />
-                    <PrayerList />
+                    {/* <Text>
+                        {JSON.stringify(transformedArray)}
+                    </Text> */}
+                    <PrayerList transformedArray={transformedArray} />
                 </YStack>
 
 

@@ -3,7 +3,7 @@ import { Button, Card, CardProps, H2, Image, Paragraph, Text, XStack } from "tam
 export function CardDemo() {
     return (
 
-        <Card height="55%" backgroundColor="#30a46c" borderColor="#30a46c" size="$5" >
+        <Card height="30%" backgroundColor="#30a46c" borderColor="#30a46c" size="$5" >
             <Card.Header padded>
                 <Text fontWeight="600" color="white" numberOfLines={1}>
                     Fajr
