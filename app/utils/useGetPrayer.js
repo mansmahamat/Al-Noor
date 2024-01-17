@@ -14,17 +14,17 @@ const useGetPrayer = () => {
   }, [latitude, longitude])
 
   const prayers = ["fajr", "sunrise", "dhuhr", "asr", "maghrib", "isha"]
-  const prayerTimesArray = Object.keys(prayerTimesToday)
-  const filterArray = prayerTimesArray.filter((item) => prayers.includes(item))
-
-  const transformedArray = filterArray.map((item) => {
+  const filteredPrayerTimes = Object.keys(prayerTimesToday).filter((item) =>
+    prayers.includes(item)
+  )
+  const transformedArray = filteredPrayerTimes.map((item) => {
     return {
       name: item,
       time: prayerTimesToday[item],
     }
   })
 
-  return { prayerTimesArray, transformedArray }
+  return { transformedArray }
 }
 
 export default useGetPrayer
