@@ -1,17 +1,42 @@
 import { LocateFixed } from "@tamagui/lucide-icons";
+import moment from "moment";
 import { Button, Card, CardProps, H2, Image, Paragraph, Text, XStack } from "tamagui";
-export function CardDemo() {
+
+interface Props {
+    currentPrayer: string
+    nextPrayerTime: Date
+    nextPrayerName  : string
+    nextPrayerTimeHours : number
+    nextPrayerTimeMinutes : number
+}
+
+
+export function CardDemo({currentPrayer, nextPrayerTime, nextPrayerName,
+nextPrayerTimeHours, nextPrayerTimeMinutes
+} : Props) {
+
+    const prayerImages = {
+        fajr: "https://res.cloudinary.com/mansdesmez/image/upload/v1704230717/fajr_ehp8ew.png",
+        sunrise: "https://res.cloudinary.com/mansdesmez/image/upload/v1704230717/fajr_ehp8ew.png",
+        dhuhr: "https://res.cloudinary.com/mansdesmez/image/upload/v1704230714/dhur_jl8wux.png",
+        asr: "https://res.cloudinary.com/mansdesmez/image/upload/v1704230718/asr_bfju85.png",
+        maghrib: "https://res.cloudinary.com/mansdesmez/image/upload/v1704230715/maghrib_mhd459.png",
+        isha: "https://res.cloudinary.com/mansdesmez/image/upload/v1704230716/isha_qeesqw.png"
+    }
     return (
 
         <Card height="40%" backgroundColor="#30a46c" borderColor="#30a46c" size="$5" >
             <Card.Header padded>
-                <Text fontWeight="600" color="white" numberOfLines={1}>
-                    Fajr
+                <Text fontWeight="600"  fontSize={26} color="white" numberOfLines={1}>
+                    {currentPrayer} 
                 </Text>
+                {/* <Text fontWeight="600"  fontSize={26} color="white" numberOfLines={1}>
+                    {moment(nextPrayerTime).format('LT')} 
+                </Text> */}
 
 
-                <Text color="white" numberOfLines={1}>
-                    12h
+                <Text color="white" fontSize={14} fontWeight="600" numberOfLines={1}>
+                {nextPrayerTimeHours && ` ${nextPrayerTimeHours} hrs`} {nextPrayerTimeMinutes} avant {nextPrayerName}
                 </Text>
 
             </Card.Header>
@@ -43,9 +68,9 @@ export function CardDemo() {
                     width="100%"
                     height="100%"
                     source={{
-                        width: "100%",
-                        height: "100%",
-                        uri: "https://res.cloudinary.com/mansdesmez/image/upload/v1704230714/dhur_jl8wux.png"
+                        width: 100,
+                        height: 100,
+                        uri: prayerImages[currentPrayer.toLocaleLowerCase()]
 
                     }}
                 />
