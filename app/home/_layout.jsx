@@ -1,5 +1,5 @@
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { Compass, Home } from "@tamagui/lucide-icons";
+import { Compass, Home, List } from "@tamagui/lucide-icons";
 import { Tabs, useRouter } from "expo-router";
 import { Button } from "tamagui";
 
@@ -12,7 +12,7 @@ export default function Layout() {
             <Tabs.Screen
                 name="index"
                 options={{
-                    title: "Tab 1",
+                    title: "Prayer Times",
                     tabBarIcon(props) {
                         return (
                             <Home />
@@ -33,10 +33,31 @@ export default function Layout() {
             <Tabs.Screen
                 name="qibla"
                 options={{
-                    title: "Tab 1",
+                    title: "Qibla",
                     tabBarIcon(props) {
                         return (
                             <Compass />
+                        );
+                    },
+                    headerLeft() {
+                        return (
+                            <Button
+                                ml="$2.5"
+                                onPress={() => router.push("/")}
+                            >
+                                <MaterialCommunityIcons name="arrow-left" />
+                            </Button>
+                        );
+                    }
+                }}
+            />
+            <Tabs.Screen
+                name="nameAllah"
+                options={{
+                    title: "99 Names of Allah",
+                    tabBarIcon(props) {
+                        return (
+                            <List />
                         );
                     },
                     headerLeft() {

@@ -1,51 +1,56 @@
 import { LocateFixed } from "@tamagui/lucide-icons";
 import moment from "moment";
 import { Button, Card, CardProps, H2, Image, Paragraph, Text, XStack } from "tamagui";
+import useGetDateHijri from "../../app/utils/useGetDateHijri";
+import { prayerImages } from "../../utils/utils";
 
 interface Props {
     currentPrayer: string
     nextPrayerTime: Date
-    nextPrayerName  : string
-    nextPrayerTimeHours : number
-    nextPrayerTimeMinutes : number
+    nextPrayerName: string
+    nextPrayerTimeHours: number
+    nextPrayerTimeMinutes: number
+    city: string
+    date: Date
 }
 
 
-export function CardDemo({currentPrayer, nextPrayerTime, nextPrayerName,
-nextPrayerTimeHours, nextPrayerTimeMinutes
-} : Props) {
+export function CardDemo({ currentPrayer, nextPrayerTime, nextPrayerName,
+    nextPrayerTimeHours, nextPrayerTimeMinutes, city, date
+}: Props) {
 
-    const prayerImages = {
-        fajr: "https://res.cloudinary.com/mansdesmez/image/upload/v1704230717/fajr_ehp8ew.png",
-        sunrise: "https://res.cloudinary.com/mansdesmez/image/upload/v1704230717/fajr_ehp8ew.png",
-        dhuhr: "https://res.cloudinary.com/mansdesmez/image/upload/v1704230714/dhur_jl8wux.png",
-        asr: "https://res.cloudinary.com/mansdesmez/image/upload/v1704230718/asr_bfju85.png",
-        maghrib: "https://res.cloudinary.com/mansdesmez/image/upload/v1704230715/maghrib_mhd459.png",
-        isha: "https://res.cloudinary.com/mansdesmez/image/upload/v1704230716/isha_qeesqw.png"
-    }
+
+
+    const { data, month, day, year, designation, isLoading, error, refetch } =
+        useGetDateHijri(date)
+
     return (
 
-        <Card height="40%" backgroundColor="#30a46c" borderColor="#30a46c" size="$5" >
+        <Card height="30%" backgroundColor="#30a46c" borderColor="#30a46c" size="$5" >
             <Card.Header padded>
-                <Text fontWeight="600"  fontSize={26} color="white" numberOfLines={1}>
-                    {currentPrayer} 
-                </Text>
+                <Paragraph fontWeight="600" fontSize={26} color="white" numberOfLines={1}>
+                    {currentPrayer}
+                </Paragraph>
                 {/* <Text fontWeight="600"  fontSize={26} color="white" numberOfLines={1}>
                     {moment(nextPrayerTime).format('LT')} 
                 </Text> */}
 
 
-                <Text color="white" fontSize={14} fontWeight="600" numberOfLines={1}>
-                {nextPrayerTimeHours && ` ${nextPrayerTimeHours} hrs`} {nextPrayerTimeMinutes} avant {nextPrayerName}
-                </Text>
+                <Paragraph color="white" fontSize={14} fontWeight="600" numberOfLines={1}>
+                    {nextPrayerTimeHours && ` ${nextPrayerTimeHours} hrs`} {nextPrayerTimeMinutes} avant {nextPrayerName}
+                </Paragraph>
 
             </Card.Header>
             <Card.Footer padded>
                 <XStack flex={1} />
 
                 <Button display="flex" backgroundColor="#30a46c" alignItems="center" borderRadius="$10">
-                    <LocateFixed size={20} color="white" />
-                    Dakar </Button>
+                    {/* <LocateFixed size={20} color="white" />
+                    {city} */}
+                    <Paragraph size="$2" textAlign="center" color="white" fontWeight="600">
+                        {month} {day}, {year} {designation} | {city} {moment(nextPrayerTime).format('LT')}
+                    </Paragraph>
+                </Button>
 
             </Card.Footer>
             <Card.Background shadowColor="#000"

@@ -18,6 +18,8 @@ const useGetPrayer = (date) => {
   const [lat, setLat] = useState(null)
   const [long, setLong] = useState(null)
   const [errorMsg, setErrorMsg] = useState(null)
+  const [city, setCity] = useState(null)
+  
 
   useEffect(() => {
     ;(async () => {
@@ -42,8 +44,26 @@ const useGetPrayer = (date) => {
       //     setCity
       //   })
       //   .catch(console.error)
+
+      try {
+        const response = await fetch(
+          `https://geocode.maps.co/reverse?lat=${location.coords.latitude}&lon=${location.coords.longitude}`
+        )
+       
+    const data = await response.json()
+    setCity(data?.address?.municipality ?? data?.address?.city ?? data?.address?.town)
+        // setCity(data.address.city ?? data.address.town)
+        // setIsLoading(false)
+      } catch (error) {
+        console.error(error)
+        //  setIsLoading(false)
+      }
     })()
   }, [])
+
+  
+
+  
 
   // CALCULATION METHOD
   function getCalculationMethodByName(name) {
@@ -106,6 +126,10 @@ const useGetPrayer = (date) => {
     params.madhab = calculationMethodParamsMadhab
     return new PrayerTimes(coordinates, date, params)
   }, [lat, long, date, calculationMethod, calculationMethodParamsMadhab])
+
+
+ 
+  
 
   const prayerTimesTomorrow = useMemo(() => {
     const nextdate = new Date(date)
@@ -216,6 +240,7 @@ const useGetPrayer = (date) => {
     nextPrayerName: nextPrayer?.name,
     currentPrayer: previousPrayer?.name,
     transformedArray,
+    city
   }
 }
 
