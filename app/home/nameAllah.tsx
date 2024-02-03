@@ -47,7 +47,7 @@ const App = () => {
                                 <ListItem
                                     hoverTheme
                                     pressTheme
-                                    backgroundColor="#30a46c"
+                                    backgroundColor="#4c6c53"
                                     borderColor="white"
                                     borderWidth="$1.5"
                                     title={`${item.number} - ${item.transliteration}`}

@@ -6,10 +6,11 @@ import React, {
     useImperativeHandle,
 } from "react"
 import PropTypes from "prop-types"
-import { Image, View, Text, StyleSheet, ActivityIndicator } from "react-native"
+import { Image, View, StyleSheet, ActivityIndicator } from "react-native"
 import { Magnetometer } from "expo-sensors"
 import * as Location from "expo-location"
 import { moderateScale } from "react-native-size-matters"
+import { Text } from "tamagui"
 
 export const useQiblaCompass = () => {
     const [subscription, setSubscription] = useState(null)
@@ -139,7 +140,9 @@ export const useQiblaCompass = () => {
 const QiblaCompass = forwardRef(
     (
         //@ts-ignore
-        { backgroundColor = "transparent", color = "#000", textStyles = {} },
+        { backgroundColor = "#4c6c53", color = "#fffff", textStyles = {
+            color: "#fffff"
+        } },
         ref
     ) => {
         const {
@@ -176,7 +179,7 @@ const QiblaCompass = forwardRef(
                 {error && (
                     <Text
                         style={{
-                            color: "#f00",
+                            color: "#fffff",
                             fontWeight: "bold",
                             textAlign: "center",
                             paddingHorizontal: 20,
@@ -189,7 +192,7 @@ const QiblaCompass = forwardRef(
                 )}
                 <View style={styles.direction}>
                     <Text>Stockholm</Text>
-                    <Text style={[styles.directionText, { color, ...textStyles }]}>
+                    <Text style={[styles.directionText,]}>
                         {compassDirection}
                     </Text>
                     <Text style={[styles.directionText, { color, ...textStyles }]}>
@@ -199,8 +202,12 @@ const QiblaCompass = forwardRef(
                 <View
                     style={{
                         width: "200%",
+                        marginTop: 100,
                         height: moderateScale(300, 0.25),
                         position: "relative",
+                        justifyContent: "center",
+                        alignItems: "center"
+
                     }}
                 >
                     <Image
@@ -277,19 +284,21 @@ const styles = StyleSheet.create({
         height: moderateScale(300, 0.25),
     },
     container: {
-        backgroundColor: "#f00",
-        justifyContent: "center",
-        alignItems: "center",
+        backgroundColor: "#f00",  // Background color of the container
+        justifyContent: "center",  // Aligns content vertically in the center
+        alignItems: "center",  // Aligns content horizontally in the center
         position: "relative",
+        height: "100%",
     },
     direction: {
         textAlign: "center",
         zIndex: 300,
+        color: "#fffff",
     },
     directionText: {
         textAlign: "center",
         fontSize: 30,
-        color: "#468773",
+        color: "#fff !important",
     },
     qiblaDirection: {
         flexDirection: "row",

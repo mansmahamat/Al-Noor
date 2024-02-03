@@ -4,11 +4,23 @@ import { MyStack } from "../../components/MyStack";
 import { CardDemo } from "../../components/CardDemo/CardDemo";
 import { PrayerList } from "../../components/PrayerList/PrayerList";
 import useGetPrayer from "../utils/useGetPrayer";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import moment from "moment";
 import DateTimePicker from '@react-native-community/datetimepicker';
 import useGetDateHijri from "../utils/useGetDateHijri";
 import { Cross, XCircle } from "@tamagui/lucide-icons";
+import * as Device from 'expo-device';
+import * as Notifications from 'expo-notifications';
+import { Platform } from "react-native";
+
+Notifications.setNotificationHandler({
+    handleNotification: async () => ({
+        shouldShowAlert: true,
+        shouldPlaySound: true,
+        shouldSetBadge: false,
+    }),
+});
+
 
 function calculateTimeDifference(targetTime) {
     const currentTime = moment()
@@ -78,6 +90,63 @@ export default function Home() {
         (prayer) => prayer.name !== "sunrise" && prayer.name !== "sunset"
     )
 
+    const [expoPushToken, setExpoPushToken] = useState<string>();
+    const [notification, setNotification] = useState(false);
+    const notificationListener = useRef();
+    const responseListener = useRef();
+
+    useEffect(() => {
+        registerForPushNotificationsAsync().then(token => setExpoPushToken(token));
+        //@ts-ignore
+        notificationListener.current = Notifications.addNotificationReceivedListener(notification => {
+            //@ts-ignore
+
+            setNotification(notification);
+        });
+
+
+        console.log("notificationListener", expoPushToken)
+
+        //@ts-ignore
+
+        responseListener.current = Notifications.addNotificationResponseReceivedListener(response => {
+            console.log(response);
+        });
+
+        return () => {
+            Notifications.removeNotificationSubscription(notificationListener.current);
+            Notifications.removeNotificationSubscription(responseListener.current);
+        };
+    }, []);
+
+    const [notificationScheduled, setNotificationScheduled] = useState(false);
+
+    useEffect(() => {
+
+        const intervalId = setInterval(() => {
+            const difference = calculateTimeDifference(nextPrayerTime);
+            setTimeDifference(difference);
+
+            // If both hours and minutes are as expected and notification hasn't been scheduled
+            if (
+                nextPrayerTimeHours === 6 &&
+                nextPrayerTimeMinutes === 42 &&
+                !notificationScheduled
+            ) {
+                schedulePushNotification(nextPrayerTimeHours, nextPrayerTimeMinutes);
+                setNotificationScheduled(true)// Set the flag to true
+                console.log("NEXT", notificationScheduled);
+
+                clearInterval(intervalId);
+            }
+        }, 1000);
+
+        return () => {
+            clearInterval(intervalId); // Clean up the interval on unmount
+        };
+    }, [nextPrayerTime, nextPrayerTimeHours, nextPrayerTimeMinutes]);
+
+
     return (
         <>
             <MyStack>
@@ -86,6 +155,9 @@ export default function Home() {
                     space="$4"
                     paddingBottom="$18"
                 >
+                    <Text>
+                        {nextPrayerTimeHours} hours and {nextPrayerTimeMinutes} minutes until
+                    </Text>
 
                     <CardDemo
                         nextPrayerTime={nextPrayerTime}
@@ -95,9 +167,14 @@ export default function Home() {
                         nextPrayerTimeHours={nextPrayerTimeHours}
                         nextPrayerTimeMinutes={nextPrayerTimeMinutes}
                         currentPrayer={currentPrayer} />
-                    {/* <Text>
-                        {JSON.stringify(transformedArray)}
-                    </Text> */}
+                    {/* <Button
+
+                        onPress={async () => {
+                            await schedulePushNotification();
+                        }}
+                    >
+                        Press to schedule a notification
+                    </Button> */}
 
                     <XStack
                         display="flex"
@@ -109,8 +186,10 @@ export default function Home() {
                     >
                         <DateTimePicker
                             testID="dateTimePicker"
-
-                            themeVariant="light"
+                            style={{ backgroundColor: "#4c6c53", }}
+                            textColor="#ffffff"
+                            themeVariant="dark"
+                            collapsable={true}
                             value={date}
                             mode="date"
                             is24Hour={true}
@@ -120,6 +199,7 @@ export default function Home() {
 
                     </XStack>
                     <PrayerList transformedArray={transformedArray} />
+
                 </YStack>
 
 
@@ -127,4 +207,55 @@ export default function Home() {
 
         </>
     );
+}
+
+
+async function schedulePushNotification(hours, minutes) {
+
+    await Notifications.scheduleNotificationAsync({
+        content: {
+            title: "FAJR PRAYER",
+            body: "It's time to pray Fajr!",
+            // data: { data: 'goes here' },
+            sound: '../../assets/a4.wav',
+        },
+        trigger: {
+            seconds: 2,
+        },
+
+    });
+}
+
+async function registerForPushNotificationsAsync() {
+    let token;
+
+    if (Platform.OS === 'android') {
+        await Notifications.setNotificationChannelAsync('default', {
+            name: 'default',
+            importance: Notifications.AndroidImportance.MAX,
+            vibrationPattern: [0, 250, 250, 250],
+            lightColor: '#FF231F7C',
+        });
+    }
+
+    if (Device.isDevice) {
+        const { status: existingStatus } = await Notifications.getPermissionsAsync();
+        let finalStatus = existingStatus;
+        if (existingStatus !== 'granted') {
+            const { status } = await Notifications.requestPermissionsAsync();
+            finalStatus = status;
+        }
+        if (finalStatus !== 'granted') {
+            alert('Failed to get push token for push notification!');
+            return;
+        }
+        // Learn more about projectId:
+        // https://docs.expo.dev/push-notifications/push-notifications-setup/#configure-projectid
+        token = (await Notifications.getExpoPushTokenAsync({ projectId: "9cba4f70-b7d4-4a38-afa4-9c9294a7258b" })).data;
+        console.log(token);
+    } else {
+        alert('Must use physical device for Push Notifications');
+    }
+
+    return token;
 }

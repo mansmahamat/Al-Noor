@@ -1,6 +1,7 @@
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Compass, Home, List } from "@tamagui/lucide-icons";
 import { Tabs, useRouter } from "expo-router";
+import { Text, View } from "tamagui";
 import { Button } from "tamagui";
 
 export default function Layout() {
@@ -11,65 +12,81 @@ export default function Layout() {
 
             <Tabs.Screen
                 name="index"
+
                 options={{
+                    headerStatusBarHeight: 0,
+
+                    tabBarStyle: {
+                        borderTopColor: "#4c6c53",
+                        borderTopWidth: 0,
+                    },
                     title: "Prayer Times",
+                    tabBarLabel: ({ focused, color, size }) => (
+                        <Text style={{ color: "#4c6c53" }}>Prayer times</Text>
+                    ),
+
+
                     tabBarIcon(props) {
                         return (
-                            <Home />
+                            <Home color="#4c6c53" />
                         );
                     },
-                    headerLeft() {
-                        return (
-                            <Button
-                                ml="$2.5"
-                                onPress={() => router.push("/")}
-                            >
-                                <MaterialCommunityIcons name="arrow-left" />
-                            </Button>
-                        );
-                    }
+
                 }}
             />
             <Tabs.Screen
                 name="qibla"
                 options={{
+                    headerStatusBarHeight: 0,
+                    tabBarAccessibilityLabel: "Qibla",
+                    headerTintColor: "#4c6c53",
+                    headerBackground: () => (
+                        <View style={{ backgroundColor: "#4c6c53", height: 80 }} />
+                    ),
+
+                    headerBackgroundContainerStyle: {
+                        backgroundColor: "#4c6c53",
+                    },
+                    tabBarStyle: {
+
+                        borderTopColor: "#4c6c53",
+                        borderTopWidth: 0,
+                    },
                     title: "Qibla",
+                    tabBarLabel: ({ focused, color, size }) => (
+                        <Text style={{ color: "#4c6c53" }}>Qibla</Text>
+                    ),
+                    tabBarBackground: () => (
+                        <View style={{ backgroundColor: "#4c6c53", height: 80 }} />
+                    ),
                     tabBarIcon(props) {
                         return (
-                            <Compass />
+                            <Compass color="#4c6c53" />
                         );
                     },
-                    headerLeft() {
-                        return (
-                            <Button
-                                ml="$2.5"
-                                onPress={() => router.push("/")}
-                            >
-                                <MaterialCommunityIcons name="arrow-left" />
-                            </Button>
-                        );
-                    }
+
                 }}
             />
             <Tabs.Screen
                 name="nameAllah"
                 options={{
-                    title: "99 Names of Allah",
+                    headerStatusBarHeight: 0,
+                    tabBarStyle: {
+
+                        borderTopColor: "#4c6c53",
+                        borderTopWidth: 0,
+                    },
+                    title: "99 names Allah",
+                    tabBarLabel: ({ focused, color, size }) => (
+                        <Text style={{ color: "#4c6c53" }}>99 names Allah</Text>
+                    ),
+
                     tabBarIcon(props) {
                         return (
-                            <List />
+                            <List color="#4c6c53" />
                         );
                     },
-                    headerLeft() {
-                        return (
-                            <Button
-                                ml="$2.5"
-                                onPress={() => router.push("/")}
-                            >
-                                <MaterialCommunityIcons name="arrow-left" />
-                            </Button>
-                        );
-                    }
+
                 }}
             />
         </Tabs>

@@ -26,7 +26,7 @@ export function CardDemo({ currentPrayer, nextPrayerTime, nextPrayerName,
 
     return (
 
-        <Card height="30%" backgroundColor="#30a46c" borderColor="#30a46c" size="$5" >
+        <Card height="30%" backgroundColor="#4c6c53" borderColor="#4c6c53" size="$5" >
             <Card.Header padded>
                 <Paragraph fontWeight="600" fontSize={26} color="white" numberOfLines={1}>
                     {currentPrayer}
@@ -36,25 +36,25 @@ export function CardDemo({ currentPrayer, nextPrayerTime, nextPrayerName,
                 </Text> */}
 
 
-                <Paragraph color="white" fontSize={14} fontWeight="600" numberOfLines={1}>
-                    {nextPrayerTimeHours && ` ${nextPrayerTimeHours} hrs`} {nextPrayerTimeMinutes} avant {nextPrayerName}
+                <Paragraph color="white" fontSize={16} fontWeight="800" numberOfLines={1}>
+                    {nextPrayerName} in {nextPrayerTimeHours && `${nextPrayerTimeHours} hrs`} {nextPrayerTimeMinutes}
                 </Paragraph>
 
             </Card.Header>
             <Card.Footer padded>
                 <XStack flex={1} />
 
-                <Button display="flex" backgroundColor="#30a46c" alignItems="center" borderRadius="$10">
+                <Button display="flex" backgroundColor="#4c6c53" alignItems="center" borderRadius="$10">
                     {/* <LocateFixed size={20} color="white" />
                     {city} */}
                     <Paragraph size="$2" textAlign="center" color="white" fontWeight="600">
-                        {month} {day}, {year} {designation} | {city} {moment(nextPrayerTime).format('LT')}
+                        {month} {day}, {year} {designation} | {city}
                     </Paragraph>
                 </Button>
 
             </Card.Footer>
             <Card.Background shadowColor="#000"
-                backgroundColor="#30a46c"
+                backgroundColor="rgba(0, 0, 0, 1)"
                 borderRadius="$4"
 
                 shadowOffset={
@@ -70,6 +70,7 @@ export function CardDemo({ currentPrayer, nextPrayerTime, nextPrayerName,
                     resizeMode="cover"
                     alignSelf="center"
                     borderRadius="$4"
+                    opacity={0.7}
                     width="100%"
                     height="100%"
                     source={{
