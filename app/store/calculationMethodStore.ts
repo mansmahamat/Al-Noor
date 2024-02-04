@@ -1,7 +1,12 @@
-import { create } from "zustand"
+import {create} from "zustand";
 
-export const useCalculationMethodStore = create((set) => ({
-  calculationMethod: "",
+interface CalculationMethodStore {
+  calculationMethod: string;
+  updateCalculationMethod: (calculationMethod: string) => void;
+}
+
+export const useCalculationMethodStore = create<CalculationMethodStore>((set) => ({
+  calculationMethod: "MuslimWorldLeague",
   updateCalculationMethod: (calculationMethod) =>
     set(() => ({ calculationMethod: calculationMethod })),
-}))
+}));

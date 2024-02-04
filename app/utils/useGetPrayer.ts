@@ -45,19 +45,19 @@ const useGetPrayer = (date) => {
       //   })
       //   .catch(console.error)
 
-      try {
-        const response = await fetch(
-          `https://geocode.maps.co/reverse?lat=${location.coords.latitude}&lon=${location.coords.longitude}`
-        )
+  //     try {
+  //       const response = await fetch(
+  //         `https://geocode.maps.co/reverse?lat=${location.coords.latitude}&lon=${location.coords.longitude}`
+  //       )
        
-    const data = await response.json()
-    setCity(data?.address?.municipality ?? data?.address?.city ?? data?.address?.town)
-        // setCity(data.address.city ?? data.address.town)
-        // setIsLoading(false)
-      } catch (error) {
-        console.error(error)
-        //  setIsLoading(false)
-      }
+  // //  const data = await response.json()
+  //  // setCity(data?.address?.municipality  ? data?.address?.municipality : data?.address?.town)
+  //       // setCity(data.address.city ?? data.address.town)
+  //       // setIsLoading(false)
+  //     } catch (error) {
+  //       console.error(error)
+  //       //  setIsLoading(false)
+  //     }
     })()
   }, [])
 
@@ -92,7 +92,6 @@ const useGetPrayer = (date) => {
   }
 
   const calculationMethod = useCalculationMethodStore(
-    //@ts-ignore
     (state) => state.calculationMethod
   )
   const calculationMethodParams = getCalculationMethodByName(calculationMethod)

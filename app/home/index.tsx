@@ -1,4 +1,4 @@
-import { Button, H5, Paragraph, Tabs, Text, View, XStack, YStack } from "tamagui";
+import { Button, H5, Paragraph, ScrollView, Tabs, Text, View, XStack, YStack } from "tamagui";
 
 import { MyStack } from "../../components/MyStack";
 import { CardDemo } from "../../components/CardDemo/CardDemo";
@@ -11,7 +11,12 @@ import useGetDateHijri from "../utils/useGetDateHijri";
 import { Cross, XCircle } from "@tamagui/lucide-icons";
 import * as Device from 'expo-device';
 import * as Notifications from 'expo-notifications';
-import { Platform } from "react-native";
+import { Platform, useColorScheme } from "react-native";
+import { I18n } from "i18n-js";
+import fr from "../../locales/french/fr.json";
+import en from "../../locales/english/en.json";
+import { useLanguageStore } from "../store/languagesStore";
+
 
 Notifications.setNotificationHandler({
     handleNotification: async () => ({
@@ -90,6 +95,7 @@ export default function Home() {
         (prayer) => prayer.name !== "sunrise" && prayer.name !== "sunset"
     )
 
+
     const [expoPushToken, setExpoPushToken] = useState<string>();
     const [notification, setNotification] = useState(false);
     const notificationListener = useRef();
@@ -129,13 +135,12 @@ export default function Home() {
 
             // If both hours and minutes are as expected and notification hasn't been scheduled
             if (
-                nextPrayerTimeHours === 6 &&
-                nextPrayerTimeMinutes === 42 &&
+                nextPrayerTimeHours === 0 &&
+                nextPrayerTimeMinutes === 0 &&
                 !notificationScheduled
             ) {
-                schedulePushNotification(nextPrayerTimeHours, nextPrayerTimeMinutes);
+                schedulePushNotification();
                 setNotificationScheduled(true)// Set the flag to true
-                console.log("NEXT", notificationScheduled);
 
                 clearInterval(intervalId);
             }
@@ -146,7 +151,21 @@ export default function Home() {
         };
     }, [nextPrayerTime, nextPrayerTimeHours, nextPrayerTimeMinutes]);
 
+    let colorScheme = useColorScheme()
 
+    const i18n = new I18n({
+        ...fr,
+        ...en,
+    });
+
+    const { language, updateLanguage } = useLanguageStore();
+
+    const handleLanguageChange = (newLanguage: string) => {
+        updateLanguage(newLanguage);
+    };
+
+    // i18n.defaultLocale = "fr";
+    i18n.locale = language;
     return (
         <>
             <MyStack>
@@ -155,10 +174,6 @@ export default function Home() {
                     space="$4"
                     paddingBottom="$18"
                 >
-                    <Text>
-                        {nextPrayerTimeHours} hours and {nextPrayerTimeMinutes} minutes until
-                    </Text>
-
                     <CardDemo
                         nextPrayerTime={nextPrayerTime}
                         nextPrayerName={nextPrayerName}
@@ -167,16 +182,16 @@ export default function Home() {
                         nextPrayerTimeHours={nextPrayerTimeHours}
                         nextPrayerTimeMinutes={nextPrayerTimeMinutes}
                         currentPrayer={currentPrayer} />
-                    {/* <Button
+                    <Button
 
                         onPress={async () => {
                             await schedulePushNotification();
                         }}
                     >
                         Press to schedule a notification
-                    </Button> */}
+                    </Button>
 
-                    <XStack
+                    {/* <XStack
                         display="flex"
                         alignItems="center"
 
@@ -197,8 +212,9 @@ export default function Home() {
                         />
                         {date.toDateString() !== today.toDateString() && <XCircle onPress={reset} style={{ marginLeft: 6 }} size={24} color="red" />}
 
-                    </XStack>
+                    </XStack> */}
                     <PrayerList transformedArray={transformedArray} />
+
 
                 </YStack>
 
@@ -210,12 +226,12 @@ export default function Home() {
 }
 
 
-async function schedulePushNotification(hours, minutes) {
+async function schedulePushNotification() {
 
     await Notifications.scheduleNotificationAsync({
         content: {
-            title: "FAJR PRAYER",
-            body: "It's time to pray Fajr!",
+            title: " PRAYER TIME",
+            body: "It's time to pray ",
             // data: { data: 'goes here' },
             sound: '../../assets/a4.wav',
         },

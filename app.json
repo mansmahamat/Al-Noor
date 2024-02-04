@@ -1,7 +1,7 @@
 {
   "expo": {
     "scheme": "tamagui-app",
-    "userInterfaceStyle": "automatic",
+    "userInterfaceStyle": "dark",
     "splash": {
       "backgroundColor": "#ffffff",
       "image": "./assets/splash.png",

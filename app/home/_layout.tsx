@@ -1,5 +1,5 @@
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { Compass, Home, List } from "@tamagui/lucide-icons";
+import { Compass, Home, List, Settings } from "@tamagui/lucide-icons";
 import { Tabs, useRouter } from "expo-router";
 import { Text, View } from "tamagui";
 import { Button } from "tamagui";
@@ -39,14 +39,14 @@ export default function Layout() {
                 options={{
                     headerStatusBarHeight: 0,
                     tabBarAccessibilityLabel: "Qibla",
-                    headerTintColor: "#4c6c53",
+                    // headerTintColor: "#4c6c53",
                     headerBackground: () => (
                         <View style={{ backgroundColor: "#4c6c53", height: 80 }} />
                     ),
 
-                    headerBackgroundContainerStyle: {
-                        backgroundColor: "#4c6c53",
-                    },
+                    // headerBackgroundContainerStyle: {
+                    //     backgroundColor: "#4c6c53",
+                    // },
                     tabBarStyle: {
 
                         borderTopColor: "#4c6c53",
@@ -76,14 +76,36 @@ export default function Layout() {
                         borderTopColor: "#4c6c53",
                         borderTopWidth: 0,
                     },
-                    title: "99 names Allah",
+                    title: "99 names",
                     tabBarLabel: ({ focused, color, size }) => (
-                        <Text style={{ color: "#4c6c53" }}>99 names Allah</Text>
+                        <Text style={{ color: "#4c6c53" }}>99 names </Text>
                     ),
 
                     tabBarIcon(props) {
                         return (
                             <List color="#4c6c53" />
+                        );
+                    },
+
+                }}
+            />
+            <Tabs.Screen
+                name="settings"
+                options={{
+                    headerStatusBarHeight: 0,
+                    tabBarStyle: {
+
+                        borderTopColor: "#4c6c53",
+                        borderTopWidth: 0,
+                    },
+                    title: "Settings",
+                    tabBarLabel: ({ focused, color, size }) => (
+                        <Text style={{ color: "#4c6c53" }}>Settings</Text>
+                    ),
+
+                    tabBarIcon(props) {
+                        return (
+                            <Settings color="#4c6c53" />
                         );
                     },
 

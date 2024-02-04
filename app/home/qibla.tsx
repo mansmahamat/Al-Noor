@@ -140,8 +140,7 @@ export const useQiblaCompass = () => {
 const QiblaCompass = forwardRef(
     (
         //@ts-ignore
-        { backgroundColor = "#4c6c53", color = "#fffff", textStyles = {
-            color: "#fffff"
+        { backgroundColor = "", color = "", textStyles = {
         } },
         ref
     ) => {
@@ -191,11 +190,16 @@ const QiblaCompass = forwardRef(
                     </Text>
                 )}
                 <View style={styles.direction}>
-                    <Text>Stockholm</Text>
-                    <Text style={[styles.directionText,]}>
-                        {compassDirection}
+                    <Text fontSize="$9" color="$green8">Qibla
                     </Text>
-                    <Text style={[styles.directionText, { color, ...textStyles }]}>
+                    {/* <Text >
+                        {compassDirection}
+                    </Text> */}
+                    <Text
+                        textAlign="center"
+                        fontSize="$9" color="$green8"
+                    // style={[styles.directionText, { color, ...textStyles }]}
+                    >
                         {compassDegree}°
                     </Text>
                 </View>
@@ -211,7 +215,7 @@ const QiblaCompass = forwardRef(
                     }}
                 >
                     <Image
-                        source={require("../../assets/compass1.png")}
+                        source={require("../../assets/compass_bg.png")}
                         style={[
                             styles.image,
                             {
@@ -225,8 +229,8 @@ const QiblaCompass = forwardRef(
                     />
                     <View
                         style={{
-                            width: moderateScale(300, 0.25),
-                            height: moderateScale(300, 0.25),
+                            width: moderateScale(500, 0.25),
+                            height: moderateScale(500, 0.25),
                             position: "absolute",
                             alignSelf: "center",
                             transform: [
@@ -240,30 +244,37 @@ const QiblaCompass = forwardRef(
                         }}
                     >
                         <Image
-                            source={require("../../assets/kaba.png")}
+                            source={require("../../assets/compass_pointer.png")}
                             style={{
-                                resizeMode: "center",
-                                height: 100,
+                                resizeMode: "contain",
+                                height: 30,
                                 paddingBottom: 150,
                                 marginTop: 20,
-                                width: 60,
+                                width: 30,
                                 zIndex: 999,
                             }}
                         />
                     </View>
                 </View>
                 <View style={styles.qiblaDirection}>
-                    <Image
+                    {/* <Image
                         source={require("../../assets/kaaba.png")}
                         style={{
                             width: moderateScale(35, 0.25),
                             height: moderateScale(35, 0.25),
                         }}
-                    />
-                    <Text style={[styles.directionText, { color, ...textStyles }]}>
+                    /> */}
+                    <Text
+                        fontSize="$9" color="$green8"
+                    >
                         {qiblad.toFixed(0)}°
                     </Text>
-                    <Text style={[styles.directionText, { color, ...textStyles }]}>
+                    <Text
+                        textAlign="center"
+
+                        fontSize="$9" color="$green8"
+                    //   style={[styles.directionText, { color, ...textStyles }]}
+                    >
                         {qiblad.toFixed(0) == compassDegree && "You're facing Mekkah "}
                     </Text>
                 </View>
@@ -293,12 +304,12 @@ const styles = StyleSheet.create({
     direction: {
         textAlign: "center",
         zIndex: 300,
-        color: "#fffff",
+        color: "#4c6c53 !important",
     },
     directionText: {
         textAlign: "center",
         fontSize: 30,
-        color: "#fff !important",
+
     },
     qiblaDirection: {
         flexDirection: "row",

@@ -49,11 +49,11 @@ export function PrayerList({ transformedArray }) {
 
   return (
 
-    <YGroup separator={<Separator />} alignSelf="center" height="100%" width="100%" >
+    <YGroup separator={<Separator />} alignSelf="center" height="90%" width="100%" >
       {transformedArray.map((item, index) => {
         return (
           <YGroup.Item key={index}>
-            <ListItem hoverTheme icon={getPrayerIcon(item.name)} height="$8" title={item.name} subTitle={moment(item.time).format('LT')} />
+            <ListItem hoverTheme icon={getPrayerIcon(item.name)} height="$6" title={item.name} subTitle={moment(item.time).format('LT')} />
           </YGroup.Item>)
 
       })}

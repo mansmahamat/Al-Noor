@@ -37,7 +37,7 @@ export function CardDemo({ currentPrayer, nextPrayerTime, nextPrayerName,
 
 
                 <Paragraph color="white" fontSize={16} fontWeight="800" numberOfLines={1}>
-                    {nextPrayerName} in {nextPrayerTimeHours && `${nextPrayerTimeHours} hrs`} {nextPrayerTimeMinutes}
+                    {nextPrayerName} in {nextPrayerTimeHours > 0 && `${nextPrayerTimeHours} hrs`} {nextPrayerTimeMinutes > 0 && `${nextPrayerTimeMinutes} mins`}
                 </Paragraph>
 
             </Card.Header>

@@ -1,6 +1,12 @@
 import { create } from "zustand"
 
-export const useCalculationMadhab = create((set) => ({
+interface CalculationMadhabStore {
+  madhab: string;
+  updateCalculationMadhab: (madhab: string) => void;
+}
+
+export const useCalculationMadhab = create<CalculationMadhabStore>((set) => ({
   madhab: "",
-  updateCalculationMadhab: (madhab) => set(() => ({ madhab: madhab })),
-}))
+  updateCalculationMadhab: (madhab) =>
+    set(() => ({ madhab: madhab })),
+}));
