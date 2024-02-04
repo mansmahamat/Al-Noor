@@ -60,9 +60,9 @@ const App = () => {
     return (
         <>
             <YStack paddingVertical="$4" paddingHorizontal="$4">
-                <H1 marginBottom="$5">
+                <H2 marginBottom="$5">
                     {i18n.t('settings.title')}
-                </H1>
+                </H2>
                 <YGroup alignSelf="center" width="100%" size="$5">
                     <YGroup.Item>
                         <ListItem

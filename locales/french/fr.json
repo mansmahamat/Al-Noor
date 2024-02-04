@@ -3,5 +3,10 @@
   "fr.settings.title": "Réglages",
   "fr.settings.prayer_times": "Heures de prière",
   "fr.settings.notifications": "Notifications",
-  "fr.settings.language": "Langue"
+  "fr.settings.language": "Langue",
+  "fr.menu.prayer": "Prière",
+  "fr.menu.qibla": "Qibla",
+  "fr.menu.settings": "Réglages",
+  "fr.menu.99names": "99 Noms",
+  "fr.qibla.facing": "Face à La Mecque"
 }

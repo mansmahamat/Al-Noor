@@ -11,6 +11,11 @@ import { Magnetometer } from "expo-sensors"
 import * as Location from "expo-location"
 import { moderateScale } from "react-native-size-matters"
 import { Text } from "tamagui"
+import { I18n } from "i18n-js";
+import fr from "../../locales/french/fr.json";
+import en from "../../locales/english/en.json";
+import ar from "../../locales/arabic/ar.json";
+import { useLanguageStore } from "../store/languagesStore"
 
 export const useQiblaCompass = () => {
     const [subscription, setSubscription] = useState(null)
@@ -18,6 +23,7 @@ export const useQiblaCompass = () => {
     const [qiblad, setQiblad] = useState(0)
     const [error, setError] = useState(null)
     const [isLoading, setIsLoading] = useState(true)
+
 
     const initCompass = useCallback(async () => {
         const isAvailable = await Magnetometer.isAvailableAsync()
@@ -173,6 +179,10 @@ const QiblaCompass = forwardRef(
             )
         }
 
+
+
+
+
         return (
             <View style={[styles.container, { backgroundColor }]}>
                 {error && (
@@ -275,7 +285,7 @@ const QiblaCompass = forwardRef(
                         fontSize="$9" color="$green8"
                     //   style={[styles.directionText, { color, ...textStyles }]}
                     >
-                        {qiblad.toFixed(0) == compassDegree && "You're facing Mekkah "}
+                        {qiblad.toFixed(0) == compassDegree && "Qibla "}
                     </Text>
                 </View>
             </View>

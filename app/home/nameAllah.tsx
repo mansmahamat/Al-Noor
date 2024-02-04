@@ -25,7 +25,7 @@ const App = () => {
     return (
         <ScrollView>
             <YStack paddingVertical="$4" paddingHorizontal="$4">
-                <H2 color="black" marginBottom="$8">
+                <H2 marginBottom="$8">
                     99 Names Of Allah
                 </H2>
                 <YGroup
@@ -49,7 +49,6 @@ const App = () => {
                                     pressTheme
                                     backgroundColor="#4c6c53"
                                     borderColor="white"
-                                    borderWidth="$1.5"
                                     title={`${item.number} - ${item.transliteration}`}
                                     subTitle={` ${item.en.meaning} - ${item.name} `}
                                 />

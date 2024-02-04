@@ -1,7 +1,12 @@
 {
-  "ar.welcome": "أهلاً وسهلاً",
+  "ar.welcome": "مرحبًا",
   "ar.settings.title": "الإعدادات",
   "ar.settings.prayer_times": "أوقات الصلاة",
   "ar.settings.notifications": "الإشعارات",
-  "ar.settings.language": "اللغة"
+  "ar.settings.language": "اللغة",
+  "ar.menu.prayer": "الصلاة",
+  "ar.menu.qibla": "القبلة",
+  "ar.menu.settings": "الإعدادات",
+  "ar.menu.99names": "99 اسمًا",
+  "fr.qibla.facing": "توجه القبلة"
 }

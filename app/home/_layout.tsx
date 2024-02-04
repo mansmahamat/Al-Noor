@@ -3,9 +3,23 @@ import { Compass, Home, List, Settings } from "@tamagui/lucide-icons";
 import { Tabs, useRouter } from "expo-router";
 import { Text, View } from "tamagui";
 import { Button } from "tamagui";
+import { I18n } from "i18n-js";
+import fr from "../../locales/french/fr.json";
+import en from "../../locales/english/en.json";
+import ar from "../../locales/arabic/ar.json";
+import { useLanguageStore } from "../store/languagesStore"
 
 export default function Layout() {
     const router = useRouter();
+    const { language } = useLanguageStore();
+
+    const i18n = new I18n({
+        ...fr,
+        ...en,
+        ...ar
+    });
+
+    i18n.locale = language;
 
     return (
         <Tabs>
@@ -20,9 +34,11 @@ export default function Layout() {
                         borderTopColor: "#4c6c53",
                         borderTopWidth: 0,
                     },
-                    title: "Prayer Times",
-                    tabBarLabel: ({ focused, color, size }) => (
-                        <Text style={{ color: "#4c6c53" }}>Prayer times</Text>
+
+                    tabBarLabel: () => (
+                        <Text style={{ color: "#4c6c53" }}>
+                            {i18n.t('menu.prayer')}
+                        </Text>
                     ),
 
 
@@ -52,9 +68,11 @@ export default function Layout() {
                         borderTopColor: "#4c6c53",
                         borderTopWidth: 0,
                     },
-                    title: "Qibla",
-                    tabBarLabel: ({ focused, color, size }) => (
-                        <Text style={{ color: "#4c6c53" }}>Qibla</Text>
+
+                    tabBarLabel: () => (
+                        <Text style={{ color: "#4c6c53" }}>
+                            {i18n.t('menu.qibla')}
+                        </Text>
                     ),
                     tabBarBackground: () => (
                         <View style={{ backgroundColor: "#4c6c53", height: 80 }} />
@@ -77,8 +95,10 @@ export default function Layout() {
                         borderTopWidth: 0,
                     },
                     title: "99 names",
-                    tabBarLabel: ({ focused, color, size }) => (
-                        <Text style={{ color: "#4c6c53" }}>99 names </Text>
+                    tabBarLabel: () => (
+                        <Text style={{ color: "#4c6c53" }}>
+                            {i18n.t('menu.99names')}
+                        </Text>
                     ),
 
                     tabBarIcon(props) {
@@ -98,9 +118,11 @@ export default function Layout() {
                         borderTopColor: "#4c6c53",
                         borderTopWidth: 0,
                     },
-                    title: "Settings",
-                    tabBarLabel: ({ focused, color, size }) => (
-                        <Text style={{ color: "#4c6c53" }}>Settings</Text>
+
+                    tabBarLabel: () => (
+                        <Text style={{ color: "#4c6c53" }}>
+                            {i18n.t('menu.settings')}
+                        </Text>
                     ),
 
                     tabBarIcon(props) {
