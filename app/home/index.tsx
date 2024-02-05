@@ -16,6 +16,7 @@ import { I18n } from "i18n-js";
 import fr from "../../locales/french/fr.json";
 import en from "../../locales/english/en.json";
 import { useLanguageStore } from "../store/languagesStore";
+import { useNavigation } from "expo-router";
 
 
 Notifications.setNotificationHandler({
@@ -35,7 +36,7 @@ function calculateTimeDifference(targetTime) {
 
 export default function Home() {
 
-
+    const navigation = useNavigation();
     const today = new Date()
 
 
@@ -58,10 +59,10 @@ export default function Home() {
         const intervalId = setInterval(() => {
             const difference = calculateTimeDifference(nextPrayerTime)
             setTimeDifference(difference)
-
+            console.log("difference", difference)
             // If the difference reaches 0, clear the interval
             if (difference <= 0) {
-                //   schedulePushNotification()
+                schedulePushNotification()
                 clearInterval(intervalId)
             }
         }, 1000)
@@ -75,25 +76,9 @@ export default function Home() {
         (Math.abs(timeDifference) % 3600) / 60
     )
 
-    const onChange = (event, selectedDate) => {
-        const currentDate = selectedDate;
-        setShow(false);
-        setDate(currentDate);
-    };
-
-    const showMode = (currentMode) => {
-        setShow(true);
-        setMode(currentMode);
-    };
-
-    const reset = () => {
-        setDate(today);
-    };
 
 
-    const filteredPrayerTimes = transformedArray.filter(
-        (prayer) => prayer.name !== "sunrise" && prayer.name !== "sunset"
-    )
+
 
 
     const [expoPushToken, setExpoPushToken] = useState<string>();
@@ -127,29 +112,29 @@ export default function Home() {
 
     const [notificationScheduled, setNotificationScheduled] = useState(false);
 
-    useEffect(() => {
+    // useEffect(() => {
 
-        const intervalId = setInterval(() => {
-            const difference = calculateTimeDifference(nextPrayerTime);
-            setTimeDifference(difference);
+    //     const intervalId = setInterval(() => {
+    //         const difference = calculateTimeDifference(nextPrayerTime);
+    //         setTimeDifference(difference);
 
-            // If both hours and minutes are as expected and notification hasn't been scheduled
-            if (
-                nextPrayerTimeHours === 0 &&
-                nextPrayerTimeMinutes === 0 &&
-                !notificationScheduled
-            ) {
-                schedulePushNotification();
-                setNotificationScheduled(true)// Set the flag to true
+    //         // If both hours and minutes are as expected and notification hasn't been scheduled
+    //         if (
+    //             nextPrayerTimeHours === 0 &&
+    //             nextPrayerTimeMinutes === 0 &&
+    //             !notificationScheduled
+    //         ) {
+    //             schedulePushNotification();
+    //             setNotificationScheduled(true)// Set the flag to true
 
-                clearInterval(intervalId);
-            }
-        }, 1000);
+    //             clearInterval(intervalId);
+    //         }
+    //     }, 1000);
 
-        return () => {
-            clearInterval(intervalId); // Clean up the interval on unmount
-        };
-    }, [nextPrayerTime, nextPrayerTimeHours, nextPrayerTimeMinutes]);
+    //     return () => {
+    //         clearInterval(intervalId); // Clean up the interval on unmount
+    //     };
+    // }, [nextPrayerTime, nextPrayerTimeHours, nextPrayerTimeMinutes]);
 
     let colorScheme = useColorScheme()
 
@@ -235,9 +220,7 @@ async function schedulePushNotification() {
             // data: { data: 'goes here' },
             sound: '../../assets/a4.wav',
         },
-        trigger: {
-            seconds: 2,
-        },
+        trigger: null
 
     });
 }
