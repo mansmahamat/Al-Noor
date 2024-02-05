@@ -233,7 +233,7 @@ async function schedulePushNotification() {
             title: " PRAYER TIME",
             body: "It's time to pray ",
             // data: { data: 'goes here' },
-            sound: '../../assets/a4.wav',
+            sound: 'a4.wav',
         },
         trigger: {
             seconds: 2,
@@ -245,14 +245,14 @@ async function schedulePushNotification() {
 async function registerForPushNotificationsAsync() {
     let token;
 
-    if (Platform.OS === 'android') {
-        await Notifications.setNotificationChannelAsync('default', {
-            name: 'default',
-            importance: Notifications.AndroidImportance.MAX,
-            vibrationPattern: [0, 250, 250, 250],
-            lightColor: '#FF231F7C',
-        });
-    }
+    // if (Platform.OS === 'android') {
+    //     await Notifications.setNotificationChannelAsync('default', {
+    //         name: 'default',
+    //         importance: Notifications.AndroidImportance.MAX,
+    //         vibrationPattern: [0, 250, 250, 250],
+    //         lightColor: '#FF231F7C',
+    //     });
+    // }
 
     if (Device.isDevice) {
         const { status: existingStatus } = await Notifications.getPermissionsAsync();
