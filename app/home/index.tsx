@@ -11,12 +11,19 @@ import useGetDateHijri from "../utils/useGetDateHijri";
 import { Cross, XCircle } from "@tamagui/lucide-icons";
 import * as Device from 'expo-device';
 import * as Notifications from 'expo-notifications';
-import { Platform, useColorScheme } from "react-native";
+import { Platform, Pressable, useColorScheme, StyleSheet } from "react-native";
 import { I18n } from "i18n-js";
 import fr from "../../locales/french/fr.json";
 import en from "../../locales/english/en.json";
 import { useLanguageStore } from "../store/languagesStore";
 import { useNavigation } from "expo-router";
+import { getItem, reloadAll, setItem } from "../../modules/widget";
+
+const GROUP_NAME = "group.com.mansjs.AlNoorPrayer";
+
+const getSharedData = getItem(GROUP_NAME);
+const setSharedData = setItem(GROUP_NAME);
+
 
 
 Notifications.setNotificationHandler({
@@ -37,6 +44,7 @@ function calculateTimeDifference(targetTime) {
 export default function Home() {
 
     const navigation = useNavigation();
+
     const today = new Date()
 
 
@@ -44,22 +52,56 @@ export default function Home() {
     const [mode, setMode] = useState('date');
     const [show, setShow] = useState(false);
 
+    const onChange = (event, selectedDate) => {
+        const currentDate = selectedDate;
+        setShow(false);
+        setDate(currentDate);
+    };
 
+    const showMode = (currentMode) => {
+        setShow(true);
+        setMode(currentMode);
+    };
+
+    const reset = () => {
+        setDate(today);
+    };
 
     const {
         transformedArray, } = useGetPrayer(date)
     const { currentPrayer, nextPrayerTime, nextPrayerName, city } = useGetPrayer(today)
 
+
+
     const [timeDifference, setTimeDifference] = useState(
         calculateTimeDifference(nextPrayerTime)
     )
 
+    const nextPrayerTimeHours = Math.floor(Math.abs(timeDifference) / 3600)
+    const nextPrayerTimeMinutes = Math.floor(
+        (Math.abs(timeDifference) % 3600) / 60
+    )
+    const formattedTime = `${nextPrayerTimeHours > 0 ? `${nextPrayerTimeHours} hrs` : ''} ${nextPrayerTimeMinutes > 0 ? `${nextPrayerTimeMinutes} min` : ''}`;
+    const [value, setValue] = useState(nextPrayerName);
+
+    useEffect(() => {
+        setSharedData("savedData", nextPrayerName);
+        setSharedData("prayerTime", formattedTime);
+        reloadAll();
+    }, [nextPrayerName, nextPrayerTime]);
+
+    const onPress = () => {
+        setValue("Hello from App.tsx");
+    };
+
+    const clear = () => {
+        setValue("");
+    };
 
     useEffect(() => {
         const intervalId = setInterval(() => {
             const difference = calculateTimeDifference(nextPrayerTime)
             setTimeDifference(difference)
-            console.log("difference", difference)
             // If the difference reaches 0, clear the interval
             if (difference <= 0) {
                 schedulePushNotification()
@@ -71,10 +113,7 @@ export default function Home() {
         }
     }, [nextPrayerTime])
 
-    const nextPrayerTimeHours = Math.floor(Math.abs(timeDifference) / 3600)
-    const nextPrayerTimeMinutes = Math.floor(
-        (Math.abs(timeDifference) % 3600) / 60
-    )
+
 
 
 
@@ -101,7 +140,6 @@ export default function Home() {
         //@ts-ignore
 
         responseListener.current = Notifications.addNotificationResponseReceivedListener(response => {
-            console.log(response);
         });
 
         return () => {
@@ -167,16 +205,16 @@ export default function Home() {
                         nextPrayerTimeHours={nextPrayerTimeHours}
                         nextPrayerTimeMinutes={nextPrayerTimeMinutes}
                         currentPrayer={currentPrayer} />
-                    <Button
+                    {/* <Button
 
                         onPress={async () => {
                             await schedulePushNotification();
                         }}
                     >
-                        Press to schedule a notification
-                    </Button>
+                        Notification
+                    </Button> */}
 
-                    {/* <XStack
+                    <XStack
                         display="flex"
                         alignItems="center"
 
@@ -197,7 +235,7 @@ export default function Home() {
                         />
                         {date.toDateString() !== today.toDateString() && <XCircle onPress={reset} style={{ marginLeft: 6 }} size={24} color="red" />}
 
-                    </XStack> */}
+                    </XStack>
                     <PrayerList transformedArray={transformedArray} />
 
 

@@ -9,6 +9,16 @@
     },
     "plugins": [
       [
+        "./app.plugin.js",
+        {
+          "widgetName": "widget",
+          "ios": {
+            "devTeamId": "9LVZ4CKM52",
+            "appGroupIdentifier": "group.com.mansjs.AlNoorPrayer"
+          }
+        }
+      ],
+      [
         "expo-notifications",
         {
           "icon": "./assets/icon.png",
@@ -34,7 +44,16 @@
       }
     },
     "ios": {
-      "bundleIdentifier": "com.mansjs.AlNoorPrayer"
+      "supportsTablet": true,
+      "bundleIdentifier": "com.mansjs.AlNoorPrayer",
+      "entitlements": {
+        "com.apple.security.application-groups": [
+          "group.com.mansjs.AlNoorPrayer"
+        ]
+      }
+    },
+    "android": {
+      "package": "com.mansjs.AlNoorPrayer"
     }
   }
 }

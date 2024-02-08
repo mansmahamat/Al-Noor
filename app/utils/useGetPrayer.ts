@@ -19,50 +19,11 @@ const useGetPrayer = (date) => {
   const [long, setLong] = useState(null)
   const [errorMsg, setErrorMsg] = useState(null)
   const [city, setCity] = useState(null)
-  
 
-  useEffect(() => {
-    ;(async () => {
-      let { status } = await Location.requestForegroundPermissionsAsync()
-      if (status !== "granted") {
-        setErrorMsg("Permission to access location was denied")
-        return
-      }
 
-      let location = await Location.getCurrentPositionAsync({})
-      setLocation(location)
-      setLocation(location)
-      console.log("LOCATION", location)
-      setLat(location.coords.latitude)
-      setLong(location.coords.longitude)
 
-      // Get address from latitude & longitude.
-      // fromLatLng(location.coords.latitude, location.coords.longitude)
-      //   .then(({ results }) => {
-      //     const { lat, lng } = results[0].geometry.location
-      //     console.log("MANSSSSS", results[0].address_components[3].long_name)
-      //     setCity
-      //   })
-      //   .catch(console.error)
-
-  //     try {
-  //       const response = await fetch(
-  //         `https://geocode.maps.co/reverse?lat=${location.coords.latitude}&lon=${location.coords.longitude}`
-  //       )
-       
-  // //  const data = await response.json()
-  //  // setCity(data?.address?.municipality  ? data?.address?.municipality : data?.address?.town)
-  //       // setCity(data.address.city ?? data.address.town)
-  //       // setIsLoading(false)
-  //     } catch (error) {
-  //       console.error(error)
-  //       //  setIsLoading(false)
-  //     }
-    })()
-  }, [])
 
   
-
   
 
   // CALCULATION METHOD
@@ -111,14 +72,54 @@ const useGetPrayer = (date) => {
       return Madhab.Shafi // Default to "Other" or handle the error appropriately
     }
   }
-
     //@ts-ignore
-  const madhab = useCalculationMadhab((state) => state.madhab)
-  const calculationMethodParamsMadhab = getCalculationMadhab(madhab)
+    const madhab = useCalculationMadhab((state) => state.madhab)
+    const calculationMethodParamsMadhab = getCalculationMadhab(madhab)
+  useEffect(() => {
+    ;(async () => {
+      let { status } = await Location.requestForegroundPermissionsAsync()
+      if (status !== "granted") {
+        setErrorMsg("Permission to access location was denied")
+        return
+      }
 
-  const coordinates = new Coordinates(lat, long)
-  let nextdate = new Date(date)
-  nextdate.setDate(date?.getDate() + 1)
+      let location = await Location.getCurrentPositionAsync({})
+      setLocation(location)
+      setLocation(location)
+      setLat(location.coords.latitude)
+      setLong(location.coords.longitude)
+
+
+
+
+      // Get address from latitude & longitude.
+      // fromLatLng(location.coords.latitude, location.coords.longitude)
+      //   .then(({ results }) => {
+      //     const { lat, lng } = results[0].geometry.location
+      //     console.log("MANSSSSS", results[0].address_components[3].long_name)
+      //     setCity
+      //   })
+      //   .catch(console.error)
+
+  //     try {
+  //       const response = await fetch(
+  //         `https://geocode.maps.co/reverse?lat=${location.coords.latitude}&lon=${location.coords.longitude}`
+  //       )
+       
+  // //  const data = await response.json()
+  //  // setCity(data?.address?.municipality  ? data?.address?.municipality : data?.address?.town)
+  //       // setCity(data.address.city ?? data.address.town)
+  //       // setIsLoading(false)
+  //     } catch (error) {
+  //       console.error(error)
+  //       //  setIsLoading(false)
+  //     }
+    })()
+  }, [ ])
+
+
+
+ 
   const prayerTimesToday = useMemo(() => {
     const coordinates = new Coordinates(lat, long)
     let params = calculationMethodParams
@@ -139,6 +140,9 @@ const useGetPrayer = (date) => {
     return new PrayerTimes(coordinates, nextdate, params)
   }, [lat, long, date, calculationMethod, calculationMethodParamsMadhab])
   let prayers = ["fajr", "dhuhr", "asr", "maghrib", "isha"]
+
+
+
 
   let prayersOfTwoDays = []
 
@@ -229,6 +233,9 @@ const useGetPrayer = (date) => {
       nextPrayer = prayer || null
     }
   }
+
+
+
 
   return {
     prayerTimesToday: prayerTimesToday,
