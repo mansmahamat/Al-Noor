@@ -7,7 +7,7 @@ import { I18n } from "i18n-js";
 import fr from "../../locales/french/fr.json";
 import en from "../../locales/english/en.json";
 import ar from "../../locales/arabic/ar.json";
-import { useLanguageStore } from "../store/languagesStore"
+import useLanguageStore from "../store/languagesStore"
 
 export default function Layout() {
     const router = useRouter();
@@ -22,14 +22,16 @@ export default function Layout() {
     i18n.locale = language;
 
     return (
-        <Tabs>
+        <Tabs screenOptions={{
+            tabBarStyle: { backgroundColor: "#fffff" },
+        }}>
 
             <Tabs.Screen
                 name="index"
 
                 options={{
                     headerStatusBarHeight: 0,
-
+                    unmountOnBlur: true,
                     tabBarStyle: {
                         borderTopColor: "#4c6c53",
                         borderTopWidth: 0,
@@ -37,7 +39,7 @@ export default function Layout() {
 
                     tabBarLabel: () => (
                         <Text style={{ color: "#4c6c53" }}>
-                            {i18n.t('menu.prayer')}
+                            {/* {i18n.t('menu.prayer')} */}
                         </Text>
                     ),
 
@@ -71,7 +73,7 @@ export default function Layout() {
 
                     tabBarLabel: () => (
                         <Text style={{ color: "#4c6c53" }}>
-                            {i18n.t('menu.qibla')}
+                            {/* {i18n.t('menu.qibla')} */}
                         </Text>
                     ),
                     tabBarBackground: () => (
@@ -97,7 +99,7 @@ export default function Layout() {
                     title: "99 names",
                     tabBarLabel: () => (
                         <Text style={{ color: "#4c6c53" }}>
-                            {i18n.t('menu.99names')}
+                            {/* {i18n.t('menu.99names')} */}
                         </Text>
                     ),
 
@@ -121,7 +123,7 @@ export default function Layout() {
 
                     tabBarLabel: () => (
                         <Text style={{ color: "#4c6c53" }}>
-                            {i18n.t('menu.settings')}
+                            {/* {i18n.t('menu.settings')} */}
                         </Text>
                     ),
 

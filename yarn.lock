@@ -2438,6 +2438,13 @@
     "@babel/runtime" "^7.13.10"
     "@radix-ui/react-compose-refs" "1.0.0"
 
+"@react-native-async-storage/async-storage@^1.21.0":
+  version "1.21.0"
+  resolved "https://registry.npmjs.org/@react-native-async-storage/async-storage/-/async-storage-1.21.0.tgz"
+  integrity sha512-JL0w36KuFHFCvnbOXRekqVAUplmOyT/OuCQkogo6X98MtpSaJOKEAeZnYO8JB0U/RIEixZaGI5px73YbRm/oag==
+  dependencies:
+    merge-options "^3.0.4"
+
 "@react-native-community/cli-clean@11.3.7":
   version "11.3.7"
   resolved "https://registry.npmjs.org/@react-native-community/cli-clean/-/cli-clean-11.3.7.tgz"
@@ -7107,6 +7114,13 @@ expo-asset@~8.10.1:
     path-browserify "^1.0.0"
     url-parse "^1.5.9"
 
+expo-background-fetch@~11.3.0:
+  version "11.3.0"
+  resolved "https://registry.npmjs.org/expo-background-fetch/-/expo-background-fetch-11.3.0.tgz"
+  integrity sha512-aRBCg+kp/5j6XJBrcww8i7TPZ7RbybTLDwmBNzsqjUUKH9M8rkTJxy+eoo1qbFp3NGGrfTSNXPyXkH59hwR1mA==
+  dependencies:
+    expo-task-manager "~11.3.0"
+
 expo-build-properties@~0.8.3:
   version "0.8.3"
   resolved "https://registry.npmjs.org/expo-build-properties/-/expo-build-properties-0.8.3.tgz"
@@ -7311,6 +7325,13 @@ expo-system-ui@^2.9.3:
   dependencies:
     "@react-native/normalize-color" "^2.0.0"
     debug "^4.3.2"
+
+expo-task-manager@~11.3.0:
+  version "11.3.0"
+  resolved "https://registry.npmjs.org/expo-task-manager/-/expo-task-manager-11.3.0.tgz"
+  integrity sha512-580XaQGOC2IHLjPV3GBeIwlfxtjuBaitENsUxHvCVgWusatWkq0frq7uzG3yVpG3UHUuQwSOHvkJ6X/3EjdYXw==
+  dependencies:
+    unimodules-app-loader "~4.2.0"
 
 expo-updates-interface@~0.10.0:
   version "0.10.1"
@@ -8815,6 +8836,11 @@ is-plain-obj@^1.1.0:
   resolved "https://registry.npmjs.org/is-plain-obj/-/is-plain-obj-1.1.0.tgz"
   integrity sha512-yvkRyxmFKEOQ4pNXCmJG5AEQNlXJS5LaONXo5/cLdTZdWvsZ1ioJEonLGAosKlMWE8lwUy/bJzMjcw8az73+Fg==
 
+is-plain-obj@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.npmjs.org/is-plain-obj/-/is-plain-obj-2.1.0.tgz"
+  integrity sha512-YWnfyRwxL/+SsrWYfOpUtz5b3YD+nyfkHvjbcanzk8zgyO4ASD67uVMRt8k5bM4lLMDnXfriRhOpemw+NfT1eA==
+
 is-plain-obj@^3.0.0:
   version "3.0.0"
   resolved "https://registry.npmjs.org/is-plain-obj/-/is-plain-obj-3.0.0.tgz"
@@ -9931,6 +9957,13 @@ merge-descriptors@1.0.1:
   version "1.0.1"
   resolved "https://registry.npmjs.org/merge-descriptors/-/merge-descriptors-1.0.1.tgz"
   integrity sha512-cCi6g3/Zr1iqQi6ySbseM1Xvooa98N0w31jzUYrXPX2xqObmFGHJ0tQ5u74H3mVh7wLouTseZyYIq39g8cNp1w==
+
+merge-options@^3.0.4:
+  version "3.0.4"
+  resolved "https://registry.npmjs.org/merge-options/-/merge-options-3.0.4.tgz"
+  integrity sha512-2Sug1+knBjkaMsMgf1ctR1Ujx+Ayku4EdJN4Z+C2+JzoeF7A3OZ9KM2GY0CpQS51NR61LTurMJrRKPhSs3ZRTQ==
+  dependencies:
+    is-plain-obj "^2.1.0"
 
 merge-stream@^2.0.0:
   version "2.0.0"
@@ -12042,6 +12075,11 @@ react-native-gesture-handler@~2.12.0:
     lodash "^4.17.21"
     prop-types "^15.7.2"
 
+react-native-mmkv@^2.11.0:
+  version "2.11.0"
+  resolved "https://registry.npmjs.org/react-native-mmkv/-/react-native-mmkv-2.11.0.tgz"
+  integrity sha512-28PdUHjZJmAw3q+8zJDAAdohnZMpDC7WgRUJxACOMkcmJeqS3u5cKS/lSq2bhf1CvaeIiHYHUWiyatUjMRCDQQ==
+
 react-native-reanimated@~3.3.0:
   version "3.3.0"
   resolved "https://registry.npmjs.org/react-native-reanimated/-/react-native-reanimated-3.3.0.tgz"
@@ -13956,6 +13994,11 @@ unicode-property-aliases-ecmascript@^2.0.0:
   version "2.1.0"
   resolved "https://registry.npmjs.org/unicode-property-aliases-ecmascript/-/unicode-property-aliases-ecmascript-2.1.0.tgz"
   integrity sha512-6t3foTQI9qne+OZoVQB/8x8rk2k1eVy1gRXhV3oFQ5T6R1dqQ1xtin3XqSlx3+ATBkliTaR/hHyJBm+LVPNM8w==
+
+unimodules-app-loader@~4.2.0:
+  version "4.2.0"
+  resolved "https://registry.npmjs.org/unimodules-app-loader/-/unimodules-app-loader-4.2.0.tgz"
+  integrity sha512-q3FHCw04JUjsDXxvTvJPl63sBseHCiqHWD/3imOseGP+PZLzW46boQmnxSaHcdIOoWK88N/npyEh6eDN9Wyvng==
 
 unique-filename@^1.1.1:
   version "1.1.1"

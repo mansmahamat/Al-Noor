@@ -1,7 +1,7 @@
 import { Check, ChevronDown, ChevronUp } from "@tamagui/lucide-icons"
 import { useMemo, useState } from "react"
 import { Adapt, Label, Select, Sheet, YStack } from "tamagui"
-import { useLanguageStore } from "../../app/store/languagesStore"
+import useLanguageStore from "../../app/store/languagesStore"
 
 
 

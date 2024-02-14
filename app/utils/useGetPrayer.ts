@@ -2,11 +2,9 @@ import { useState, useEffect, useMemo } from "react"
 import { Coordinates, CalculationMethod, PrayerTimes, Madhab } from "adhan"
 import * as Location from "expo-location"
 import moment from "moment"
-import { useCalculationMethodStore } from "../store/calculationMethodStore"
-import { useCalculationMadhab } from "../store/calculationMadhabStore"
-
-
-
+import useCalculationMethodStore  from "../store/calculationMethodStore"
+import  useCalculationMadhab from "../store/calculationMadhabStore"
+import { useLocationStore } from "../store/locationStore"
 
 
 function capitalizeFirstLetter(word) {
@@ -72,10 +70,11 @@ const useGetPrayer = (date) => {
       return Madhab.Shafi // Default to "Other" or handle the error appropriately
     }
   }
-    //@ts-ignore
     const madhab = useCalculationMadhab((state) => state.madhab)
     const calculationMethodParamsMadhab = getCalculationMadhab(madhab)
-  useEffect(() => {
+   const { setLatitudeLongitude} = useLocationStore()
+  
+    useEffect(() => {
     ;(async () => {
       let { status } = await Location.requestForegroundPermissionsAsync()
       if (status !== "granted") {
@@ -84,36 +83,16 @@ const useGetPrayer = (date) => {
       }
 
       let location = await Location.getCurrentPositionAsync({})
+
       setLocation(location)
       setLocation(location)
       setLat(location.coords.latitude)
       setLong(location.coords.longitude)
 
+      setLatitudeLongitude(location.coords.latitude, location.coords.longitude)
 
 
-
-      // Get address from latitude & longitude.
-      // fromLatLng(location.coords.latitude, location.coords.longitude)
-      //   .then(({ results }) => {
-      //     const { lat, lng } = results[0].geometry.location
-      //     console.log("MANSSSSS", results[0].address_components[3].long_name)
-      //     setCity
-      //   })
-      //   .catch(console.error)
-
-  //     try {
-  //       const response = await fetch(
-  //         `https://geocode.maps.co/reverse?lat=${location.coords.latitude}&lon=${location.coords.longitude}`
-  //       )
-       
-  // //  const data = await response.json()
-  //  // setCity(data?.address?.municipality  ? data?.address?.municipality : data?.address?.town)
-  //       // setCity(data.address.city ?? data.address.town)
-  //       // setIsLoading(false)
-  //     } catch (error) {
-  //       console.error(error)
-  //       //  setIsLoading(false)
-  //     }
+      
     })()
   }, [ ])
 
@@ -125,7 +104,7 @@ const useGetPrayer = (date) => {
     let params = calculationMethodParams
     params.madhab = calculationMethodParamsMadhab
     return new PrayerTimes(coordinates, date, params)
-  }, [lat, long, date, calculationMethod, calculationMethodParamsMadhab])
+  }, [lat, long, date, madhab, calculationMethod])
 
 
  
@@ -188,6 +167,8 @@ const useGetPrayer = (date) => {
     return nextPrayers
   }
 
+  console.log("currentTime", currentTime)
+
   const nextFivePrayers = getNextPrayers(currentTime, prayersOfTwoDays, 5)
   const current = capitalizeFirstLetter(prayerTimesToday.currentPrayer())
   const currentTimeString = moment(currentTime).format("h:mm A - DD-MMM-YYYY")
@@ -237,12 +218,12 @@ const useGetPrayer = (date) => {
 
 
 
+
   return {
-    prayerTimesToday: prayerTimesToday,
     nextFivePrayers: nextFivePrayers,
     current: current,
     currentTime: currentTimeString,
-    nextPrayerTime: nextPrayer.time,
+    nextPrayerTime: nextPrayer?.time,
     nextPrayerName: nextPrayer?.name,
     currentPrayer: previousPrayer?.name,
     transformedArray,
@@ -251,3 +232,7 @@ const useGetPrayer = (date) => {
 }
 
 export default useGetPrayer
+
+
+
+

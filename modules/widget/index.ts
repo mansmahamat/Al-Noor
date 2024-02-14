@@ -30,3 +30,35 @@ export function getItem(appGroup: string, key?: string) {
   }
   return (key: string) => WidgetModule.getItem(key, appGroup);
 }
+
+export function setArray(appGroup: string, key: string, value: any[]): void;
+export function setArray(
+  appGroup: string,
+  key?: string,
+  value?: any[]
+): (key: string, value: any[]) => void;
+
+export function setArray(appGroup: string, key?: string, value?: any[]) {
+  if (typeof key !== "undefined" && typeof value !== "undefined") {
+    return WidgetModule.setItem(JSON.stringify(value), key, appGroup);
+  }
+  return (key: string, value: any[]) =>
+    WidgetModule.setItem(JSON.stringify(value), key, appGroup);
+}
+
+export function getArray(appGroup: string, key: string): any[];
+export function getArray(
+  appGroup: string,
+  key?: string
+): (key: string) => any[];
+
+export function getArray(appGroup: string, key?: string) {
+  if (typeof key !== "undefined") {
+    const value = WidgetModule.getItem(key, appGroup);
+    return value ? JSON.parse(value) : [];
+  }
+  return (key: string) => {
+    const value = WidgetModule.getItem(key, appGroup);
+    return value ? JSON.parse(value) : [];
+  };
+}

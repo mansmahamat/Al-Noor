@@ -1,5 +1,5 @@
 import { Check, ChevronDown, ChevronUp } from "@tamagui/lucide-icons"
-import { useMemo, useState } from "react"
+import { useEffect, useMemo, useState } from "react"
 import { Adapt, Label, Select, Sheet, YStack } from "tamagui"
 
 interface SelectMadhabProps {
@@ -9,14 +9,15 @@ interface SelectMadhabProps {
 
 
 export function SelectMadhab({ updateCalculationMadhab, madhab }: SelectMadhabProps) {
-    const [val, setVal] = useState(madhab || "Shafi")
+
 
     return (
         <>
-            <Label>Madhab {madhab} </Label>
+            <Label>Madhab  </Label>
             <Select
-                id="calculationMethod"
-                value={val}
+
+                id="madhab"
+                value={madhab ?? "shafi"}
                 onValueChange={updateCalculationMadhab}
                 disablePreventBodyScroll
             >

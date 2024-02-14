@@ -38,7 +38,6 @@ elsif podfile_properties.key?('ios.flipper') then
 end
 
 target 'AlNoorPrayer' do
-  pod 'Adhan'
   use_expo_modules!
   config = use_native_modules!
 
@@ -59,9 +58,6 @@ target 'AlNoorPrayer' do
   )
 
   post_install do |installer|
-    installer.pods_project.build_configurations.each do |config|
-      config.build_settings["EXCLUDED_ARCHS[sdk=iphonesimulator*]"] = "arm64"
-  end
     react_native_post_install(
       installer,
       config[:reactNativePath],

@@ -33,6 +33,12 @@
             "deploymentTarget": "14.0"
           }
         }
+      ],
+      [
+        "expo-location",
+        {
+          "locationAlwaysAndWhenInUsePermission": "Allow to use your location."
+        }
       ]
     ],
     "icon": "./assets/icon.png",
@@ -50,6 +56,9 @@
         "com.apple.security.application-groups": [
           "group.com.mansjs.AlNoorPrayer"
         ]
+      },
+      "infoPlist": {
+        "UIBackgroundModes": ["location", "fetch", "remote-notification"]
       }
     },
     "android": {

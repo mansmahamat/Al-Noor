@@ -2,9 +2,15 @@ import { BellRing, ChevronsDown, ChevronsUp, Cloud, CloudSun, Moon, MoonStar, St
 import React from 'react'
 import { ListItem, ScrollView, Separator, Text, YGroup } from 'tamagui'
 import moment from 'moment'
+import { capitalizeFirstLetter } from '../../app/utils/utils'
+
+interface PrayerTime {
+  name: string
+  time: Date
+}
 
 
-export function PrayerList({ transformedArray }) {
+export function PrayerList({ prayerList }: { prayerList: PrayerTime[] }) {
 
 
 
@@ -12,32 +18,32 @@ export function PrayerList({ transformedArray }) {
     switch (prayerName.toLowerCase()) {
       case 'fajr':
         return <Moon
-          color="#4c6c53"
+          color="#fff"
           size="$1"
         />;
       case 'sunrise':
         return <Sunrise
-          color="#4c6c53"
+          color="#fff"
           size="$1"
         />;
       case 'dhuhr':
         return <Sun
-          color="#4c6c53"
+          color="#fff"
           size="$1"
         />;
       case 'asr':
         return <CloudSun
-          color="#4c6c53"
+          color="#fff"
           size="$1"
         />;
       case 'maghrib':
         return <Sunset
-          color="#4c6c53"
+          color="#fff"
           size="$1"
         />;
       case 'isha':
         return <MoonStar
-          color="#4c6c53"
+          color="#fff"
           size="$1"
         />;
       default:
@@ -49,11 +55,11 @@ export function PrayerList({ transformedArray }) {
 
   return (
 
-    <YGroup separator={<Separator />} alignSelf="center" height="90%" width="100%" >
-      {transformedArray.map((item, index) => {
+    <YGroup separator={<Separator />} alignSelf="center" height="80%" width="100%" >
+      {prayerList.map((prayer, index) => {
         return (
           <YGroup.Item key={index}>
-            <ListItem hoverTheme icon={getPrayerIcon(item.name)} height="$6" title={item.name} subTitle={moment(item.time).format('LT')} />
+            <ListItem backgroundColor="#4c6c53" color="white" borderColor="#fffff" icon={getPrayerIcon(prayer.name)} height="$6" title={capitalizeFirstLetter(prayer.name)} subTitle={moment(prayer.time).format('LT')} />
           </YGroup.Item>)
 
       })}

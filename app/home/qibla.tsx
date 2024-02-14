@@ -15,7 +15,7 @@ import { I18n } from "i18n-js";
 import fr from "../../locales/french/fr.json";
 import en from "../../locales/english/en.json";
 import ar from "../../locales/arabic/ar.json";
-import { useLanguageStore } from "../store/languagesStore"
+import useLanguageStore from "../store/languagesStore"
 
 export const useQiblaCompass = () => {
     const [subscription, setSubscription] = useState(null)
@@ -188,7 +188,7 @@ const QiblaCompass = forwardRef(
                 {error && (
                     <Text
                         style={{
-                            color: "#fffff",
+                            color: "#fff",
                             fontWeight: "bold",
                             textAlign: "center",
                             paddingHorizontal: 20,

@@ -6,7 +6,7 @@ import {
     ChevronsDown,
     FileQuestion,
 } from "@tamagui/lucide-icons"
-import React, { useMemo, useState } from "react"
+import React, { useEffect, useMemo, useState } from "react"
 import {
     Adapt,
     Button,
@@ -25,15 +25,16 @@ import {
     YStack,
     getFontSize,
 } from "tamagui"
-import { useCalculationMethodStore } from "../store/calculationMethodStore"
-import { useCalculationMadhab } from "../store/calculationMadhabStore"
+import useCalculationMethodStore from "../store/calculationMethodStore"
+import useCalculationMadhab from "../store/calculationMadhabStore"
 import { SelectMadhab } from "../../components/SelectMadhab/SelectMadhab"
 import SelectLanguagesSheet from "../../components/SelectLanguages/SelectLanguagesSheet"
 import { I18n } from "i18n-js";
 import fr from "../../locales/french/fr.json";
 import en from "../../locales/english/en.json";
 import ar from "../../locales/arabic/ar.json";
-import { useLanguageStore } from "../store/languagesStore"
+import useLanguageStore from "../store/languagesStore"
+import getPrayerTimesWithCurrentLocation from "../utils/prayer"
 
 const App = () => {
     const [open, setOpen] = useState(false)
@@ -66,8 +67,7 @@ const App = () => {
                 <YGroup alignSelf="center" width="100%" size="$5">
                     <YGroup.Item>
                         <ListItem
-                            hoverTheme
-                            pressTheme
+
                             color="white"
                             style={{ color: "#fff" }}
                             backgroundColor="#4c6c53"
@@ -78,10 +78,9 @@ const App = () => {
                             onPress={() => setOpen(true)}
                         />
                     </YGroup.Item>
-                    <YGroup.Item>
+                    {/* <YGroup.Item>
                         <ListItem
-                            hoverTheme
-                            pressTheme
+                          
                             marginBottom="$5"
                             backgroundColor="#4c6c53"
                             title={i18n.t('settings.notifications')}
@@ -89,11 +88,10 @@ const App = () => {
                             // subTitle="Subtitle"
                             iconAfter={ChevronRight}
                         />
-                    </YGroup.Item>
+                    </YGroup.Item> */}
                     <YGroup.Item>
                         <ListItem
-                            hoverTheme
-                            pressTheme
+
                             backgroundColor="#4c6c53"
                             title={i18n.t('settings.language')}
 
@@ -165,122 +163,9 @@ const App = () => {
 
 export default App
 
-function InnerSheet(props) {
-    return (
-        <Sheet
-            animation="medium"
-            modal
-            snapPoints={[90]}
-            dismissOnSnapToBottom
-            {...props}
-        >
-            <Sheet.Overlay
-                animation="lazy"
-                enterStyle={{ opacity: 0 }}
-                exitStyle={{ opacity: 0 }}
-            />
-            <Sheet.Handle />
-            <Sheet.Frame
-                flex={1}
-                backgroundColor="#4c6c53"
-                justifyContent="center"
-                alignItems="center"
-                space="$5"
-            >
-                <Sheet.ScrollView>
-                    <YStack p="$5" gap="$8">
-                        <Button
-                            size="$6"
-                            circular
-                            alignSelf="center"
-                            icon={ChevronDown}
-                            onPress={() => props.onOpenChange?.(false)}
-                        />
-                        <H2>Adhan Calculation Methods</H2>
-                        <Paragraph>
-                            <SizableText size="$4" fontWeight="700">
-                                Muslim World League:
-                            </SizableText>{" "}
-                            Standard Fajr time with an angle of 18°. Earlier Isha time with an
-                            angle of 17°.
-                        </Paragraph>
-                        <Paragraph>
-                            <SizableText>Egyptian General Authority of Survey:</SizableText>{" "}
-                            Early Fajr time using an angle 19.5° and a slightly earlier Isha
-                            time using an angle of 17.5°.
-                        </Paragraph>
-                        <Paragraph>
-                            <SizableText>
-                                University of Islamic Sciences, Karachi:
-                            </SizableText>{" "}
-                            A generally applicable method that uses standard Fajr and Isha
-                            angles of 18°.
-                        </Paragraph>
-                        <Paragraph>
-                            <SizableText>Umm al-Qura University, Makkah:</SizableText> Uses a
-                            fixed interval of 90 minutes from Maghrib to calculate Isha. And a
-                            slightly earlier Fajr time with an angle of 18.5°. Note: you
-                            should add a +30 minute custom adjustment for Isha during Ramadan.
-                        </Paragraph>
-                        <Paragraph>
-                            <SizableText>Used in the UAE:</SizableText> Slightly earlier Fajr
-                            time and slightly later Isha time with angles of 18.2° for Fajr
-                            and Isha in addition to 3-minute offsets for sunrise, Dhuhr, Asr,
-                            and Maghrib.
-                        </Paragraph>
-                        <Paragraph>
-                            <SizableText>Qatar:</SizableText> Same Isha interval as Umm
-                            al-Qura but with the standard Fajr time using an angle of 18°.
-                        </Paragraph>
-                        <Paragraph>
-                            <SizableText>Kuwait:</SizableText> Standard Fajr time with an
-                            angle of 18°. Slightly earlier Isha time with an angle of 17.5°.
-                        </Paragraph>
-                        <Paragraph>
-                            <SizableText>Moonsighting Committee Method:</SizableText>{" "}
-                            Developed by Khalid Shaukat, founder of Moonsighting Committee
-                            Worldwide. Uses standard 18° angles for Fajr and Isha in addition
-                            to seasonal adjustment values. This method automatically applies
-                            the 1/7 approximation rule for locations above 55° latitude.
-                            Recommended for North America and the UK.
-                        </Paragraph>
-                        <Paragraph>
-                            <SizableText>Singapore:</SizableText> Used in Singapore, Malaysia,
-                            and Indonesia. Early Fajr time with an angle of 20° and standard
-                            Isha time with an angle of 18°.
-                        </Paragraph>
-                        <Paragraph>
-                            <SizableText>Turkey:</SizableText> An approximation of the Diyanet
-                            method used in Turkey. This approximation is less accurate outside
-                            the region of Turkey.
-                        </Paragraph>
-                        <Paragraph>
-                            <SizableText>Tehran:</SizableText> Institute of Geophysics,
-                            University of Tehran. Early Isha time with an angle of 14°.
-                            Slightly later Fajr time with an angle of 17.7°. Calculates
-                            Maghrib based on the sun reaching an angle of 4.5° below the
-                            horizon.
-                        </Paragraph>
-                        <Paragraph>
-                            <SizableText>North America (ISNA Method):</SizableText> Also known
-                            as the ISNA method. Can be used for North America, but the
-                            Moonsighting Committee method is preferable. Gives later Fajr
-                            times and early Isha times with angles of 15°.
-                        </Paragraph>
-                        <Paragraph>
-                            <SizableText>Custom Method (Other):</SizableText> Defaults to
-                            angles of 0°, should generally be used for making a custom method
-                            and setting your own values.
-                        </Paragraph>
-                    </YStack>
-                </Sheet.ScrollView>
-            </Sheet.Frame>
-        </Sheet>
-    )
-}
+
 
 export function SelectDemoItem(props) {
-    const [val, setVal] = useState(props.calculationMethod || "CalculationMethod")
 
     return (
         <>
@@ -288,8 +173,9 @@ export function SelectDemoItem(props) {
 
             <Select
                 id="calculationMethod"
-                value={props.calculationMethod}
+                value={props.calculationMethod ?? "MuslimWorldLeague"}
                 onValueChange={props.updateCalculationMethod}
+
                 disablePreventBodyScroll
                 {...props}
             >
