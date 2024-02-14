@@ -31,7 +31,7 @@ export default function Layout() {
 
                 options={{
                     headerStatusBarHeight: 0,
-                    unmountOnBlur: true,
+                    // unmountOnBlur: true,
                     tabBarStyle: {
                         borderTopColor: "#4c6c53",
                         borderTopWidth: 0,

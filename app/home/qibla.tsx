@@ -68,7 +68,7 @@ export const useQiblaCompass = () => {
     }, [])
 
     const subscribe = () => {
-        Magnetometer.setUpdateInterval(400)
+        Magnetometer.setUpdateInterval(100)
         setSubscription(
             Magnetometer.addListener((data) => {
                 setMagnetometer(angle(data))

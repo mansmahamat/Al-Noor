@@ -240,7 +240,7 @@ export default function Home() {
                 setError("Error fetching timings.")
             }
         })()
-    }, [date])
+    }, [date, madhab, calculationMethod])
 
 
 
@@ -361,7 +361,7 @@ export default function Home() {
     // const locale = getLocales();
     // const localeCode = locale[0].languageCode;
 
-    i18n.defaultLocale = language;
+    i18n.defaultLocale = "en";
     i18n.locale = language;
 
 
