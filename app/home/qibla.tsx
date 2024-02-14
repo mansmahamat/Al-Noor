@@ -40,11 +40,19 @@ export const useQiblaCompass = () => {
         }
 
         try {
+            let { status } = await Location.requestForegroundPermissionsAsync()
+            if (status !== "granted") {
+                setError("Location permission denied.")
+                return
+            }
+
+            let location = await Location.getCurrentPositionAsync({})
             //  let location = await Location.getCurrentPositionAsync({});
             const latitude = 59.3293
             const longitude = 18.0686
             // const { latitude, longitude } = location.coords;
-            calculate(latitude, longitude)
+            calculate(location.coords.latitude,
+                location.coords.longitude)
         } finally {
             setIsLoading(false)
             subscribe()
@@ -60,7 +68,7 @@ export const useQiblaCompass = () => {
     }, [])
 
     const subscribe = () => {
-        Magnetometer.setUpdateInterval(100)
+        Magnetometer.setUpdateInterval(400)
         setSubscription(
             Magnetometer.addListener((data) => {
                 setMagnetometer(angle(data))

@@ -42,6 +42,7 @@ import CustomButton from '../components/CustomButtom/CustomButtom';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useOnboardingStore } from './store/onBoardingStore';
 import { Redirect } from 'expo-router';
+import useLanguageStore from './store/languagesStore';
 const OnboardingScreen = () => {
   const { width: SCREEN_WIDTH } = useWindowDimensions();
   const flatListRef = useAnimatedRef(null);
@@ -127,6 +128,9 @@ const OnboardingScreen = () => {
   };
 
   const { onboardingCompleted } = useOnboardingStore()
+  const { language } = useLanguageStore();
+
+
 
   if (onboardingCompleted) {
     return <Redirect href="/home/" />
@@ -134,9 +138,7 @@ const OnboardingScreen = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Text>
 
-      </Text>
       <Animated.FlatList
         ref={flatListRef}
         onScroll={onScroll}

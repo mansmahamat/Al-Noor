@@ -11,7 +11,7 @@ import useGetDateHijri from "../utils/useGetDateHijri";
 import { Cross, XCircle } from "@tamagui/lucide-icons";
 import * as Device from 'expo-device';
 import * as Notifications from 'expo-notifications';
-import { Platform, Pressable, useColorScheme, StyleSheet } from "react-native";
+import { Platform, Pressable, useColorScheme, StyleSheet, NativeModules } from "react-native";
 import { I18n } from "i18n-js";
 import fr from "../../locales/french/fr.json";
 import en from "../../locales/english/en.json";
@@ -26,6 +26,7 @@ import { useLocationStore } from "../store/locationStore";
 import getPrayerTimesWithCurrentLocation from "../utils/prayer";
 import usePrayerTimes from "../utils/usePrayer";
 import * as Location from "expo-location"
+import { getCurrencies, getLocales } from "react-native-localize";
 import {
     Coordinates,
     CalculationMethod,
@@ -170,7 +171,7 @@ export default function Home() {
                 const formattedPrayerTimes = todayPrayerTimesArray.map(prayer => ({
                     name: capitalizeFirstLetter(prayer.name),
                     time: new Date(prayer.time).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
-                }));
+                })).filter(prayer => prayer.name !== "Sunrise");;
 
                 setPrayersToday(formattedPrayerTimes)
 
@@ -287,7 +288,6 @@ export default function Home() {
 
 
 
-    const { completeOnboarding } = useOnboardingStore();
 
     // useEffect(() => {
     //     schedulePrayerNotifications(prayersToday);
@@ -358,10 +358,10 @@ export default function Home() {
     const { language, updateLanguage } = useLanguageStore();
 
 
+    // const locale = getLocales();
+    // const localeCode = locale[0].languageCode;
 
-
-
-    i18n.defaultLocale = "fr";
+    i18n.defaultLocale = language;
     i18n.locale = language;
 
 

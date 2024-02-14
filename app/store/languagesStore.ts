@@ -1,13 +1,18 @@
 import { create } from "zustand";
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {  getLocales } from "react-native-localize";
 
 interface LanguageStore {
   language: string;
   updateLanguage: (language: string) => void;
 }
 
+
+// const locale = getLocales();
+// const localeCode = locale[0].languageCode;
+
 const useLanguageStore = create<LanguageStore>((set) => ({
-  language: "fr",
+  language: "en",
   updateLanguage: (language) => set(() => ({ language: language })),
 }));
 
