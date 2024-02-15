@@ -10,12 +10,13 @@ import { Image, View, StyleSheet, ActivityIndicator } from "react-native"
 import { Magnetometer } from "expo-sensors"
 import * as Location from "expo-location"
 import { moderateScale } from "react-native-size-matters"
-import { Text } from "tamagui"
+import { Button, Text } from "tamagui"
 import { I18n } from "i18n-js";
-import fr from "../../locales/french/fr.json";
-import en from "../../locales/english/en.json";
-import ar from "../../locales/arabic/ar.json";
-import useLanguageStore from "../store/languagesStore"
+import fr from "../../../locales/french/fr.json";
+import en from "../../../locales/english/en.json";
+import ar from "../../../locales/arabic/ar.json";
+import useLanguageStore from "../../store/languagesStore"
+import AsyncStorage from "@react-native-async-storage/async-storage"
 
 export const useQiblaCompass = () => {
     const [subscription, setSubscription] = useState(null)
@@ -68,7 +69,7 @@ export const useQiblaCompass = () => {
     }, [])
 
     const subscribe = () => {
-        Magnetometer.setUpdateInterval(100)
+        Magnetometer.setUpdateInterval(50)
         setSubscription(
             Magnetometer.addListener((data) => {
                 setMagnetometer(angle(data))
@@ -190,9 +191,15 @@ const QiblaCompass = forwardRef(
 
 
 
+        const clearAsyncStorage = async () => {
+            AsyncStorage.clear();
+        }
 
         return (
             <View style={[styles.container, { backgroundColor }]}>
+                {/* <Button onPress={clearAsyncStorage}>
+                    <Text>Clear Async Storage</Text>
+                </Button> */}
                 {error && (
                     <Text
                         style={{
@@ -233,7 +240,7 @@ const QiblaCompass = forwardRef(
                     }}
                 >
                     <Image
-                        source={require("../../assets/compass_bg.png")}
+                        source={require("../../../assets/compass_bg.png")}
                         style={[
                             styles.image,
                             {
@@ -262,7 +269,7 @@ const QiblaCompass = forwardRef(
                         }}
                     >
                         <Image
-                            source={require("../../assets/compass_pointer.png")}
+                            source={require("../../../assets/compass_pointer.png")}
                             style={{
                                 resizeMode: "contain",
                                 height: 30,

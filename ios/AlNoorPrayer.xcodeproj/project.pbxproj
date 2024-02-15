@@ -7,40 +7,40 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		032E79A8E19B4010817CD434 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8CAF3B5022BF4096956DEC46 /* SwiftUI.framework */; };
+		0022D5E0573A4D3392760FA8 /* a4.wav in Resources */ = {isa = PBXBuildFile; fileRef = 7F7CC171934347F7A9B421DF /* a4.wav */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
+		2F84EB8F7C9340CF8C2AECE5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 59981817EF7940ED976EB3C7 /* Assets.xcassets */; };
+		3CB34408A8E04DE9AD47C082 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1776051B12284C5E918DF15E /* WidgetKit.framework */; };
 		3E461D99554A48A4959DE609 /* SplashScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AA286B85B6C04FC6940260E9 /* SplashScreen.storyboard */; };
-		859CE7CC939245669D8C6F24 /* a4.wav in Resources */ = {isa = PBXBuildFile; fileRef = C2E550A56ADF47B6A8FADC97 /* a4.wav */; };
+		409D962834574ED88831169C /* widget.appex in Copy Files */ = {isa = PBXBuildFile; fileRef = 4663EB2BF0E44F789DEF726E /* widget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		70C178A9E2864399BA396D61 /* widget.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD114DB1EBD04B22AA9A2CB0 /* widget.swift */; };
+		8517CC6E29F3483B813E7877 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB7EE4104AC3482E9D4FD0DD /* SwiftUI.framework */; };
 		96905EF65AED1B983A6B3ABC /* libPods-AlNoorPrayer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 58EEBF8E8E6FB1BC6CAF49B5 /* libPods-AlNoorPrayer.a */; };
-		A562B10F81FA46C788C8C69A /* widget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 370F0ACC7FBE4EBA89506C60 /* widget.swift */; };
+		9CA02F46D0D4472ABB094343 /* noop-file.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11652BBAB42C417EBE24C6CB /* noop-file.swift */; };
 		B18059E884C0ABDD17F3DC3D /* ExpoModulesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC715A2D49A985799AEE119 /* ExpoModulesProvider.swift */; };
-		B8B1C7985F9345CE8003A732 /* widget.appex in Copy Files */ = {isa = PBXBuildFile; fileRef = DE8C73BABF354253B4F78E69 /* widget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		BB2F792D24A3F905000567C9 /* Expo.plist in Resources */ = {isa = PBXBuildFile; fileRef = BB2F792C24A3F905000567C9 /* Expo.plist */; };
-		CC035C8EC24C4199B0F42BED /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B1A59471C8A4460CB37B0E8B /* WidgetKit.framework */; };
-		DFD68C1235FB427CB42A4132 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ED28BB6D941745C1A68CD735 /* Assets.xcassets */; };
-		F68EE45D56494A598BCC816B /* noop-file.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4EE5A2C56494CBE968AC179 /* noop-file.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		5C22B864F0F8493099974C0F /* PBXContainerItemProxy */ = {
+		5ED3A8FBA0034A3F8559D462 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 83CBB9F71A601CBA00E9B192 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 8253B8B2F189438BB27AE9B4;
+			remoteGlobalIDString = 6FB94B8F608349969CE1D3C8;
 			remoteInfo = widget;
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		EB50434600144710A810CDF1 /* Copy Files */ = {
+		229B48006F5E49D087665B79 /* Copy Files */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				B8B1C7985F9345CE8003A732 /* widget.appex in Copy Files */,
+				409D962834574ED88831169C /* widget.appex in Copy Files */,
 			);
 			name = "Copy Files";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -48,28 +48,28 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		11652BBAB42C417EBE24C6CB /* noop-file.swift */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.swift; name = "noop-file.swift"; path = "AlNoorPrayer/noop-file.swift"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* AlNoorPrayer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AlNoorPrayer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = AlNoorPrayer/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = AlNoorPrayer/AppDelegate.mm; sourceTree = "<group>"; };
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = AlNoorPrayer/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = AlNoorPrayer/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = AlNoorPrayer/main.m; sourceTree = "<group>"; };
-		370F0ACC7FBE4EBA89506C60 /* widget.swift */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.swift; name = widget.swift; path = widget.swift; sourceTree = "<group>"; };
+		1776051B12284C5E918DF15E /* WidgetKit.framework */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		4663EB2BF0E44F789DEF726E /* widget.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = undefined; name = widget.appex; path = widget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		58EEBF8E8E6FB1BC6CAF49B5 /* libPods-AlNoorPrayer.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-AlNoorPrayer.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		59981817EF7940ED976EB3C7 /* Assets.xcassets */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = Assets.xcassets; sourceTree = "<group>"; };
 		6C2E3173556A471DD304B334 /* Pods-AlNoorPrayer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AlNoorPrayer.debug.xcconfig"; path = "Target Support Files/Pods-AlNoorPrayer/Pods-AlNoorPrayer.debug.xcconfig"; sourceTree = "<group>"; };
 		7A4D352CD337FB3A3BF06240 /* Pods-AlNoorPrayer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AlNoorPrayer.release.xcconfig"; path = "Target Support Files/Pods-AlNoorPrayer/Pods-AlNoorPrayer.release.xcconfig"; sourceTree = "<group>"; };
-		8CAF3B5022BF4096956DEC46 /* SwiftUI.framework */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
-		970BD70F48F34F8980540302 /* AlNoorPrayer-Bridging-Header.h */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.h; name = "AlNoorPrayer-Bridging-Header.h"; path = "AlNoorPrayer/AlNoorPrayer-Bridging-Header.h"; sourceTree = "<group>"; };
+		7F7CC171934347F7A9B421DF /* a4.wav */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = a4.wav; path = AlNoorPrayer/a4.wav; sourceTree = "<group>"; };
 		AA286B85B6C04FC6940260E9 /* SplashScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = SplashScreen.storyboard; path = AlNoorPrayer/SplashScreen.storyboard; sourceTree = "<group>"; };
-		B1A59471C8A4460CB37B0E8B /* WidgetKit.framework */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		B28848A5E38B4A95BB5A78DA /* AlNoorPrayer-Bridging-Header.h */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.h; name = "AlNoorPrayer-Bridging-Header.h"; path = "AlNoorPrayer/AlNoorPrayer-Bridging-Header.h"; sourceTree = "<group>"; };
 		BB2F792C24A3F905000567C9 /* Expo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Expo.plist; sourceTree = "<group>"; };
-		C2E550A56ADF47B6A8FADC97 /* a4.wav */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = a4.wav; path = AlNoorPrayer/a4.wav; sourceTree = "<group>"; };
-		DACEC556B5704CBEA8F751CD /* widget.entitlements */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = text.plist.entitlements; name = widget.entitlements; path = widget.entitlements; sourceTree = "<group>"; };
-		DE8C73BABF354253B4F78E69 /* widget.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = undefined; name = widget.appex; path = widget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
-		ED28BB6D941745C1A68CD735 /* Assets.xcassets */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = Assets.xcassets; sourceTree = "<group>"; };
+		CB7EE4104AC3482E9D4FD0DD /* SwiftUI.framework */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		EB45FA75CF294E5FA4EAD6FF /* widget.entitlements */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = text.plist.entitlements; name = widget.entitlements; path = widget.entitlements; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
-		F4EE5A2C56494CBE968AC179 /* noop-file.swift */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.swift; name = "noop-file.swift"; path = "AlNoorPrayer/noop-file.swift"; sourceTree = "<group>"; };
 		FAC715A2D49A985799AEE119 /* ExpoModulesProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ExpoModulesProvider.swift; path = "Pods/Target Support Files/Pods-AlNoorPrayer/ExpoModulesProvider.swift"; sourceTree = "<group>"; };
+		FD114DB1EBD04B22AA9A2CB0 /* widget.swift */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.swift; name = widget.swift; path = widget.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,12 +81,12 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		36B61DA8390145D6A5922E1B /* Frameworks */ = {
+		5C168C0DAD164BCD9E0D6C1F /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				032E79A8E19B4010817CD434 /* SwiftUI.framework in Frameworks */,
-				CC035C8EC24C4199B0F42BED /* WidgetKit.framework in Frameworks */,
+				8517CC6E29F3483B813E7877 /* SwiftUI.framework in Frameworks */,
+				3CB34408A8E04DE9AD47C082 /* WidgetKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -103,9 +103,9 @@
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				13B07FB71A68108700A75B9A /* main.m */,
 				AA286B85B6C04FC6940260E9 /* SplashScreen.storyboard */,
-				F4EE5A2C56494CBE968AC179 /* noop-file.swift */,
-				970BD70F48F34F8980540302 /* AlNoorPrayer-Bridging-Header.h */,
-				C2E550A56ADF47B6A8FADC97 /* a4.wav */,
+				11652BBAB42C417EBE24C6CB /* noop-file.swift */,
+				B28848A5E38B4A95BB5A78DA /* AlNoorPrayer-Bridging-Header.h */,
+				7F7CC171934347F7A9B421DF /* a4.wav */,
 			);
 			name = AlNoorPrayer;
 			sourceTree = "<group>";
@@ -115,8 +115,8 @@
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
 				58EEBF8E8E6FB1BC6CAF49B5 /* libPods-AlNoorPrayer.a */,
-				B1A59471C8A4460CB37B0E8B /* WidgetKit.framework */,
-				8CAF3B5022BF4096956DEC46 /* SwiftUI.framework */,
+				1776051B12284C5E918DF15E /* WidgetKit.framework */,
+				CB7EE4104AC3482E9D4FD0DD /* SwiftUI.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -137,7 +137,7 @@
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				D65327D7A22EEC0BE12398D9 /* Pods */,
 				D7E4C46ADA2E9064B798F356 /* ExpoModulesProviders */,
-				9DEB298B3EEB4AFB90B274A9 /* widget */,
+				C54B62D747EB4F71AC4C23FE /* widget */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -148,7 +148,7 @@
 			isa = PBXGroup;
 			children = (
 				13B07F961A680F5B00A75B9A /* AlNoorPrayer.app */,
-				DE8C73BABF354253B4F78E69 /* widget.appex */,
+				4663EB2BF0E44F789DEF726E /* widget.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -161,17 +161,6 @@
 			name = AlNoorPrayer;
 			sourceTree = "<group>";
 		};
-		9DEB298B3EEB4AFB90B274A9 /* widget */ = {
-			isa = PBXGroup;
-			children = (
-				ED28BB6D941745C1A68CD735 /* Assets.xcassets */,
-				370F0ACC7FBE4EBA89506C60 /* widget.swift */,
-				DACEC556B5704CBEA8F751CD /* widget.entitlements */,
-			);
-			name = widget;
-			path = widget;
-			sourceTree = "<group>";
-		};
 		BB2F792B24A3F905000567C9 /* Supporting */ = {
 			isa = PBXGroup;
 			children = (
@@ -179,6 +168,17 @@
 			);
 			name = Supporting;
 			path = AlNoorPrayer/Supporting;
+			sourceTree = "<group>";
+		};
+		C54B62D747EB4F71AC4C23FE /* widget */ = {
+			isa = PBXGroup;
+			children = (
+				59981817EF7940ED976EB3C7 /* Assets.xcassets */,
+				FD114DB1EBD04B22AA9A2CB0 /* widget.swift */,
+				EB45FA75CF294E5FA4EAD6FF /* widget.entitlements */,
+			);
+			name = widget;
+			path = widget;
 			sourceTree = "<group>";
 		};
 		D65327D7A22EEC0BE12398D9 /* Pods */ = {
@@ -207,32 +207,32 @@
 			buildPhases = (
 				08A4A3CD28434E44B6B9DE2E /* [CP] Check Pods Manifest.lock */,
 				FD10A7F022414F080027D42C /* Start Packager */,
-				2C360D7261D8392A33A4DB08 /* [Expo] Configure project */,
+				43B8DED7942D246F57623365 /* [Expo] Configure project */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
 				800E24972A6A228C8D4807E9 /* [CP] Copy Pods Resources */,
-				EB50434600144710A810CDF1 /* Copy Files */,
-				1B234D0E08988B1FDD728474 /* [CP] Embed Pods Frameworks */,
+				229B48006F5E49D087665B79 /* Copy Files */,
+				E166BCB5BD91902864462BF6 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				E5377E9FC1E84E2E9C6D6175 /* PBXTargetDependency */,
+				964CE0CA680F4BBF92E8A34D /* PBXTargetDependency */,
 			);
 			name = AlNoorPrayer;
 			productName = AlNoorPrayer;
 			productReference = 13B07F961A680F5B00A75B9A /* AlNoorPrayer.app */;
 			productType = "com.apple.product-type.application";
 		};
-		8253B8B2F189438BB27AE9B4 /* widget */ = {
+		6FB94B8F608349969CE1D3C8 /* widget */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 819DE1F522F9444EAAE9E098 /* Build configuration list for PBXNativeTarget "widget" */;
+			buildConfigurationList = 19CCBEC508C249B989A3EE00 /* Build configuration list for PBXNativeTarget "widget" */;
 			buildPhases = (
-				3F8AB84708534F18B9075A6E /* Sources */,
-				36B61DA8390145D6A5922E1B /* Frameworks */,
-				F98426F0545145DDA8FE760D /* Resources */,
+				F36E9D48D68B4243A58C834E /* Sources */,
+				5C168C0DAD164BCD9E0D6C1F /* Frameworks */,
+				FF2B8872B92D489DB4EBDA74 /* Resources */,
 			);
 			buildRules = (
 			);
@@ -240,7 +240,7 @@
 			);
 			name = widget;
 			productName = widget;
-			productReference = DE8C73BABF354253B4F78E69 /* widget.appex */;
+			productReference = 4663EB2BF0E44F789DEF726E /* widget.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
@@ -255,7 +255,7 @@
 					13B07F861A680F5B00A75B9A = {
 						LastSwiftMigration = 1250;
 					};
-					8253B8B2F189438BB27AE9B4 = {
+					6FB94B8F608349969CE1D3C8 = {
 						CreatedOnToolsVersion = 13.4.1;
 						ProvisioningStyle = Automatic;
 					};
@@ -275,7 +275,7 @@
 			projectRoot = "";
 			targets = (
 				13B07F861A680F5B00A75B9A /* AlNoorPrayer */,
-				8253B8B2F189438BB27AE9B4 /* widget */,
+				6FB94B8F608349969CE1D3C8 /* widget */,
 			);
 		};
 /* End PBXProject section */
@@ -288,15 +288,15 @@
 				BB2F792D24A3F905000567C9 /* Expo.plist in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				3E461D99554A48A4959DE609 /* SplashScreen.storyboard in Resources */,
-				859CE7CC939245669D8C6F24 /* a4.wav in Resources */,
+				0022D5E0573A4D3392760FA8 /* a4.wav in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		F98426F0545145DDA8FE760D /* Resources */ = {
+		FF2B8872B92D489DB4EBDA74 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DFD68C1235FB427CB42A4132 /* Assets.xcassets in Resources */,
+				2F84EB8F7C9340CF8C2AECE5 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -339,25 +339,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		1B234D0E08988B1FDD728474 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-AlNoorPrayer/Pods-AlNoorPrayer-frameworks.sh",
-				"${PODS_XCFRAMEWORKS_BUILD_DIR}/hermes-engine/Pre-built/hermes.framework/hermes",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/hermes.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-AlNoorPrayer/Pods-AlNoorPrayer-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		2C360D7261D8392A33A4DB08 /* [Expo] Configure project */ = {
+		43B8DED7942D246F57623365 /* [Expo] Configure project */ = {
 			isa = PBXShellScriptBuildPhase;
 			alwaysOutOfDate = 1;
 			buildActionMask = 2147483647;
@@ -400,6 +382,24 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-AlNoorPrayer/Pods-AlNoorPrayer-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		E166BCB5BD91902864462BF6 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-AlNoorPrayer/Pods-AlNoorPrayer-frameworks.sh",
+				"${PODS_XCFRAMEWORKS_BUILD_DIR}/hermes-engine/Pre-built/hermes.framework/hermes",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/hermes.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-AlNoorPrayer/Pods-AlNoorPrayer-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		FD10A7F022414F080027D42C /* Start Packager */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -429,25 +429,25 @@
 				13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 				B18059E884C0ABDD17F3DC3D /* ExpoModulesProvider.swift in Sources */,
-				F68EE45D56494A598BCC816B /* noop-file.swift in Sources */,
+				9CA02F46D0D4472ABB094343 /* noop-file.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		3F8AB84708534F18B9075A6E /* Sources */ = {
+		F36E9D48D68B4243A58C834E /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A562B10F81FA46C788C8C69A /* widget.swift in Sources */,
+				70C178A9E2864399BA396D61 /* widget.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		E5377E9FC1E84E2E9C6D6175 /* PBXTargetDependency */ = {
+		964CE0CA680F4BBF92E8A34D /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 8253B8B2F189438BB27AE9B4 /* widget */;
-			targetProxy = 5C22B864F0F8493099974C0F /* PBXContainerItemProxy */;
+			target = 6FB94B8F608349969CE1D3C8 /* widget */;
+			targetProxy = 5ED3A8FBA0034A3F8559D462 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -477,7 +477,7 @@
 				);
 				OTHER_SWIFT_FLAGS = "$(inherited) -D EXPO_CONFIGURATION_DEBUG";
 				PRODUCT_BUNDLE_IDENTIFIER = com.mansjs.AlNoorPrayer;
-				PRODUCT_NAME = AlNoorPrayer;
+				PRODUCT_NAME = "AlNoorPrayer";
 				SWIFT_OBJC_BRIDGING_HEADER = "AlNoorPrayer/AlNoorPrayer-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -506,7 +506,7 @@
 				);
 				OTHER_SWIFT_FLAGS = "$(inherited) -D EXPO_CONFIGURATION_RELEASE";
 				PRODUCT_BUNDLE_IDENTIFIER = com.mansjs.AlNoorPrayer;
-				PRODUCT_NAME = AlNoorPrayer;
+				PRODUCT_NAME = "AlNoorPrayer";
 				SWIFT_OBJC_BRIDGING_HEADER = "AlNoorPrayer/AlNoorPrayer-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -514,7 +514,7 @@
 			};
 			name = Release;
 		};
-		57723D07F41A492C9B762330 /* Release */ = {
+		2839FC0D77F043789412652C /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -539,7 +539,7 @@
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				MARKETING_VERSION = 1.0.0;
+				MARKETING_VERSION = 1.5.3;
 				MTL_FAST_MATH = YES;
 				OTHER_SWIFT_FLAGS = "$(inherited) -D EXPO_CONFIGURATION_RELEASE";
 				PRODUCT_BUNDLE_IDENTIFIER = com.mansjs.AlNoorPrayer.widget;
@@ -553,7 +553,7 @@
 			};
 			name = Release;
 		};
-		63EFE73325824E06BA8AF8B3 /* Debug */ = {
+		2F0E040367454D6C97C92ED7 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -577,7 +577,7 @@
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				MARKETING_VERSION = 1.0.0;
+				MARKETING_VERSION = 1.5.3;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				OTHER_SWIFT_FLAGS = "$(inherited) -D EXPO_CONFIGURATION_DEBUG";
@@ -730,11 +730,11 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		819DE1F522F9444EAAE9E098 /* Build configuration list for PBXNativeTarget "widget" */ = {
+		19CCBEC508C249B989A3EE00 /* Build configuration list for PBXNativeTarget "widget" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				63EFE73325824E06BA8AF8B3 /* Debug */,
-				57723D07F41A492C9B762330 /* Release */,
+				2F0E040367454D6C97C92ED7 /* Debug */,
+				2839FC0D77F043789412652C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

@@ -25,16 +25,16 @@ import {
     YStack,
     getFontSize,
 } from "tamagui"
-import useCalculationMethodStore from "../store/calculationMethodStore"
-import useCalculationMadhab from "../store/calculationMadhabStore"
-import { SelectMadhab } from "../../components/SelectMadhab/SelectMadhab"
-import SelectLanguagesSheet from "../../components/SelectLanguages/SelectLanguagesSheet"
+import useCalculationMethodStore from "../../store/calculationMethodStore"
+import useCalculationMadhab from "../../store/calculationMadhabStore"
+import { SelectMadhab } from "../../../components/SelectMadhab/SelectMadhab"
+import SelectLanguagesSheet from "../../../components/SelectLanguages/SelectLanguagesSheet"
 import { I18n } from "i18n-js";
-import fr from "../../locales/french/fr.json";
-import en from "../../locales/english/en.json";
-import ar from "../../locales/arabic/ar.json";
-import useLanguageStore from "../store/languagesStore"
-import getPrayerTimesWithCurrentLocation from "../utils/prayer"
+import fr from "../../../locales/french/fr.json";
+import en from "../../../locales/english/en.json";
+import ar from "../../../locales/arabic/ar.json";
+import useLanguageStore from "../../store/languagesStore"
+import getPrayerTimesWithCurrentLocation from "../../utils/prayer"
 
 const App = () => {
     const [open, setOpen] = useState(false)

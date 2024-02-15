@@ -14,7 +14,7 @@ import {
     YGroup,
     YStack,
 } from "tamagui"
-import nameAllahData from "../../assets/data/99_name.json"
+import nameAllahData from "../../../assets/data/99_name.json"
 import { useState } from "react"
 import { XSquare } from "@tamagui/lucide-icons"
 

@@ -1,12 +1,14 @@
 {
   "expo": {
     "scheme": "tamagui-app",
+    "version": "1.5.3",
     "userInterfaceStyle": "dark",
     "splash": {
       "backgroundColor": "#ffffff",
       "image": "./assets/splash.png",
       "resizeMode": "contain"
     },
+
     "plugins": [
       [
         "./app.plugin.js",

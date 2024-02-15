@@ -1,9 +1,10 @@
 import { LocateFixed } from "@tamagui/lucide-icons";
 import moment from "moment";
-import { Button, Card, CardProps, H2, Image, Paragraph, Text, XStack } from "tamagui";
+import { Button, Card, CardProps, H2, Image, Paragraph, Spinner, Text, XStack, YStack } from "tamagui";
 import useGetDateHijri from "../../app/utils/useGetDateHijri";
 import { prayerImages } from "../../utils/utils";
 import { capitalizeFirstLetter } from "../../app/utils/utils";
+import { ActivityIndicator } from "react-native";
 
 interface Props {
     currentPrayer: string
@@ -17,8 +18,9 @@ interface Props {
 
 
 export function CardDemo({ currentPrayer, nextPrayerTime, nextPrayerName,
-    nextPrayerTimeHours, nextPrayerTimeMinutes, city, date
+    nextPrayerTimeHours, nextPrayerTimeMinutes, city, date,
 }: Props) {
+
 
 
 
@@ -40,7 +42,7 @@ export function CardDemo({ currentPrayer, nextPrayerTime, nextPrayerName,
 
 
                 <Paragraph color="white" fontSize={16} fontWeight="800" numberOfLines={1}>
-                    {capitalizeFirstLetter(nextPrayerName)} in {nextPrayerTimeHours > 0 && `${nextPrayerTimeHours} hrs`} {nextPrayerTimeMinutes > 0 && `${nextPrayerTimeMinutes} mins`}
+                    {capitalizeFirstLetter(nextPrayerName)} : {nextPrayerTimeHours > 0 && `${nextPrayerTimeHours} hrs`} {nextPrayerTimeMinutes > 0 ? `${nextPrayerTimeMinutes} mins` : <ActivityIndicator size="small" color="white" />}
                 </Paragraph>
 
             </Card.Header>
@@ -79,7 +81,7 @@ export function CardDemo({ currentPrayer, nextPrayerTime, nextPrayerName,
                     source={{
                         width: 100,
                         height: 100,
-                        uri: prayerImages[currentPrayer]
+                        uri: prayerImages[currentPrayer.toLocaleLowerCase()]
 
                     }}
                 />

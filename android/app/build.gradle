@@ -187,6 +187,21 @@ apply plugin: "kotlin-android"
 apply plugin: "kotlin-android"
 apply plugin: "kotlin-android"
 apply plugin: "kotlin-android"
+apply plugin: "kotlin-android"
+apply plugin: "kotlin-android"
+apply plugin: "kotlin-android"
+apply plugin: "kotlin-android"
+apply plugin: "kotlin-android"
+apply plugin: "kotlin-android"
+apply plugin: "kotlin-android"
+apply plugin: "kotlin-android"
+apply plugin: "kotlin-android"
+apply plugin: "kotlin-android"
+apply plugin: "kotlin-android"
+apply plugin: "kotlin-android"
+apply plugin: "kotlin-android"
+apply plugin: "kotlin-android"
+apply plugin: "kotlin-android"
 apply plugin: "com.facebook.react"
 
 def projectRoot = rootDir.getAbsoluteFile().getParentFile().getAbsolutePath()
@@ -275,7 +290,7 @@ android {
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
-        versionName "1.0.0"
+        versionName "1.5.3"
 
         buildConfigField("boolean", "REACT_NATIVE_UNSTABLE_USE_RUNTIME_SCHEDULER_ALWAYS", (findProperty("reactNative.unstable_useRuntimeSchedulerAlways") ?: true).toString())
     }
@@ -323,6 +338,21 @@ android {
 }
 
 dependencies {
+    implementation 'com.google.code.gson:gson:2.10.1'
+    implementation 'com.google.code.gson:gson:2.10.1'
+    implementation 'com.google.code.gson:gson:2.10.1'
+    implementation 'com.google.code.gson:gson:2.10.1'
+    implementation 'com.google.code.gson:gson:2.10.1'
+    implementation 'com.google.code.gson:gson:2.10.1'
+    implementation 'com.google.code.gson:gson:2.10.1'
+    implementation 'com.google.code.gson:gson:2.10.1'
+    implementation 'com.google.code.gson:gson:2.10.1'
+    implementation 'com.google.code.gson:gson:2.10.1'
+    implementation 'com.google.code.gson:gson:2.10.1'
+    implementation 'com.google.code.gson:gson:2.10.1'
+    implementation 'com.google.code.gson:gson:2.10.1'
+    implementation 'com.google.code.gson:gson:2.10.1'
+    implementation 'com.google.code.gson:gson:2.10.1'
     implementation 'com.google.code.gson:gson:2.10.1'
     implementation 'com.google.code.gson:gson:2.10.1'
     implementation 'com.google.code.gson:gson:2.10.1'

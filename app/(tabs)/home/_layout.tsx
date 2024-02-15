@@ -4,10 +4,10 @@ import { Tabs, useRouter } from "expo-router";
 import { Text, View } from "tamagui";
 import { Button } from "tamagui";
 import { I18n } from "i18n-js";
-import fr from "../../locales/french/fr.json";
-import en from "../../locales/english/en.json";
-import ar from "../../locales/arabic/ar.json";
-import useLanguageStore from "../store/languagesStore"
+import fr from "../../../locales/french/fr.json";
+import en from "../../../locales/english/en.json";
+import ar from "../../../locales/arabic/ar.json";
+import useLanguageStore from "../../store/languagesStore"
 
 export default function Layout() {
     const router = useRouter();
@@ -25,6 +25,8 @@ export default function Layout() {
         <Tabs screenOptions={{
             tabBarStyle: { backgroundColor: "#fffff" },
         }}>
+
+
 
             <Tabs.Screen
                 name="index"
@@ -52,6 +54,7 @@ export default function Layout() {
 
                 }}
             />
+
             <Tabs.Screen
                 name="qibla"
                 options={{
