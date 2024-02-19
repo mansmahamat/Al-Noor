@@ -16,7 +16,6 @@ import fr from "../../../locales/french/fr.json";
 import en from "../../../locales/english/en.json";
 import ar from "../../../locales/arabic/ar.json";
 import useLanguageStore from "../../store/languagesStore"
-import AsyncStorage from "@react-native-async-storage/async-storage"
 
 export const useQiblaCompass = () => {
     const [subscription, setSubscription] = useState(null)
@@ -48,10 +47,8 @@ export const useQiblaCompass = () => {
             }
 
             let location = await Location.getCurrentPositionAsync({})
-            //  let location = await Location.getCurrentPositionAsync({});
             const latitude = 59.3293
             const longitude = 18.0686
-            // const { latitude, longitude } = location.coords;
             calculate(location.coords.latitude,
                 location.coords.longitude)
         } finally {
@@ -135,17 +132,8 @@ export const useQiblaCompass = () => {
         setQiblad(qiblad)
     }
 
-    const compassDirection = direction(degree(magnetometer))
-    const compassDegree = degree(magnetometer)
-    const compassRotate = 360 - degree(magnetometer)
-    const kabaRotate = 360 - degree(magnetometer) + qiblad
-
     return {
         qiblad,
-        compassDirection,
-        compassDegree,
-        compassRotate,
-        kabaRotate,
         error,
         isLoading,
         reinitCompass: initCompass,
@@ -161,10 +149,6 @@ const QiblaCompass = forwardRef(
     ) => {
         const {
             qiblad,
-            compassDirection,
-            compassDegree,
-            compassRotate,
-            kabaRotate,
             error,
             isLoading,
             reinitCompass,
@@ -188,158 +172,35 @@ const QiblaCompass = forwardRef(
             )
         }
 
-
-
-
-        const clearAsyncStorage = async () => {
-            AsyncStorage.clear();
+        if (error) {
+            return (
+                <View style={[styles.container, { backgroundColor }]}>
+                    <Text style={styles.errorText}>{error}</Text>
+                    <Button onPress={reinitCompass}>
+                        <Text>Retry</Text>
+                    </Button>
+                </View>
+            )
         }
 
         return (
             <View style={[styles.container, { backgroundColor }]}>
-                {/* <Button onPress={clearAsyncStorage}>
-                    <Text>Clear Async Storage</Text>
-                </Button> */}
-                {error && (
-                    <Text
-                        style={{
-                            color: "#fff",
-                            fontWeight: "bold",
-                            textAlign: "center",
-                            paddingHorizontal: 20,
-                            fontSize: moderateScale(16, 0.25),
-                            ...textStyles,
-                        }}
-                    >
-                        Error: {error}
-                    </Text>
-                )}
-                <View style={styles.direction}>
-                    <Text fontSize="$9" color="$green8">Qibla
-                    </Text>
-                    {/* <Text >
-                        {compassDirection}
-                    </Text> */}
-                    <Text
-                        textAlign="center"
-                        fontSize="$9" color="$green8"
-                    // style={[styles.directionText, { color, ...textStyles }]}
-                    >
-                        {compassDegree}°
-                    </Text>
-                </View>
-                <View
-                    style={{
-                        width: "200%",
-                        marginTop: 100,
-                        height: moderateScale(300, 0.25),
-                        position: "relative",
-                        justifyContent: "center",
-                        alignItems: "center"
-
-                    }}
-                >
-                    <Image
-                        source={require("../../../assets/compass_bg.png")}
-                        style={[
-                            styles.image,
-                            {
-                                transform: [
-                                    {
-                                        rotate: compassRotate + "deg",
-                                    },
-                                ],
-                            },
-                        ]}
-                    />
-                    <View
-                        style={{
-                            width: moderateScale(500, 0.25),
-                            height: moderateScale(500, 0.25),
-                            position: "absolute",
-                            alignSelf: "center",
-                            transform: [
-                                {
-                                    rotate: `${kabaRotate}deg`,
-                                },
-                            ],
-                            flexDirection: "row",
-                            justifyContent: "center",
-                            zIndex: 999,
-                        }}
-                    >
-                        <Image
-                            source={require("../../../assets/compass_pointer.png")}
-                            style={{
-                                resizeMode: "contain",
-                                height: 30,
-                                paddingBottom: 150,
-                                marginTop: 20,
-                                width: 30,
-                                zIndex: 999,
-                            }}
-                        />
-                    </View>
-                </View>
-                <View style={styles.qiblaDirection}>
-                    {/* <Image
-                        source={require("../../assets/kaaba.png")}
-                        style={{
-                            width: moderateScale(35, 0.25),
-                            height: moderateScale(35, 0.25),
-                        }}
-                    /> */}
-                    <Text
-                        fontSize="$9" color="$green8"
-                    >
-                        {qiblad.toFixed(0)}°
-                    </Text>
-                    <Text
-                        textAlign="center"
-
-                        fontSize="$9" color="$green8"
-                    //   style={[styles.directionText, { color, ...textStyles }]}
-                    >
-                        {qiblad.toFixed(0) == compassDegree && "Qibla "}
-                    </Text>
-                </View>
+                <Text>Qibla Compass</Text>
+                {/* Add your compass display here */}
             </View>
         )
     }
 )
 
-
-
 const styles = StyleSheet.create({
-    image: {
-        resizeMode: "contain",
-        alignSelf: "center",
-        position: "absolute",
-        top: 0,
-        width: moderateScale(300, 0.25),
-        height: moderateScale(300, 0.25),
-    },
     container: {
-        backgroundColor: "#f00",  // Background color of the container
-        justifyContent: "center",  // Aligns content vertically in the center
-        alignItems: "center",  // Aligns content horizontally in the center
-        position: "relative",
-        height: "100%",
-    },
-    direction: {
-        textAlign: "center",
-        zIndex: 300,
-        color: "#4c6c53 !important",
-    },
-    directionText: {
-        textAlign: "center",
-        fontSize: 30,
-
-    },
-    qiblaDirection: {
-        flexDirection: "row",
+        flex: 1,
         justifyContent: "center",
         alignItems: "center",
+    },
+    errorText: {
+        color: "red",
+        marginBottom: 20,
     },
 })
 

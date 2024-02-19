@@ -16,3 +16,7 @@ web-build/
 .DS_Store
 
 yarn-error.log
+# Expo
+.expo
+dist/
+web-build/

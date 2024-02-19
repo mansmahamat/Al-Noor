@@ -23,6 +23,7 @@ import { useOnboardingStore } from "../../store/onBoardingStore";
 import useGetPrayer from "../../utils/useGetPrayer";
 import { useLocationStore } from "../../store/locationStore";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { getNextPrayer } from "../../utils/getNextPrayer";
 
 
 // Define a task name
@@ -33,12 +34,37 @@ TaskManager.defineTask(BACKGROUND_FETCH_TASK, async () => {
     const now = Date.now();
 
 
+    const nextPrayer = await getNextPrayer();
+
+    const { nextPrayerName, nextPrayerTime } = nextPrayer;
+
+
+    if (nextPrayerTime && nextPrayerTime > new Date()) {
+        scheduleNextPrayerNotification(nextPrayerTime, `It's time for ${nextPrayerName} prayer`);
+    }
     console.log(`Got background fetch call MANSs at date: ${new Date(now).toISOString()}`);
 
     // Be sure to return the successful result type!
     return BackgroundFetch.BackgroundFetchResult.NewData;
 });
 
+// const retrieveNextPrayerFromStorage = async () => {
+//     try {
+//         const nextPrayer = await getNextPrayer();
+//         if (nextPrayer) {
+
+//             console.log('Next prayer name:', nextPrayerName);
+//             console.log('Next prayer time:', nextPrayerTime);
+//         } else {
+//             console.log('Next prayer not found in AsyncStorage');
+//         }
+//     } catch (error) {
+//         console.error('Error retrieving next prayer:', error);
+//     }
+// };
+
+// // Call the function to retrieve and log the next prayer details
+// retrieveNextPrayerFromStorage();
 
 
 const GROUP_NAME = "group.com.mansjs.AlNoorPrayer";
@@ -150,7 +176,7 @@ const App = () => {
 
     const formattedPrayerTimes = prayersToday.map(prayer => ({
         name: capitalizeFirstLetter(prayer.name),
-        time: new Date(prayer.time).toLocaleTimeString('en-US', { hour12: false, hour: '2-digit', minute: '2-digit' })
+        time: new Date(prayer.time).toLocaleTimeString('fr-FR', { hour12: false, hour: '2-digit', minute: '2-digit' })
     })).filter(prayer => prayer.name !== "Sunrise");
 
 
@@ -159,11 +185,26 @@ const App = () => {
     const [nextPrayerTimeMinutes, setnextPrayerTimeMinutes] = useState<number | null>()
     const formattedTime = nextPrayerTime.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
 
+
+
+
     useEffect(() => {
         setSharedDataArray("prayerTime", formattedPrayerTimes);
-        setSharedData("prayerTime", formattedTime);
+        //  setSharedData("prayerTime", formattedTime);
         setSharedData("prayerName", nextPrayerName);
         reloadAll();
+
+
+        const storeNextPrayer = async (nextPrayerName, nextPrayerTime) => {
+            try {
+                await AsyncStorage.setItem('nextPrayerName', nextPrayerName);
+                await AsyncStorage.setItem('nextPrayerTime', nextPrayerTime.toString()); // Convert Date object to string
+            } catch (error) {
+                console.error('Error storing next prayer:', error);
+            }
+        };
+
+        storeNextPrayer(nextPrayerName, nextPrayerTime);
 
 
 
@@ -185,6 +226,7 @@ const App = () => {
         }, 1000)
         return () => {
             clearInterval(intervalId) // Clean up the interval on unmount
+
         }
     }, [nextPrayerTime])
 
@@ -238,10 +280,7 @@ const App = () => {
         return difference;
     }
 
-    // Function to schedule a notification for the next prayer time
-    async function scheduleNextPrayerNotification(dateTime, message) {
-        await schedulePushNotification(dateTime, message); // Assume this function is already defined
-    }
+
 
     const difference = calculateTimeDifference(nextPrayerTime);
 
@@ -292,9 +331,6 @@ const App = () => {
     useEffect(() => {
 
 
-        if (nextPrayerTime && nextPrayerTime > new Date()) {
-            scheduleNextPrayerNotification(nextPrayerTime, `It's time for ${nextPrayerName} prayer`);
-        }
 
 
 
@@ -313,6 +349,7 @@ const App = () => {
                 BackgroundFetch.unregisterTaskAsync(BACKGROUND_FETCH_TASK);
             });
         };
+        //  }, [nextPrayerTime]); // Trigger effect when the nextPrayer or timings change
     }, [nextPrayerTime]); // Trigger effect when the nextPrayer or timings change
 
 
@@ -371,7 +408,10 @@ const App = () => {
     );
 }
 
-
+// Function to schedule a notification for the next prayer time
+async function scheduleNextPrayerNotification(dateTime, message) {
+    await schedulePushNotification(dateTime, message); // Assume this function is already defined
+}
 
 async function schedulePushNotification(dateTime, message) {
     await Notifications.scheduleNotificationAsync({

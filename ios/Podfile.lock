@@ -20,15 +20,15 @@ PODS:
     - ExpoModulesCore
   - Expo (49.0.21):
     - ExpoModulesCore
-  - expo-dev-client (2.4.12):
+  - expo-dev-client (2.4.13):
     - EXManifests
     - expo-dev-launcher
     - expo-dev-menu
     - expo-dev-menu-interface
     - EXUpdatesInterface
-  - expo-dev-launcher (2.4.14):
+  - expo-dev-launcher (2.4.15):
     - EXManifests
-    - expo-dev-launcher/Main (= 2.4.14)
+    - expo-dev-launcher/Main (= 2.4.15)
     - expo-dev-menu
     - expo-dev-menu-interface
     - ExpoModulesCore
@@ -36,7 +36,7 @@ PODS:
     - RCT-Folly (= 2021.07.22.00)
     - React-Core
     - React-RCTAppDelegate
-  - expo-dev-launcher/Main (2.4.14):
+  - expo-dev-launcher/Main (2.4.15):
     - EXManifests
     - expo-dev-launcher/Unsafe
     - expo-dev-menu
@@ -46,7 +46,7 @@ PODS:
     - RCT-Folly (= 2021.07.22.00)
     - React-Core
     - React-RCTAppDelegate
-  - expo-dev-launcher/Unsafe (2.4.14):
+  - expo-dev-launcher/Unsafe (2.4.15):
     - EXManifests
     - expo-dev-menu
     - expo-dev-menu-interface
@@ -55,23 +55,23 @@ PODS:
     - RCT-Folly (= 2021.07.22.00)
     - React-Core
     - React-RCTAppDelegate
-  - expo-dev-menu (3.2.2):
-    - expo-dev-menu/Main (= 3.2.2)
+  - expo-dev-menu (3.2.4):
+    - expo-dev-menu/Main (= 3.2.4)
     - RCT-Folly (= 2021.07.22.00)
     - React-Core
   - expo-dev-menu-interface (1.3.0)
-  - expo-dev-menu/Main (3.2.2):
+  - expo-dev-menu/Main (3.2.4):
     - EXManifests
     - expo-dev-menu-interface
     - expo-dev-menu/Vendored
     - ExpoModulesCore
     - RCT-Folly (= 2021.07.22.00)
     - React-Core
-  - expo-dev-menu/SafeAreaView (3.2.2):
+  - expo-dev-menu/SafeAreaView (3.2.4):
     - ExpoModulesCore
     - RCT-Folly (= 2021.07.22.00)
     - React-Core
-  - expo-dev-menu/Vendored (3.2.2):
+  - expo-dev-menu/Vendored (3.2.4):
     - expo-dev-menu/SafeAreaView
     - RCT-Folly (= 2021.07.22.00)
     - React-Core
@@ -835,9 +835,9 @@ SPEC CHECKSUMS:
   EXManifests: cf66451b11b2c2f6464917528d792759f7fd6ce0
   EXNotifications: 09394cbd7165f9a4a00a53328aa09bf874bae717
   Expo: 61a8e1aa94311557c137c0a4dfd4fe78281cfbb4
-  expo-dev-client: 1e20e0d67534fd63da37604747a60e7d69fc46f5
-  expo-dev-launcher: e9411e0c91abaa448682d0fa688957e7dbff356e
-  expo-dev-menu: f7036f78c69f0f6ecb386f5543a06266dde64bf5
+  expo-dev-client: f350e6ddced33d2c14008c6d70c7904c0cd78b1f
+  expo-dev-launcher: 3c29a60a0e17e62d02cddcb6c106a25f63f1c75c
+  expo-dev-menu: c5f789b6228f4176f83a1f47dba54350e63437e1
   expo-dev-menu-interface: bda969497e73dadc2663c479e0fa726ca79a306e
   ExpoDevice: 1c1b0c9cad96c292c1de73948649cfd654b2b3c0
   ExpoHead: ac95331e2a45cb94f6aee8ba6b8cb3d0a2cc6817

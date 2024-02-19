@@ -1,5 +1,5 @@
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { Compass, Home, List, Settings } from "@tamagui/lucide-icons";
+import { Calendar, CalendarCheck, Compass, Home, List, Settings, UtensilsCrossed } from "@tamagui/lucide-icons";
 import { Tabs, useRouter } from "expo-router";
 import { Text, View } from "tamagui";
 import { Button } from "tamagui";
@@ -49,6 +49,78 @@ export default function Layout() {
                     tabBarIcon(props) {
                         return (
                             <Home color="#4c6c53" />
+                        );
+                    },
+
+                }}
+            />
+
+            <Tabs.Screen
+                name="tracker"
+                options={{
+                    headerStatusBarHeight: 0,
+                    tabBarAccessibilityLabel: "Qibla",
+                    // headerTintColor: "#4c6c53",
+                    headerBackground: () => (
+                        <View style={{ backgroundColor: "#4c6c53", height: 80 }} />
+                    ),
+
+                    // headerBackgroundContainerStyle: {
+                    //     backgroundColor: "#4c6c53",
+                    // },
+                    tabBarStyle: {
+
+                        borderTopColor: "#4c6c53",
+                        borderTopWidth: 0,
+                    },
+
+                    tabBarLabel: () => (
+                        <Text style={{ color: "#4c6c53" }}>
+                            {/* {i18n.t('menu.qibla')} */}
+                        </Text>
+                    ),
+                    tabBarBackground: () => (
+                        <View style={{ backgroundColor: "#4c6c53", height: 80 }} />
+                    ),
+                    tabBarIcon(props) {
+                        return (
+                            <CalendarCheck color="#4c6c53" />
+                        );
+                    },
+
+                }}
+            />
+
+            <Tabs.Screen
+                name="fasting"
+                options={{
+                    headerStatusBarHeight: 0,
+                    tabBarAccessibilityLabel: "Qibla",
+                    // headerTintColor: "#4c6c53",
+                    headerBackground: () => (
+                        <View style={{ backgroundColor: "#4c6c53", height: 80 }} />
+                    ),
+
+                    // headerBackgroundContainerStyle: {
+                    //     backgroundColor: "#4c6c53",
+                    // },
+                    tabBarStyle: {
+
+                        borderTopColor: "#4c6c53",
+                        borderTopWidth: 0,
+                    },
+
+                    tabBarLabel: () => (
+                        <Text style={{ color: "#4c6c53" }}>
+                            {/* {i18n.t('menu.qibla')} */}
+                        </Text>
+                    ),
+                    tabBarBackground: () => (
+                        <View style={{ backgroundColor: "#4c6c53", height: 80 }} />
+                    ),
+                    tabBarIcon(props) {
+                        return (
+                            <UtensilsCrossed color="#4c6c53" />
                         );
                     },
 

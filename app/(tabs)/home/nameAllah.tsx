@@ -17,16 +17,32 @@ import {
 import nameAllahData from "../../../assets/data/99_name.json"
 import { useState } from "react"
 import { XSquare } from "@tamagui/lucide-icons"
+import useLanguageStore from "../../store/languagesStore"
+import { I18n } from "i18n-js";
+import fr from "../../../locales/french/fr.json";
+import en from "../../../locales/english/en.json";
+
 
 
 const App = () => {
     const [open, setOpen] = useState(false)
 
+    const { language, updateLanguage } = useLanguageStore();
+
+    const i18n = new I18n({
+        ...fr,
+        ...en,
+    });
+
+    i18n.locale = language;
+
+    console.log("language,", language)
+
     return (
         <ScrollView>
             <YStack paddingVertical="$4" paddingHorizontal="$4">
                 <H2 marginBottom="$8">
-                    99 Names Of Allah
+                    {i18n.t('nameAllah.title')}
                 </H2>
                 <YGroup
                     alignSelf="center"
@@ -50,7 +66,7 @@ const App = () => {
                                     backgroundColor="#4c6c53"
                                     borderColor="white"
                                     title={`${item.number} - ${item.transliteration}`}
-                                    subTitle={` ${item.en.meaning} - ${item.name} `}
+                                    subTitle={language === "en" ? ` ${item.en.meaning} - ${item.name} ` : ` ${item.fr.meaning} - ${item.name} `}
                                 />
                             </Dialog.Trigger>
 
@@ -94,10 +110,14 @@ const App = () => {
                                     exitStyle={{ x: 0, y: 10, opacity: 0, scale: 0.95 }}
                                     gap="$4"
                                 >
-                                    <Dialog.Title>{item.en.meaning} - {item.name}</Dialog.Title>
+                                    <Dialog.Title>
+                                        {language === 'en' ? `${item.en.meaning} ${item.name}` : `${item.fr.meaning} ${item.name}`}
+                                    </Dialog.Title>
                                     <Dialog.Description>
                                         <Paragraph>
-                                            {item.en.desc}
+                                            {
+                                                language === 'en' ? item.en.desc : decodeURIComponent(JSON.parse(`"${item.fr.desc}"`))
+                                            }
                                         </Paragraph>
 
 
