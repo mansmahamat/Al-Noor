@@ -14,7 +14,10 @@ import {
 import { ContributionChartValue } from 'react-native-chart-kit/dist/contribution-graph/ContributionGraph';
 import { RectProps } from 'react-native-svg';
 import Swiper from 'react-native-web-swiper';
-
+import { I18n } from "i18n-js";
+import fr from "../../../locales/french/fr.json";
+import en from "../../../locales/english/en.json";
+import useLanguageStore from '../../store/languagesStore';
 
 const Tracker = () => {
     const [date, setDate] = useState(new Date());
@@ -255,8 +258,20 @@ const Tracker = () => {
     };
 
 
-    console.log("monthCounts", prayerStatus);
 
+    const i18n = new I18n({
+        ...fr,
+        ...en,
+    });
+
+    const { language, updateLanguage } = useLanguageStore();
+
+
+    // const locale = getLocales();
+    // const localeCode = locale[0].languageCode;
+
+    i18n.defaultLocale = "en";
+    i18n.locale = language;
 
 
 
@@ -267,7 +282,7 @@ const Tracker = () => {
                 <YGroup space="$4" >
                     <XStack alignItems="center" justifyContent="center" borderColor="$color" borderRadius="$4">
                         <H2 textAlign='center'>
-                            Prayer Tracker
+                            {i18n.t('prayerTracker.title')}
                         </H2>
                     </XStack>
                     <XStack alignItems="center" justifyContent="center" borderColor="$color" borderRadius="$4">
@@ -307,7 +322,7 @@ const Tracker = () => {
                             defaultValue="tab1"
                             orientation="horizontal"
                             flexDirection="column"
-                            width={400}
+                            width={screenWidth - 38}
                             height={300}
                             marginTop="$8"
                             borderRadius="$4"

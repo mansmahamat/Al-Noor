@@ -11,6 +11,10 @@ import {
 
     ContributionGraph, LineChart, ProgressChart,
 } from "react-native-chart-kit";
+import { I18n } from "i18n-js";
+import fr from "../../../locales/french/fr.json";
+import en from "../../../locales/english/en.json";
+import useLanguageStore from '../../store/languagesStore';
 
 const FastingTracker = () => {
     const [date, setDate] = useState(new Date());
@@ -144,41 +148,35 @@ const FastingTracker = () => {
 
     const screenWidth = Dimensions.get("window").width;
 
+
+    const i18n = new I18n({
+        ...fr,
+        ...en,
+    });
+
+    const { language, updateLanguage } = useLanguageStore();
+
+
+    // const locale = getLocales();
+    // const localeCode = locale[0].languageCode;
+
+    i18n.defaultLocale = "en";
+    i18n.locale = language;
+
+
     return (
         <MyStack>
             <ScrollView>
                 <YGroup space="$4" >
                     <XStack alignItems="center" justifyContent="center" borderColor="$color" borderRadius="$4">
                         <H2 textAlign='center'>
-                            Fasting Tracker
+                            {i18n.t('fasting.title')}
                         </H2>
-                        {/* <DateTimePicker
-                            testID="dateTimePicker"
-                            style={{ backgroundColor: "#4c6c53" }}
-                            textColor="#ffffff"
-                            themeVariant="dark"
-                            collapsable={true}
-                            value={date}
-                            mode="date"
-                            is24Hour={true}
-                            onChange={(event, selectedDate) => setDate(selectedDate || date)}
-                        />
-                        {date.toDateString() !== today.toDateString() && <TouchableOpacity onPress={resetDate}>
-                            <XCircle style={{ marginLeft: 5 }} size={24} color="red" />
-                        </TouchableOpacity>} */}
+
                     </XStack>
 
 
-                    {/* <ListItem
-                            backgroundColor="#4c6c53"
-                            color="white"
-                            borderColor="#ffffff"
-                            height="$6"
-                            title="Fasting"
-                            onPress={() => toggleFastingStatus(date)}
-                        >
-                            {fastingStatus.find(status => status.date === formatDate(date))?.fasting && <Text>✓</Text>}
-                        </ListItem> */}
+
 
                     <Calendar
                         theme={{
@@ -225,7 +223,7 @@ const FastingTracker = () => {
                         values={formattedFastingData}
                         endDate={new Date(dateOnly)}
                         numDays={105}
-                        width={screenWidth}
+                        width={screenWidth - 40}
                         height={220}
                         chartConfig={chartConfig}
                     />

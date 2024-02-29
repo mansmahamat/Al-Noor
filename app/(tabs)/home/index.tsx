@@ -36,12 +36,12 @@ TaskManager.defineTask(BACKGROUND_FETCH_TASK, async () => {
 
     const nextPrayer = await getNextPrayer();
 
-    const { nextPrayerName, nextPrayerTime } = nextPrayer;
+    // const { nextPrayerName, nextPrayerTime } = nextPrayer;
 
 
-    if (nextPrayerTime && nextPrayerTime > new Date()) {
-        scheduleNextPrayerNotification(nextPrayerTime, `It's time for ${nextPrayerName} prayer`);
-    }
+    // if (nextPrayerTime && nextPrayerTime > new Date()) {
+    //     scheduleNextPrayerNotification(nextPrayerTime, `It's time for ${nextPrayerName} prayer`);
+    // }
     console.log(`Got background fetch call MANSs at date: ${new Date(now).toISOString()}`);
 
     // Be sure to return the successful result type!
@@ -330,7 +330,23 @@ const App = () => {
 
     useEffect(() => {
 
+        if (difference === 0) {
+            // Calculate the next prayer time after the current time
+            const nextPrayerAfterNow = prayersToday.find(prayer => new Date(prayer.time) > new Date());
+            console.log(`Mans time: ${nextPrayerName}`);
+            scheduleNextPrayerNotification(nextPrayerAfterNow.time, `It's time for ${nextPrayerAfterNow.name} prayer`);
+            // If there's a prayer time after now, use it for scheduling notification
+            if (nextPrayerAfterNow) {
 
+                scheduleNextPrayerNotification(nextPrayerAfterNow.time, `It's time for ${nextPrayerAfterNow.name} prayer`);
+            } else {
+                // If no prayer time is found after now, the day's prayers have ended
+                // You can handle this case as needed, maybe schedule a notification for the next day's Fajr prayer
+            }
+        } else {
+            // If the difference is positive, schedule notification for the next prayer time
+            scheduleNextPrayerNotification(nextPrayerTime, `It's time for ${nextPrayerName} prayer`);
+        }
 
 
 
