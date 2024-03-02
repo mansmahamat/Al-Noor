@@ -223,7 +223,7 @@ const FastingTracker = () => {
                         values={formattedFastingData}
                         endDate={new Date(dateOnly)}
                         numDays={105}
-                        width={screenWidth - 40}
+                        width={screenWidth - 50}
                         height={220}
                         chartConfig={chartConfig}
                     />

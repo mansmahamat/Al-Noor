@@ -322,12 +322,11 @@ const Tracker = () => {
                             defaultValue="tab1"
                             orientation="horizontal"
                             flexDirection="column"
-                            width={screenWidth - 38}
+                            width={screenWidth - 50}
                             height={300}
                             marginTop="$8"
                             borderRadius="$4"
-                            borderWidth="$0.25"
-                            overflow="hidden"
+                            overflow="scroll"
                             borderColor="$borderColor"
                         >
                             <Tabs.List
@@ -363,7 +362,7 @@ const Tracker = () => {
                             <TabsContent value="tab2">
                                 <ProgressChart
                                     data={formattedDataChart}
-                                    width={screenWidth - 36}
+                                    width={screenWidth - 50}
                                     height={200}
                                     strokeWidth={12}
                                     radius={32}
@@ -375,7 +374,7 @@ const Tracker = () => {
                             <TabsContent value="tab3">
                                 <LineChart
                                     data={datas}
-                                    width={screenWidth}
+                                    width={screenWidth - 50}
                                     height={200}
                                     verticalLabelRotation={30}
                                     chartConfig={chartConfig}

@@ -52,7 +52,6 @@ import { useLocationStore } from './store/locationStore';
 const OnboardingScreen = () => {
 
 
-  const router = useRouter()
   const { onboardingCompleted, completeOnboarding } = useOnboardingStore()
   const { language } = useLanguageStore();
   const { setLatitudeLongitude } = useLocationStore();
@@ -103,6 +102,15 @@ const OnboardingScreen = () => {
           title: 'Happy Prayers, God Bless',
           subtitle: 'Wishing you joyful and fulfilling prayers. May Allah bless your journey and grant you peace, prosperity, and happiness. Happy praying!',
           imageUri: Image.resolveAssetSource(require('../assets/image3.png')).uri,
+          titleStyle: { fontSize: 23, fontWeight: '700', color: 'white' },
+          subtitleStyle: { fontSize: 16, color: 'white', marginTop: 20 },
+
+
+        },
+        {
+          title: 'Onboarding Complete! 🌙',
+          subtitle: 'You are now ready to use our app. May Allah bless your journey and grant you peace, prosperity, and happiness. Happy praying!',
+          imageUri: Image.resolveAssetSource(require('../assets/mans.png')).uri,
           titleStyle: { fontSize: 23, fontWeight: '700', color: 'white' },
           subtitleStyle: { fontSize: 16, color: 'white', marginTop: 20 },
 

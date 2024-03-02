@@ -1,8 +1,8 @@
 export     const prayerImages = {
-    fajr: "https://res.cloudinary.com/mansdesmez/image/upload/v1704230717/fajr_ehp8ew.png",
-    sunrise: "https://res.cloudinary.com/mansdesmez/image/upload/v1704230717/fajr_ehp8ew.png",
-    dhuhr: "https://res.cloudinary.com/mansdesmez/image/upload/v1704230714/dhur_jl8wux.png",
-    asr: "https://res.cloudinary.com/mansdesmez/image/upload/v1704230718/asr_bfju85.png",
-    maghrib: "https://res.cloudinary.com/mansdesmez/image/upload/v1704230715/maghrib_mhd459.png",
-    isha: "https://res.cloudinary.com/mansdesmez/image/upload/v1704230716/isha_qeesqw.png"
+    fajr: require("../assets/fajr_ehp8ew.png"),
+    sunrise: require("../assets/fajr_ehp8ew.png"),
+    dhuhr: require("../assets/dhur_jl8wux.png"),
+    asr: require("../assets/asr_bfju85.png"),
+    maghrib: require("../assets/maghrib_mhd459.png"),
+    isha: require("../assets/isha_qeesqw.png")
 }
