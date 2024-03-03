@@ -632,8 +632,8 @@ struct widget: Widget {
         StaticConfiguration(kind: kind, provider: Provider()) { entry in
             WidgetView(entry: entry) // Use the WidgetView here
         }
-        .configurationDisplayName("Widget name")
-        .description("Widget description")
+        .configurationDisplayName(" Prayer Timings")
+        .description("Shows the current prayer timings.")
         .supportedFamilies([.systemSmall, .systemMedium])
     }
 }
