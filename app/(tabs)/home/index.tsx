@@ -24,6 +24,8 @@ import useGetPrayer from "../../utils/useGetPrayer";
 import { useLocationStore } from "../../store/locationStore";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { getNextPrayer } from "../../utils/getNextPrayer";
+import useFormattedDataStore from "../../store/prayerStreakStore";
+import useStreakStore from "../../store/streakStore";
 
 
 // Define a task name
@@ -91,6 +93,8 @@ function formatTime(timeString) {
 
 
 const App = () => {
+
+    const { streakDays: streakDayStore } = useStreakStore()
 
 
 
@@ -186,12 +190,101 @@ const App = () => {
     const formattedTime = nextPrayerTime.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
 
 
+    // Format date to yyyy/mm/dd
+    const formatDate = (date) => {
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const day = String(date.getDate()).padStart(2, '0');
+        return `${year}-${month}-${day}`;
+    };
+
+    const currentMonthStreak = moment().month() + 1; // Months are 0-indexed, so add 1
+    const currentYearStreak = moment().year();
+
+    const [prayerStatus, setPrayerStatus] = useState([]);
+
+
+
+    const loadPrayerStatus = async () => {
+        try {
+            const savedPrayerStatus = await AsyncStorage.getItem('globalPrayerStatus');
+            if (savedPrayerStatus !== null) {
+                setPrayerStatus(JSON.parse(savedPrayerStatus));
+            } else {
+                setPrayerStatus([]);
+            }
+        } catch (error) {
+            console.error('Error loading prayer status:', error);
+        }
+    };
+
+
+    const countMap = {};
+
+    // Iterate over each object in the data array
+    prayerStatus.forEach(entry => {
+        const date = entry.date;
+        let count = 0;
+
+        // Count the number of prayers completed on this date
+        Object.values(entry).forEach(value => {
+            if (typeof value === 'boolean' && value === true) {
+                count++;
+            }
+        });
+
+        // Update the count for this date in the countMap
+        countMap[date] = (countMap[date] || 0) + count;
+    });
+
+    useEffect(() => {
+        loadPrayerStatus();
+    }, []);
+
+    const formatDateStreak = (dateStr) => {
+        // Convert the string date to a Date object
+        const date = new Date(dateStr);
+
+        // Extract year, month, and day from the Date object
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const day = String(date.getDate()).padStart(2, '0');
+
+        // Return formatted date string
+        return `${year}-${month}-${day}`;
+    };
+    type DateCountPair = {
+        date: string;
+        count: number;
+    };
+
+    const formattedData = Object.entries(countMap).map(([date, count]) => ({
+        date: formatDateStreak(date),
+        count: count
+    }));
+
+    // Filter the streak days for the current month with a count of 5
+
+
+    // Filter the array for dates with count 5 and in the current month
+    const streakDays = formattedData
+        .filter(item => {
+            const itemDate = moment(item.date);
+            return itemDate.month() + 1 === currentMonthStreak && itemDate.year() === currentYearStreak && item.count === 5;
+        })
+        .map(item => moment(item.date).date())
+        .sort((a, b) => a - b); // Extract the day part
+
+
+
+
 
 
     useEffect(() => {
         setSharedDataArray("prayerTime", formattedPrayerTimes);
         //  setSharedData("prayerTime", formattedTime);
         setSharedData("prayerName", nextPrayerName);
+        //      setSharedDataArray("streakDays", streakDays);
         reloadAll();
 
 
@@ -366,7 +459,7 @@ const App = () => {
             });
         };
         //  }, [nextPrayerTime]); // Trigger effect when the nextPrayer or timings change
-    }, [nextPrayerTime]); // Trigger effect when the nextPrayer or timings change
+    }, []); // Trigger effect when the nextPrayer or timings change
 
 
 

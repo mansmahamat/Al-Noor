@@ -18,6 +18,16 @@ import { I18n } from "i18n-js";
 import fr from "../../../locales/french/fr.json";
 import en from "../../../locales/english/en.json";
 import useLanguageStore from '../../store/languagesStore';
+import moment from 'moment';
+import { reloadAll, setArray, setItem } from '../../../modules/widget';
+import { s } from 'react-native-size-matters';
+import useStreakStore from '../../store/streakStore';
+
+const GROUP_NAME = "group.com.mansjs.AlNoorPrayer";
+
+
+const setSharedData = setItem(GROUP_NAME);
+const setSharedDataArray = setArray(GROUP_NAME);
 
 const Tracker = () => {
     const [date, setDate] = useState(new Date());
@@ -52,21 +62,7 @@ const Tracker = () => {
     };
 
     // Toggle prayer completion status
-    const togglePrayerStatus = (selectedDate, prayerName) => {
-        const updatedStatus = [...prayerStatus];
-        const index = updatedStatus.findIndex(status => status.date === formatDate(selectedDate));
-        if (index !== -1) {
-            updatedStatus[index][prayerName.toLowerCase()] = !updatedStatus[index][prayerName.toLowerCase()];
-        } else {
-            const newStatus = { date: formatDate(selectedDate) };
-            prayerList.forEach(prayer => {
-                newStatus[prayer.name.toLowerCase()] = prayer.name.toLowerCase() === prayerName.toLowerCase();
-            });
-            updatedStatus.push(newStatus);
-        }
-        setPrayerStatus(updatedStatus);
-        savePrayerStatus();
-    };
+
 
     // Reset date to today
     const resetDate = () => {
@@ -115,14 +111,62 @@ const Tracker = () => {
         count
     }));
 
-    console.log(formattedData);
+
+    // Filter the streak days for the current month with a count of 5
+    const currentMonthStreak = moment().month() + 1; // Months are 0-indexed, so add 1
+    const currentYearStreak = moment().year();
+
+    // Filter the array for dates with count 5 and in the current month
+    const streakDays = formattedData
+        .filter(item => {
+            const itemDate = moment(item.date);
+            return itemDate.month() + 1 === currentMonthStreak && itemDate.year() === currentYearStreak && item.count === 5;
+        })
+        .map(item => moment(item.date).date())
+        .sort((a, b) => a - b); // Extract the day part
+
+
+
+
+    const { setStreakDays } =
+        useStreakStore();
+
+    const togglePrayerStatus = (selectedDate, prayerName) => {
+        const updatedStatus = [...prayerStatus];
+        const index = updatedStatus.findIndex(status => status.date === formatDate(selectedDate));
+        if (index !== -1) {
+            updatedStatus[index][prayerName.toLowerCase()] = !updatedStatus[index][prayerName.toLowerCase()];
+        } else {
+            const newStatus = { date: formatDate(selectedDate) };
+            prayerList.forEach(prayer => {
+                newStatus[prayer.name.toLowerCase()] = prayer.name.toLowerCase() === prayerName.toLowerCase();
+            });
+            updatedStatus.push(newStatus);
+        }
+        setPrayerStatus(updatedStatus);
+        savePrayerStatus();
+    };
+
+
+    setSharedDataArray("streakDays", streakDays);
+
+    useEffect(() => {
+
+        setSharedDataArray("streakDays", streakDays);
+
+    }, [prayerStatus]);
+
+
+
+
+
+
 
     // Function to format date
     function formatDates(dateString) {
         return dateString.replace(/\//g, "-");
     }
 
-    console.log(prayerStatus);
     const value = [
         { date: "2017-01-02", count: 1 },
         { date: "2017-01-03", count: 2 },

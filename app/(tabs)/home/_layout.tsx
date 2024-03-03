@@ -58,6 +58,7 @@ export default function Layout() {
             <Tabs.Screen
                 name="tracker"
                 options={{
+                    unmountOnBlur: true,
                     headerStatusBarHeight: 0,
                     tabBarAccessibilityLabel: "Qibla",
                     // headerTintColor: "#4c6c53",

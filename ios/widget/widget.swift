@@ -1,190 +1,3 @@
-// import WidgetKit
-// import SwiftUI
-// import Foundation
-
-// struct Provider: TimelineProvider {
-
-    
-//     func placeholder(in context: Context) -> SimpleEntry {
-//         SimpleEntry(date: Date(), text: "", prayerTime: [])
-//     }
-    
-//     func getSnapshot(in context: Context, completion: @escaping (SimpleEntry) -> ()) {
-//         let entry = SimpleEntry(date: Date(), text: "", prayerTime: [])
-//         completion(entry)
-//     }
-    
-//     func getTimeline(in context: Context, completion: @escaping (Timeline<Entry>) -> ()) {
-//         let prayerArray = getArray()
-//         let prayerTimes = convertToPrayerTimes(prayerArray: prayerArray)
-//         let entry = SimpleEntry(date: Date(), text: "Prayer Timings", prayerTime: prayerTimes)
-//         let timeline = Timeline(entries: [entry], policy: .never)
-//         completion(timeline)
-//     }
-
-
-
-//     private func getArray() -> [[String: String]] {
-//     let userDefaults = UserDefaults(suiteName: "group.com.mansjs.AlNoorPrayer")
-//     guard let jsonString = userDefaults?.string(forKey: "prayerTime"),
-//           let data = jsonString.data(using: .utf8),
-//           let array = try? JSONDecoder().decode([[String: String]].self, from: data) else {
-//         return []
-//     }
-//     return array
-// }
-
-    
-//     private func convertToPrayerTimes(prayerArray: [[String: String]]) -> [PrayerTime] {
-//         var prayerTimes: [PrayerTime] = []
-//         for prayerDict in prayerArray {
-//             if let name = prayerDict["name"], let time = prayerDict["time"] {
-//                 prayerTimes.append(PrayerTime(name: name.capitalized, time: time))
-//             }
-//         }
-//         return prayerTimes
-//     }
-    
-//     private func formatTime(time: String) -> String {
-//         let dateFormatter = DateFormatter()
-//         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
-//         guard let date = dateFormatter.date(from: time) else {
-//             return ""
-//         }
-//         dateFormatter.dateFormat = "HH:mm"
-//         return dateFormatter.string(from: date)
-//     }
-// }
-
-// struct SimpleEntry: TimelineEntry {
-//     let date: Date
-//     let text: String
-//     let prayerTime: [PrayerTime]
-// }
-
-// struct WidgetEntryView: View {
-//     var entry: Provider.Entry
-//     var widgetFamily: WidgetFamily
-    
-//     var body: some View {
-//         // Widget UI code
-//         switch widgetFamily {
-//         case .systemSmall:
-//           return AnyView(
-//                 
-           
-//             )
-
-
-          
-            
-//         case .systemMedium:
-//             return 
-//             AnyView(
-//               VStack {
-           
-//                 ZStack {
-//                                 Color(hex: "4c6c53").edgesIgnoringSafeArea(.all)
-//                                 VStack(alignment: .leading, spacing: 5) {
-//                                     ForEach(entry.prayerTime, id: \.self) { prayer in
-//                                         let icon = iconForPrayer(prayerName: prayer.name)
-//                                         let textColor = textColorForPrayer(prayerName: prayer.name, timings: entry.prayerTime)
-//                                         HStack(spacing: 10) {
-//                                             icon
-//                                                 .foregroundColor(textColor)
-//                                                 .font(.system(size: 10))
-//                                             Text(prayer.name)
-//                                                 .font(.system(size: 10))
-//                                                 .bold()
-//                                                 .foregroundColor(textColor)
-//                                             Text(prayer.time)
-//                                                 .font(.system(size: 10))
-//                                                 .bold()
-//                                                 .foregroundColor(textColor)
-//                                         }
-//                                         .padding(.vertical, 5)
-//                                     }
-//                                 }
-//                                 .padding()
-//                             }
-//          }
-        
-//             )
-            
-//         case .systemLarge:
-//           return AnyView(
-//             VStack {
-         
-//               ZStack {
-//                               Color(hex: "4c6c53").edgesIgnoringSafeArea(.all)
-//                               VStack(alignment: .leading, spacing: 5) {
-//                                   ForEach(entry.prayerTime, id: \.self) { prayer in
-//                                       let icon = iconForPrayer(prayerName: prayer.name)
-//                                       let textColor = textColorForPrayer(prayerName: prayer.name, timings: entry.prayerTime)
-//                                       HStack(spacing: 10) {
-//                                           icon
-//                                               .foregroundColor(.white)
-//                                               .font(.system(size: 10))
-//                                           Text(prayer.name)
-//                                               .font(.system(size: 10))
-//                                               .bold()
-//                                               .foregroundColor(textColor)
-//                                           Text(prayer.time)
-//                                               .font(.system(size: 10))
-//                                               .bold()
-//                                               .foregroundColor(textColor)
-//                                       }
-//                                       .padding(.vertical, 5)
-//                                   }
-//                               }
-//                               .padding()
-//                           }
-//        }
-      
-            
-//           )
-
-//         default:
-//             return AnyView(EmptyView())
-        
-//         }
-
-
-
-
-//     }
-    
-
-
-// @main
-// struct MyWidget: Widget {
-//     let kind: String = "widget"
-//     let widgetFamily: WidgetFamily // Add widgetFamily property
-    
-//     init() {
-//         self.widgetFamily = .systemSmall // Default to systemSmall
-//     }
-    
-//     var body: some WidgetConfiguration {
-//         StaticConfiguration(kind: kind, provider: Provider()) { entry in
-//             WidgetEntryView(entry: entry, widgetFamily: widgetFamily) // Pass widgetFamily here
-//         }
-//         .configurationDisplayName("Prayer Times Widget")
-//         .description("Displays the timings of the five daily prayers.")
-//         .supportedFamilies([.systemSmall,  .systemMedium])
-//     }
-// }
-
-// struct Widget_Previews: PreviewProvider {
-//     static var previews: some View {
-//         WidgetEntryView(entry: SimpleEntry(date: Date(), text: "Preview", prayerTime: [PrayerTime(name: "Fajr", time: "03:05"), PrayerTime(name: "Dhuhr", time: "13:07"), PrayerTime(name: "Asr", time: "17:25"), PrayerTime(name: "Maghrib", time: "21:10"), PrayerTime(name: "Isha", time: "23:08")] ), widgetFamily: .systemSmall)
-//             .previewContext(WidgetPreviewContext(family: .systemSmall))
-//     }
-// }
-
-
-
-
 
 
 import WidgetKit
@@ -195,18 +8,19 @@ struct Provider: TimelineProvider {
 
     
     func placeholder(in context: Context) -> SimpleEntry {
-        SimpleEntry(date: Date(), text: "", prayerTime: [])
+        SimpleEntry(date: Date(), text: "", prayerTime: [], streakDays: [])
     }
     
     func getSnapshot(in context: Context, completion: @escaping (SimpleEntry) -> ()) {
-        let entry = SimpleEntry(date: Date(), text: "", prayerTime: [])
+        let entry = SimpleEntry(date: Date(), text: "", prayerTime: [], streakDays: [])
         completion(entry)
     }
     
     func getTimeline(in context: Context, completion: @escaping (Timeline<Entry>) -> ()) {
         let prayerArray = getArray()
+        let streakDaysArray = getItem()
         let prayerTimes = convertToPrayerTimes(prayerArray: prayerArray)
-        let entry = SimpleEntry(date: Date(), text: "Prayer Timings", prayerTime: prayerTimes)
+        let entry = SimpleEntry(date: Date(), text: "Prayer Timings", prayerTime: prayerTimes, streakDays:  streakDaysArray)
         let timeline = Timeline(entries: [entry], policy: .never)
         completion(timeline)
     }
@@ -222,6 +36,28 @@ struct Provider: TimelineProvider {
     }
     return array
 }
+
+private func getItem() -> [Int] {
+        let userDefaults = UserDefaults(suiteName: "group.com.mansjs.AlNoorPrayer")
+        guard let jsonString = userDefaults?.string(forKey: "streakDays"),
+          let data = jsonString.data(using: .utf8),
+          let array = try? JSONDecoder().decode([Int].self, from: data) else {
+        return []
+    }
+    return array
+    }
+
+private func getStreakDays() -> [Int] {
+    let userDefaults = UserDefaults(suiteName: "group.com.mansjs.AlNoorPrayer")
+    guard let jsonString = userDefaults?.string(forKey: "streakDays"),
+          let data = jsonString.data(using: .utf8),
+          let array = try? JSONDecoder().decode([Int].self, from: data) else {
+        return [2, 3]
+    }
+    return array
+}
+
+
 
     
     private func convertToPrayerTimes(prayerArray: [[String: String]]) -> [PrayerTime] {
@@ -249,6 +85,7 @@ struct SimpleEntry: TimelineEntry {
     let date: Date
     let text: String
     let prayerTime: [PrayerTime]
+    let streakDays: [Int]
 }
 
 struct ToyShape: Identifiable {
@@ -328,12 +165,97 @@ struct WidgetView: View {
           StocksSmall(entry: entry)
 
         case .systemMedium:
-            StocksMedium(entry: entry)
+          CalendarWidget(entry: entry)
         case .systemLarge:
             BarChart()
         default:
             Text("Unsupported widget family")
         }
+    }
+}
+
+struct DayView: View {
+    let day: Int
+    let isHighlighted: Bool
+
+    var body: some View {
+        VStack {
+            Text("\(day)")
+                .font(.system(size: 12, weight: .medium))
+                .foregroundColor(isHighlighted ? .white : .primary)
+                .padding(6)
+                .background(isHighlighted ? Color(hex: "4c6c53") : Color.clear)
+                .clipShape(Circle())
+        }
+    }
+}
+
+struct CalendarWidget: View {
+    // Example: Fixed set of days for demonstration
+   var entry: Provider.Entry
+
+   let daysInMonth = (1...31)
+//   //  let streakDays = entry.streakDays
+
+    var body: some View {
+        VStack {
+            // Days of the week
+            HStack {
+                ForEach(DateFormatter().shortWeekdaySymbols, id: \.self) { weekday in
+                    Text(weekday)
+                        .font(.system(size: 10))
+                        .fontWeight(.semibold)
+                        .foregroundColor(.secondary)
+                        .padding(.horizontal, 2)
+                        .frame(maxWidth: .infinity)
+                }
+            }
+            .padding(.vertical, 4)
+
+            // Calendar days
+            ForEach(0..<5) { weekIndex in
+                HStack(spacing: 0) {
+                    ForEach(0..<7) { dayIndex in
+                        let day = (weekIndex * 7) + dayIndex + 1
+                        if self.daysInMonth.contains(day) {
+                            let isHighlighted = entry.streakDays.contains(day)
+                            DayView(day: day, isHighlighted: isHighlighted)
+                                .frame(width: 44, height: 14)
+                        } else {
+                            Spacer(minLength: 0)
+                        }
+                    }
+                }
+                .padding(.vertical, 2)
+            }
+        }
+        .padding(4)
+        .background(Color.white)
+        .clipShape(RoundedRectangle(cornerRadius: 8))
+        .shadow(color: Color.black.opacity(0.1), radius: 3, x: 0, y: 2)
+    }
+
+}
+
+
+
+struct CalendarWidgetPreview: Widget {
+    let kind: String = "CalendarWidget"
+
+    var body: some WidgetConfiguration {
+        StaticConfiguration(kind: kind, provider: Provider()) { entry in
+            CalendarWidget(entry: entry)
+        }
+        .configurationDisplayName("Calendar Widget")
+        .description("A widget to display the current month's calendar.")
+        .supportedFamilies([.systemSmall])
+    }
+}
+
+struct CalendarWidget_Previews: PreviewProvider {
+    static var previews: some View {
+        CalendarWidget(entry : SimpleEntry(date: Date(), text: "Preview", prayerTime: [], streakDays: [3, 7, 12, 17, 18, 22, 29]) )
+            .previewContext(WidgetPreviewContext(family: .systemSmall))
     }
 }
 
@@ -712,13 +634,13 @@ struct widget: Widget {
         }
         .configurationDisplayName("Widget name")
         .description("Widget description")
-        .supportedFamilies([.systemSmall])
+        .supportedFamilies([.systemSmall, .systemMedium])
     }
 }
 
 struct widget_Previews: PreviewProvider {
     static var previews: some View {
-        WidgetView(entry: SimpleEntry(date: Date(), text: "Preview", prayerTime: [PrayerTime(name: "Fajr", time: "03:05"), PrayerTime(name: "Dhuhr", time: "13:07"), PrayerTime(name: "Asr", time: "17:25"), PrayerTime(name: "Maghrib", time: "21:10"), PrayerTime(name: "Isha", time: "23:08")] ))
+        WidgetView(entry: SimpleEntry(date: Date(), text: "Preview", prayerTime: [PrayerTime(name: "Fajr", time: "03:05"), PrayerTime(name: "Dhuhr", time: "13:07"), PrayerTime(name: "Asr", time: "17:25"), PrayerTime(name: "Maghrib", time: "21:10"), PrayerTime(name: "Isha", time: "23:08")], streakDays: [3, 7, 12, 17, 18, 22, 29]))
             .previewContext(WidgetPreviewContext(family: .systemSmall))
     }
 }
