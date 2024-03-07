@@ -88,7 +88,7 @@ const OnboardingScreen = () => {
           title: "Assalamu'alaikum 🌙",
           titleStyle: { fontSize: 23, fontWeight: '700', color: 'white' },
           subtitleStyle: { fontSize: 16, color: 'white', marginTop: 20 },
-          subtitle: 'Welcome to our ad-free and privacy-focused app made by a Muslim for Muslims. ',
+          subtitle: 'Welcome to our ad-free and privacy-focused app made by a Muslim for Muslims. Turn on location to get daily accurate prayers times.',
           imageUri: Image.resolveAssetSource(require('../assets/image1.png')).uri,
         },
         {
@@ -110,7 +110,7 @@ const OnboardingScreen = () => {
         {
           title: 'Onboarding Complete! 🌙',
           subtitle: 'You are now ready to use our app. May Allah bless your journey and grant you peace, prosperity, and happiness. Happy praying!',
-          imageUri: Image.resolveAssetSource(require('../assets/mans.png')).uri,
+          imageUri: Image.resolveAssetSource(require('../assets/image1.png')).uri,
           titleStyle: { fontSize: 23, fontWeight: '700', color: 'white' },
           subtitleStyle: { fontSize: 16, color: 'white', marginTop: 20 },
 

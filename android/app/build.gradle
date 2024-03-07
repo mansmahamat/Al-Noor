@@ -287,6 +287,7 @@ apply plugin: "kotlin-android"
 apply plugin: "kotlin-android"
 apply plugin: "kotlin-android"
 apply plugin: "kotlin-android"
+apply plugin: "kotlin-android"
 apply plugin: "com.facebook.react"
 
 def projectRoot = rootDir.getAbsoluteFile().getParentFile().getAbsolutePath()
@@ -428,6 +429,7 @@ android {
 }
 
 dependencies {
+    implementation 'com.google.code.gson:gson:2.10.1'
     implementation 'com.google.code.gson:gson:2.10.1'
     implementation 'com.google.code.gson:gson:2.10.1'
     implementation 'com.google.code.gson:gson:2.10.1'

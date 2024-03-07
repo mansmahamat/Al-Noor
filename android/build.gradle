@@ -305,6 +305,7 @@ buildscript {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${project.ext.kotlinVersion}"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${project.ext.kotlinVersion}"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${project.ext.kotlinVersion}"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${project.ext.kotlinVersion}"
         classpath('com.android.tools.build:gradle:7.4.2')
         classpath('com.facebook.react:react-native-gradle-plugin')
     }
