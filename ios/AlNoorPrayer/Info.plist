@@ -58,9 +58,9 @@
     <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
     <string>Allow to use your location.</string>
     <key>NSLocationAlwaysUsageDescription</key>
-    <string>Allow $(PRODUCT_NAME) to access your location</string>
+    <string>Al Noor App will use your location to give accurate daily prayer, without that where unable to provide prayer time</string>
     <key>NSLocationWhenInUseUsageDescription</key>
-    <string>Allow $(PRODUCT_NAME) to access your location</string>
+    <string>Al Noor App uses your location to give accurate daily prayer, without that where unable to provide prayer time</string>
     <key>NSMotionUsageDescription</key>
     <string>Allow $(PRODUCT_NAME) to access your device motion</string>
     <key>UIBackgroundModes</key>

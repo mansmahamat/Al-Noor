@@ -221,6 +221,7 @@ struct CalendarWidget: View {
                             let isHighlighted = entry.streakDays.contains(day)
                             DayView(day: day, isHighlighted: isHighlighted)
                                 .frame(width: 44, height: 14)
+                                 .foregroundColor(Color.primary)
                         } else {
                             Spacer(minLength: 0)
                         }
