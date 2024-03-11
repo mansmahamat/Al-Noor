@@ -35,12 +35,6 @@
             "deploymentTarget": "14.0"
           }
         }
-      ],
-      [
-        "expo-location",
-        {
-          "locationAlwaysAndWhenInUsePermission": "Allow to use your location."
-        }
       ]
     ],
     "icon": "./assets/icon.png",
