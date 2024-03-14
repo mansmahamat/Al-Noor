@@ -6,7 +6,6 @@ import Animated, {
     Extrapolate,
 } from 'react-native-reanimated';
 const Pagination = ({ data, x, screenWidth }) => {
-    // eslint-disable-next-line react/no-unstable-nested-components
     const PaginationComp = ({ i }) => {
         const animatedDotStyle = useAnimatedStyle(() => {
             const widthAnimation = interpolate(

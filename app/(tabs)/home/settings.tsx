@@ -3,27 +3,17 @@ import {
     ChevronDown,
     ChevronRight,
     ChevronUp,
-    ChevronsDown,
-    FileQuestion,
 } from "@tamagui/lucide-icons"
-import React, { useEffect, useMemo, useState } from "react"
+import React, { useMemo, useState } from "react"
 import {
     Adapt,
-    Button,
-    H1,
     H2,
-    Input,
     Label,
     ListItem,
-    Paragraph,
     Select,
-    Separator,
     Sheet,
-    SizableText,
-    XStack,
     YGroup,
     YStack,
-    getFontSize,
 } from "tamagui"
 import useCalculationMethodStore from "../../store/calculationMethodStore"
 import useCalculationMadhab from "../../store/calculationMadhabStore"
@@ -34,7 +24,7 @@ import fr from "../../../locales/french/fr.json";
 import en from "../../../locales/english/en.json";
 import ar from "../../../locales/arabic/ar.json";
 import useLanguageStore from "../../store/languagesStore"
-import getPrayerTimesWithCurrentLocation from "../../utils/prayer"
+import { itemsCalculationMethod } from "../../../data/itemCalculation"
 
 const App = () => {
     const [open, setOpen] = useState(false)
@@ -45,10 +35,6 @@ const App = () => {
 
     const { updateCalculationMethod, calculationMethod } = useCalculationMethodStore();
     const { updateCalculationMadhab, madhab } = useCalculationMadhab();
-
-
-
-
 
     const i18n = new I18n({
         ...fr,
@@ -78,17 +64,7 @@ const App = () => {
                             onPress={() => setOpen(true)}
                         />
                     </YGroup.Item>
-                    {/* <YGroup.Item>
-                        <ListItem
-                          
-                            marginBottom="$5"
-                            backgroundColor="#4c6c53"
-                            title={i18n.t('settings.notifications')}
 
-                            // subTitle="Subtitle"
-                            iconAfter={ChevronRight}
-                        />
-                    </YGroup.Item> */}
                     <YGroup.Item>
                         <ListItem
 
@@ -127,12 +103,7 @@ const App = () => {
                     backgroundColor="#4c6c53"
                     space="$1"
                 >
-                    {/* <Button
-                        size="$6"
-                        circular
-                        icon={<ChevronsDown size={14} color="white" />}
-                        onPress={() => setOpen(false)}
-                    /> */}
+
                     <Label>CalculationMethod : </Label>
                     <SelectDemoItem
                         updateCalculationMethod={updateCalculationMethod}
@@ -142,15 +113,7 @@ const App = () => {
                         updateCalculationMadhab={updateCalculationMadhab}
                         madhab={madhab}
                     />
-                    {/* <>
-                        <InnerSheet open={innerOpen} onOpenChange={setInnerOpen} />
-                        <Button
-                            size="$6"
-                            circular
-                            icon={<FileQuestion size={24} color="white" />}
-                            onPress={() => setInnerOpen(true)}
-                        />
-                    </> */}
+
                 </Sheet.Frame>
             </Sheet>
             <SelectLanguagesSheet
@@ -222,11 +185,7 @@ export function SelectDemoItem(props) {
                     </Select.ScrollUpButton>
 
                     <Select.Viewport
-                        // to do animations:
-                        // animation="quick"
-                        // animateOnly={['transform', 'opacity']}
-                        // enterStyle={{ o: 0, y: -10 }}
-                        // exitStyle={{ o: 0, y: 10 }}
+
                         minWidth={200}
                     >
                         <Select.Group>
@@ -234,7 +193,7 @@ export function SelectDemoItem(props) {
                             {/* for longer lists memoizing these is useful */}
                             {useMemo(
                                 () =>
-                                    items.map((item, i) => {
+                                    itemsCalculationMethod.map((item, i) => {
                                         return (
                                             <Select.Item
                                                 index={i}
@@ -248,24 +207,10 @@ export function SelectDemoItem(props) {
                                             </Select.Item>
                                         )
                                     }),
-                                [items]
+                                [itemsCalculationMethod]
                             )}
                         </Select.Group>
-                        {/* Native gets an extra icon */}
-                        {props.native && (
-                            <YStack
-                                position="absolute"
-                                right={0}
-                                top={0}
-                                bottom={0}
-                                alignItems="center"
-                                justifyContent="center"
-                                width={"$4"}
-                                pointerEvents="none"
-                            >
-                                <ChevronDown size={getFontSize(props.size ?? "$true")} />
-                            </YStack>
-                        )}
+
                     </Select.Viewport>
 
                     <Select.ScrollDownButton
@@ -285,18 +230,4 @@ export function SelectDemoItem(props) {
     )
 }
 
-const items = [
-    { name: "MuslimWorldLeague" },
-    { name: "Egyptian" },
-    { name: "Karachi" },
-    { name: "UmmAlQura" },
-    { name: "Dubai" },
-    { name: "Qatar" },
-    { name: "Kuwait" },
-    { name: "MoonsightingCommittee" },
-    { name: "Singapore" },
-    { name: "Turkey" },
-    { name: "Tehran" },
-    { name: "NorthAmerica" },
-    { name: "Other" },
-]
+

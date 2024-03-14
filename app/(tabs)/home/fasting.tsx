@@ -1,25 +1,28 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TouchableOpacity, Dimensions, StyleSheet } from 'react-native';
-import { H1, H2, H5, ListItem, ScrollView, Separator, SizableText, Tabs, TabsContentProps, XStack, YGroup } from 'tamagui'; // Import your UI components
-import DateTimePicker from '@react-native-community/datetimepicker';
-import { capitalizeFirstLetter } from '../../utils/utils';
-import { XCircle } from '@tamagui/lucide-icons';
+import { Dimensions } from 'react-native';
+import { H2, ScrollView, XStack, YGroup } from 'tamagui';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { MyStack } from '../../../components/MyStack';
-import { Calendar, LocaleConfig } from 'react-native-calendars';
+import { Calendar } from 'react-native-calendars';
 import {
-
-    ContributionGraph, LineChart, ProgressChart,
+    ContributionGraph,
 } from "react-native-chart-kit";
+import { I18nManager } from "react-native";
 import { I18n } from "i18n-js";
 import fr from "../../../locales/french/fr.json";
 import en from "../../../locales/english/en.json";
 import useLanguageStore from '../../store/languagesStore';
 
+// Define type for fasting status entry
+type FastingStatusEntry = {
+    date: string;
+    fasting: boolean;
+};
+
 const FastingTracker = () => {
     const [date, setDate] = useState(new Date());
-    const [fastingStatus, setFastingStatus] = useState([]);
-    const [selected, setSelected] = useState('');
+    const [fastingStatus, setFastingStatus] = useState<FastingStatusEntry[]>([]);
+    const [selected, setSelected] = useState<string>('');
     const currentDate = new Date();
     const endDate = new Date(currentDate.getFullYear(), currentDate.getMonth() + 3, 0);
     const dateOnly = endDate.toISOString().split('T')[0];
@@ -37,7 +40,7 @@ const FastingTracker = () => {
         try {
             const savedFastingStatus = await AsyncStorage.getItem('globalFastingStatus');
             if (savedFastingStatus !== null) {
-                setFastingStatus(JSON.parse(savedFastingStatus));
+                setFastingStatus(JSON.parse(savedFastingStatus) || []);
             } else {
                 setFastingStatus([]);
             }
@@ -55,38 +58,25 @@ const FastingTracker = () => {
         }
     };
 
-    // Toggle fasting completion status
-    // const toggleFastingStatus = (selectedDate) => {
-    //     const updatedStatus = [...fastingStatus];
-    //     const index = updatedStatus.findIndex(status => status.date === formatDate(selectedDate));
-    //     if (index !== -1) {
-    //         updatedStatus[index].fasting = !updatedStatus[index].fasting;
-    //     } else {
-    //         updatedStatus.push({ date: formatDate(selectedDate), fasting: true });
-    //     }
-    //     setFastingStatus(updatedStatus);
-    //     saveFastingStatus();
-    // };
-
     // Reset date to today
     const resetDate = () => {
         setDate(new Date());
     };
 
     // Format date to yyyy-mm-dd
-    const formatDate = (date) => {
+    const formatDate = (date: Date): string => {
         const year = date.getFullYear();
         const month = String(date.getMonth() + 1).padStart(2, '0');
         const day = String(date.getDate()).padStart(2, '0');
         return `${year}-${month}-${day}`;
     };
 
-    const handleDayPress = (day) => {
+    const handleDayPress = (day: { dateString: string }) => {
         setSelected(day.dateString);
         toggleFastingStatus(day.dateString);
     };
 
-    const toggleFastingStatus = (selectedDate) => {
+    const toggleFastingStatus = (selectedDate: string) => {
         // Convert selectedDate to a Date object
         const dateObject = new Date(selectedDate);
         // Extract year, month, and day components
@@ -112,8 +102,7 @@ const FastingTracker = () => {
         }
     };
 
-
-    const formattedMarkedDates = {};
+    const formattedMarkedDates: { [date: string]: any } = {};
 
     fastingStatus.forEach(entry => {
         const { date, fasting } = entry;
@@ -125,29 +114,21 @@ const FastingTracker = () => {
         };
     });
 
-
     const formattedFastingData = fastingStatus.map(entry => ({
         date: entry.date,
         count: entry.fasting ? 5 : 0
     }));
 
     const chartConfig = {
-        // backgroundGradientFrom: "#1E2923",
-        // backgroundGradientFromOpacity: 0,
-        // backgroundGradientTo: "#08130D",
-        // backgroundGradientToOpacity: 0.5,
-        //  backgroundColor: "#FF5733",
         backgroundColor: "#e26a00",
         color: (opacity = 1) => `rgba(76, 168, 83, ${opacity})`,
-        strokeWidth: 3, // optional, default 3
+        strokeWidth: 3,
         barPercentage: 0.5,
         gutterSize: 5,
-
         useShadowColorFromDataset: false // optional
     };
 
     const screenWidth = Dimensions.get("window").width;
-
 
     const i18n = new I18n({
         ...fr,
@@ -156,13 +137,9 @@ const FastingTracker = () => {
 
     const { language, updateLanguage } = useLanguageStore();
 
-
-    // const locale = getLocales();
-    // const localeCode = locale[0].languageCode;
-
+    // Configure i18n
     i18n.defaultLocale = "en";
     i18n.locale = language;
-
 
     return (
         <MyStack>
@@ -172,11 +149,7 @@ const FastingTracker = () => {
                         <H2 textAlign='center'>
                             {i18n.t('fasting.title')}
                         </H2>
-
                     </XStack>
-
-
-
 
                     <Calendar
                         theme={{
@@ -211,14 +184,12 @@ const FastingTracker = () => {
                             height: 450,
                         }}
                         onDayPress={handleDayPress}
-
                         markedDates={formattedMarkedDates}
                         firstDay={1}
                         enableSwipeMonths={true}
                         markingType='dot'
                     />
 
-                    {/* @ts-ignore */}
                     <ContributionGraph
                         values={formattedFastingData}
                         endDate={new Date(dateOnly)}

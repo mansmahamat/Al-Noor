@@ -72,7 +72,6 @@ async function getPrayerTimesWithCurrentLocation() {
 
 
 
-  //  const calculationMethod = "muslimWorldLeague"; // or use your calculation method
     const calculationMethodParams = getCalculationMethodByName(await calculationMethod);
 
     const madhab = "shafi"; // or use your madhab

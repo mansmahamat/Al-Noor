@@ -1,5 +1,4 @@
-import { Button, Text, XStack, YStack } from "tamagui";
-
+import { XStack, YStack } from "tamagui";
 import { MyStack } from "../../../components/MyStack";
 import { CardDemo } from "../../../components/CardDemo/CardDemo";
 import { PrayerList } from "../../../components/PrayerList/PrayerList";
@@ -23,9 +22,7 @@ import { useOnboardingStore } from "../../store/onBoardingStore";
 import useGetPrayer from "../../utils/useGetPrayer";
 import { useLocationStore } from "../../store/locationStore";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { getNextPrayer } from "../../utils/getNextPrayer";
-import useFormattedDataStore from "../../store/prayerStreakStore";
-import useStreakStore from "../../store/streakStore";
+
 
 
 // Define a task name
@@ -33,40 +30,14 @@ const BACKGROUND_FETCH_TASK = 'MIDNIGHT_TASK';
 
 
 TaskManager.defineTask(BACKGROUND_FETCH_TASK, async () => {
-    const now = Date.now();
 
 
-    const nextPrayer = await getNextPrayer();
-
-    // const { nextPrayerName, nextPrayerTime } = nextPrayer;
 
 
-    // if (nextPrayerTime && nextPrayerTime > new Date()) {
-    //     scheduleNextPrayerNotification(nextPrayerTime, `It's time for ${nextPrayerName} prayer`);
-    // }
-    console.log(`Got background fetch call MANSs at date: ${new Date(now).toISOString()}`);
-
-    // Be sure to return the successful result type!
     return BackgroundFetch.BackgroundFetchResult.NewData;
 });
 
-// const retrieveNextPrayerFromStorage = async () => {
-//     try {
-//         const nextPrayer = await getNextPrayer();
-//         if (nextPrayer) {
 
-//             console.log('Next prayer name:', nextPrayerName);
-//             console.log('Next prayer time:', nextPrayerTime);
-//         } else {
-//             console.log('Next prayer not found in AsyncStorage');
-//         }
-//     } catch (error) {
-//         console.error('Error retrieving next prayer:', error);
-//     }
-// };
-
-// // Call the function to retrieve and log the next prayer details
-// retrieveNextPrayerFromStorage();
 
 
 const GROUP_NAME = "group.com.mansjs.AlNoorPrayer";
@@ -85,16 +56,10 @@ Notifications.setNotificationHandler({
     }),
 });
 
-function formatTime(timeString) {
-    let time = new Date(timeString);
-    let formattedTime = ("0" + time.getHours()).slice(-2) + ":" + ("0" + time.getMinutes()).slice(-2);
-    return formattedTime;
-}
 
 
 const App = () => {
 
-    const { streakDays: streakDayStore } = useStreakStore()
 
 
 
@@ -103,7 +68,6 @@ const App = () => {
     const notificationListener = useRef();
     const responseListener = useRef();
     const [date, setDate] = useState(new Date());
-    const [mode, setMode] = useState('date');
     const [show, setShow] = useState(false);
 
 
@@ -115,7 +79,7 @@ const App = () => {
 
     const {
         transformedArray, } = useGetPrayer(date)
-    const { currentPrayer, nextPrayerTime, nextPrayerName, city, transformedArray: prayersToday } = useGetPrayer(today)
+    const { currentPrayer, nextPrayerTime, nextPrayerName, transformedArray: prayersToday } = useGetPrayer(today)
 
     const [timeDifference, setTimeDifference] = useState(
         calculateTimeDifference(nextPrayerTime)
@@ -187,16 +151,9 @@ const App = () => {
 
     const [nextPrayerTimeHours, setnextPrayerTimeHours] = useState<number | null>()
     const [nextPrayerTimeMinutes, setnextPrayerTimeMinutes] = useState<number | null>()
-    const formattedTime = nextPrayerTime.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
 
 
     // Format date to yyyy/mm/dd
-    const formatDate = (date) => {
-        const year = date.getFullYear();
-        const month = String(date.getMonth() + 1).padStart(2, '0');
-        const day = String(date.getDate()).padStart(2, '0');
-        return `${year}-${month}-${day}`;
-    };
 
     const currentMonthStreak = moment().month() + 1; // Months are 0-indexed, so add 1
     const currentYearStreak = moment().year();
@@ -253,10 +210,6 @@ const App = () => {
         // Return formatted date string
         return `${year}-${month}-${day}`;
     };
-    type DateCountPair = {
-        date: string;
-        count: number;
-    };
 
     const formattedData = Object.entries(countMap).map(([date, count]) => ({
         date: formatDateStreak(date),
@@ -267,13 +220,6 @@ const App = () => {
 
 
     // Filter the array for dates with count 5 and in the current month
-    const streakDays = formattedData
-        .filter(item => {
-            const itemDate = moment(item.date);
-            return itemDate.month() + 1 === currentMonthStreak && itemDate.year() === currentYearStreak && item.count === 5;
-        })
-        .map(item => moment(item.date).date())
-        .sort((a, b) => a - b); // Extract the day part
 
 
 
@@ -342,7 +288,7 @@ const App = () => {
 
         //@ts-ignore
 
-        responseListener.current = Notifications.addNotificationResponseReceivedListener(response => {
+        responseListener.current = Notifications.addNotificationResponseReceivedListener(() => {
         });
 
         return () => {
@@ -357,7 +303,7 @@ const App = () => {
         ...en,
     });
 
-    const { language, updateLanguage } = useLanguageStore();
+    const { language } = useLanguageStore();
 
 
     // const locale = getLocales();
@@ -378,46 +324,6 @@ const App = () => {
     const difference = calculateTimeDifference(nextPrayerTime);
 
 
-    // useEffect(() => {
-
-
-    //     // If the difference is negative or zero, the prayer time has already passed
-    //     if (difference === 36416) {
-    //         // Calculate the next prayer time after the current time
-    //         const nextPrayerAfterNow = prayersToday.find(prayer => new Date(prayer.time) > new Date());
-    //         console.log(`Mans time: ${nextPrayerName}`);
-    //         scheduleNextPrayerNotification(nextPrayerAfterNow.time, `It's time for ${nextPrayerAfterNow.name} prayer`);
-    //         // If there's a prayer time after now, use it for scheduling notification
-    //         if (nextPrayerAfterNow) {
-
-    //             scheduleNextPrayerNotification(nextPrayerAfterNow.time, `It's time for ${nextPrayerAfterNow.name} prayer`);
-    //         } else {
-    //             // If no prayer time is found after now, the day's prayers have ended
-    //             // You can handle this case as needed, maybe schedule a notification for the next day's Fajr prayer
-    //         }
-    //     } else {
-    //         // If the difference is positive, schedule notification for the next prayer time
-    //         scheduleNextPrayerNotification(nextPrayerTime, `It's time for ${nextPrayerName} prayer`);
-    //     }
-
-    //     // Register a background fetch task to update notifications
-    //     if (Platform.OS === 'ios') {
-    //         BackgroundFetch.setMinimumIntervalAsync(1); // Set the minimum interval for background fetch task
-    //     }
-    //     const task = BackgroundFetch.registerTaskAsync(BACKGROUND_FETCH_TASK, {
-    //         minimumInterval: 1, // Minimum interval in minutes
-    //         stopOnTerminate: false, // Continue executing even if the app is terminated
-    //         startOnBoot: true, // Start the background task when the device boots up
-    //     });
-
-    //     return () => {
-    //         task.then(() => {
-    //             BackgroundFetch.unregisterTaskAsync(BACKGROUND_FETCH_TASK);
-    //         });
-    //     };
-    // }, [difference]); // Trigger effect when the nextPrayer or timings change
-
-
 
 
 
@@ -426,7 +332,6 @@ const App = () => {
         if (difference === 0) {
             // Calculate the next prayer time after the current time
             const nextPrayerAfterNow = prayersToday.find(prayer => new Date(prayer.time) > new Date());
-            console.log(`Mans time: ${nextPrayerName}`);
             scheduleNextPrayerNotification(nextPrayerAfterNow.time, `It's time for ${nextPrayerAfterNow.name} prayer`);
             // If there's a prayer time after now, use it for scheduling notification
             if (nextPrayerAfterNow) {
@@ -458,8 +363,8 @@ const App = () => {
                 BackgroundFetch.unregisterTaskAsync(BACKGROUND_FETCH_TASK);
             });
         };
-        //  }, [nextPrayerTime]); // Trigger effect when the nextPrayer or timings change
-    }, []); // Trigger effect when the nextPrayer or timings change
+
+    }, []);
 
 
 

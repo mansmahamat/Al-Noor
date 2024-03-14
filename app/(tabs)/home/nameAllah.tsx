@@ -2,14 +2,12 @@ import {
     Adapt,
     Button,
     Dialog,
-    H1,
     H2,
     ListItem,
     Paragraph,
     ScrollView,
     Separator,
     Sheet,
-    Text,
     Unspaced,
     YGroup,
     YStack,
@@ -36,7 +34,6 @@ const App = () => {
 
     i18n.locale = language;
 
-    console.log("language,", language)
 
     return (
         <ScrollView>

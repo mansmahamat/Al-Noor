@@ -1,23 +1,25 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Coordinates, CalculationMethod, PrayerTimes, Madhab } from "adhan";
-import * as Location from "expo-location";
 import moment from "moment";
 import useCalculationMethodStore from "../store/calculationMethodStore";
 import useCalculationMadhab from "../store/calculationMadhabStore";
 import { useLocationStore } from "../store/locationStore";
 
+// Function to capitalize the first letter of a word
 function capitalizeFirstLetter(word) {
   return word.charAt(0).toUpperCase() + word.slice(1);
 }
 
+// Custom hook to retrieve prayer times
 const useGetPrayer = (date) => {
-  const [location, setLocation] = useState(null);
-  const [errorMsg, setErrorMsg] = useState(null);
-  const [city, setCity] = useState(null);
+  const [city, setCity] = useState(null); // State for city
 
   // CALCULATION METHOD
+
+  // Function to get calculation method by name
   function getCalculationMethodByName(name) {
     const functionCalculationMethod = {
+      // Mapping calculation method names to Adhan objects
       muslimWorldLeague: CalculationMethod.MuslimWorldLeague(),
       egyptian: CalculationMethod.Egyptian(),
       karachi: CalculationMethod.Karachi(),
@@ -33,14 +35,15 @@ const useGetPrayer = (date) => {
       other: CalculationMethod.Other(),
     };
 
+    // Return the calculation method or default to MoonsightingCommittee
     if (functionCalculationMethod.hasOwnProperty(name)) {
       return functionCalculationMethod[name];
     } else {
-      // Return a default method or handle the error as needed
-      return CalculationMethod.MoonsightingCommittee(); // Default to "Other" or handle the error appropriately
+      return CalculationMethod.MoonsightingCommittee();
     }
   }
 
+  // Get the calculation method from the store
   const calculationMethod = useCalculationMethodStore(
     (state) => state.calculationMethod
   );
@@ -48,47 +51,51 @@ const useGetPrayer = (date) => {
 
   // MADHAB
 
+  // Function to get madhab by name
   function getCalculationMadhab(name) {
     const functionCalculationMadhab = {
       shafi: Madhab.Shafi,
       hanafi: Madhab.Hanafi,
     };
 
+    // Return the madhab or default to Shafi
     if (functionCalculationMadhab.hasOwnProperty(name)) {
       return functionCalculationMadhab[name];
     } else {
-      // Return a default method or handle the error as needed
-      return Madhab.Shafi; // Default to "Other" or handle the error appropriately
+      return Madhab.Shafi;
     }
   }
+
+  // Get the madhab from the store
   const madhab = useCalculationMadhab((state) => state.madhab);
   const calculationMethodParamsMadhab = getCalculationMadhab(madhab);
+
+  // Get latitude and longitude from the location store
   const { latitude, longitude } = useLocationStore();
 
-
-
-
- 
-
+  // Calculate prayer times for today
   const prayerTimesToday = new PrayerTimes(
     new Coordinates(latitude, longitude),
     date,
     calculationMethodParams
   );
 
+  // Calculate prayer times for tomorrow
   const tomorrow = new Date(date);
   tomorrow.setDate(date.getDate() + 1);
-
   const prayerTimesTomorrow = new PrayerTimes(
     new Coordinates(latitude, longitude),
     tomorrow,
     calculationMethodParams
   );
 
+  // Array of prayer names
   let prayers = ["fajr", "dhuhr", "asr", "maghrib", "isha"];
 
+  // Array to hold prayer times for two days
   let prayersOfTwoDays = [];
 
+  // Push prayer times for today
   for (let i = 0; i < prayers.length; i++) {
     if (prayerTimesToday.hasOwnProperty(prayers[i])) {
       prayersOfTwoDays.push({
@@ -98,6 +105,7 @@ const useGetPrayer = (date) => {
     }
   }
 
+  // Push prayer times for tomorrow
   for (let i = 0; i < prayers.length; i++) {
     if (prayerTimesTomorrow.hasOwnProperty(prayers[i])) {
       prayersOfTwoDays.push({
@@ -107,8 +115,10 @@ const useGetPrayer = (date) => {
     }
   }
 
+  // Get current time
   const currentTime = new Date();
 
+  // Function to get next prayers
   function getNextPrayers(currentTime, prayersOfTwoDays, numPrayers) {
     const currentIndex = prayersOfTwoDays.findIndex(
       (prayer) => new Date(prayer.time) > currentTime
@@ -125,39 +135,27 @@ const useGetPrayer = (date) => {
     return nextPrayers;
   }
 
+  // Get the next five prayers
   const nextFivePrayers = getNextPrayers(currentTime, prayersOfTwoDays, 5);
-  const current = capitalizeFirstLetter(prayerTimesToday.currentPrayer());
-  const currentTimeString = moment(currentTime).format(
-    "h:mm A - DD-MMM-YYYY"
-  );
+  const current = capitalizeFirstLetter(prayerTimesToday.currentPrayer()); // Current prayer
+  const currentTimeString = moment(currentTime).format("h:mm A - DD-MMM-YYYY"); // Current time
 
+  // Transform prayer times into an array of objects
   const transformed = Object.entries(prayerTimesToday);
-
-  const desiredKeys = [
-    "fajr",
-    "sunrise",
-    "dhuhr",
-    "asr",
-    //  "sunset",
-    "maghrib",
-    "isha",
-  ];
-
+  const desiredKeys = ["fajr", "sunrise", "dhuhr", "asr", "maghrib", "isha"];
   const filteredArray = transformed.filter(([key]) =>
     desiredKeys.includes(key)
   );
-
   const transformedArray = filteredArray.map(([name, time]) => ({
     name,
     time,
   }));
 
+  // Get tomorrow's date
   const now = moment();
   const tomorrowDate = now.add(1, "days");
 
-
-  
-
+  // Determine previous and next prayers
   let previousPrayer = null;
   for (const prayerTime of nextFivePrayers) {
     const diff = now.diff(prayerTime.time);
@@ -178,7 +176,7 @@ const useGetPrayer = (date) => {
     }
   }
 
-
+  // Return prayer information
   return {
     nextFivePrayers: nextFivePrayers,
     current: current,

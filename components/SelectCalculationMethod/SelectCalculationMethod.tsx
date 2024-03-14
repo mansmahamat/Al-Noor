@@ -1,27 +1,32 @@
-import { Check, ChevronDown, ChevronUp } from "@tamagui/lucide-icons"
-import { useMemo, useState } from "react"
-import { Adapt, Label, Select, Sheet, YStack } from "tamagui"
-import useLanguageStore from "../../app/store/languagesStore"
+import { View, Text } from 'react-native'
+import React, { useMemo } from 'react'
+import { Adapt, Select, Sheet, YStack, getFontSize } from 'tamagui'
+import { Check, ChevronDown, ChevronUp } from '@tamagui/lucide-icons'
+import { itemsCalculationMethod } from '../../data/itemCalculation'
 
+interface CalculationMethod {
+    updateCalculationMethod: (calculationMethod: string) => void
+    calculationMethod: string
+}
 
-
-export function SelectLanguagesForm() {
-
-
-    const { language, updateLanguage } = useLanguageStore();
-
-
+export default function SelectCalculationMethod(
+    {
+        updateCalculationMethod,
+        calculationMethod
+    }: CalculationMethod
+) {
     return (
         <>
-            <Label>
-                Language
-            </Label>
+
+
             <Select
-                value={language}
-                onValueChange={updateLanguage}
+                id="calculationMethod"
+                value={calculationMethod ?? "MuslimWorldLeague"}
+                onValueChange={updateCalculationMethod}
+
                 disablePreventBodyScroll
             >
-                <Select.Trigger width="100%" color="white" iconAfter={ChevronDown}>
+                <Select.Trigger width="100%" iconAfter={ChevronDown}>
                     <Select.Value placeholder="Something" />
                 </Select.Trigger>
 
@@ -67,37 +72,28 @@ export function SelectLanguagesForm() {
                         minWidth={200}
                     >
                         <Select.Group>
-                            <Select.Label>Languages  </Select.Label>
+                            <Select.Label>CalculationMethod</Select.Label>
                             {/* for longer lists memoizing these is useful */}
-                            <Select.Item
-                                value="en"
-                                index={1}
-                            >
-                                <Select.ItemText>English</Select.ItemText>
-                                <Select.ItemIndicator marginLeft="auto">
-                                    <Check size={16} />
-                                </Select.ItemIndicator>
-                            </Select.Item>
-                            <Select.Item
-                                value="fr"
-                                index={2}
-                            >
-                                <Select.ItemText>Français</Select.ItemText>
-                                <Select.ItemIndicator marginLeft="auto">
-                                    <Check size={16} />
-                                </Select.ItemIndicator>
-                            </Select.Item>
-                            <Select.Item
-                                value="ar"
-                                index={2}
-                            >
-                                <Select.ItemText>العربية</Select.ItemText>
-                                <Select.ItemIndicator marginLeft="auto">
-                                    <Check size={16} />
-                                </Select.ItemIndicator>
-                            </Select.Item>
+                            {useMemo(
+                                () =>
+                                    itemsCalculationMethod.map((item, i) => {
+                                        return (
+                                            <Select.Item
+                                                index={i}
+                                                key={item.name}
+                                                value={item.name.toLowerCase()}
+                                            >
+                                                <Select.ItemText>{item.name}</Select.ItemText>
+                                                <Select.ItemIndicator marginLeft="auto">
+                                                    <Check size={16} />
+                                                </Select.ItemIndicator>
+                                            </Select.Item>
+                                        )
+                                    }),
+                                [itemsCalculationMethod]
+                            )}
                         </Select.Group>
-                        {/* Native gets an extra icon */}
+
                     </Select.Viewport>
 
                     <Select.ScrollDownButton
@@ -117,4 +113,3 @@ export function SelectLanguagesForm() {
     )
 }
 
-const items = [{ name: "shafi" }, { name: "hanafi" }]

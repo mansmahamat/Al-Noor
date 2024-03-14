@@ -7,8 +7,6 @@ interface LanguageStore {
 }
 
 
-// const locale = getLocales();
-// const localeCode = locale[0].languageCode;
 
 const useLanguageStore = create<LanguageStore>((set) => ({
   language: "en",

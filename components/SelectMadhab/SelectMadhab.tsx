@@ -64,11 +64,7 @@ export function SelectMadhab({ updateCalculationMadhab, madhab }: SelectMadhabPr
                     </Select.ScrollUpButton>
 
                     <Select.Viewport
-                        // to do animations:
-                        // animation="quick"
-                        // animateOnly={['transform', 'opacity']}
-                        // enterStyle={{ o: 0, y: -10 }}
-                        // exitStyle={{ o: 0, y: 10 }}
+
                         minWidth={200}
                     >
                         <Select.Group>

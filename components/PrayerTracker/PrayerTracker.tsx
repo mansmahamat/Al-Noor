@@ -1,17 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TouchableOpacity, Dimensions, StyleSheet } from 'react-native';
-import { H5, ListItem, ScrollView, Separator, SizableText, Tabs, TabsContentProps, XStack, YGroup } from 'tamagui'; // Import your UI components
+import { Text, TouchableOpacity, Dimensions } from 'react-native';
+import { ListItem, ScrollView, Separator, SizableText, Tabs, TabsContentProps, XStack, YGroup } from 'tamagui'; // Import your UI components
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { XCircle } from '@tamagui/lucide-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import HeatMap from '@uiw/react-heat-map';
 import {
 
     ContributionGraph, LineChart, ProgressChart,
 } from "react-native-chart-kit";
-import { ContributionChartValue } from 'react-native-chart-kit/dist/contribution-graph/ContributionGraph';
-import { RectProps } from 'react-native-svg';
-import Swiper from 'react-native-web-swiper';
 import { MyStack } from '../MyStack';
 import { capitalizeFirstLetter } from '../../app/utils/utils';
 
@@ -112,34 +108,14 @@ const PrayerTracker = () => {
         count
     }));
 
-    console.log(formattedData);
 
     // Function to format date
     function formatDates(dateString) {
         return dateString.replace(/\//g, "-");
     }
 
-    console.log(prayerStatus);
-    const value = [
-        { date: "2017-01-02", count: 1 },
-        { date: "2017-01-03", count: 2 },
-        { date: "2017-01-04", count: 3 },
-        { date: "2017-01-05", count: 4 },
-        { date: "2017-01-06", count: 5 },
-        { date: "2017-01-30", count: 2 },
-        { date: "2017-01-31", count: 3 },
-        { date: "2017-03-01", count: 2 },
-        { date: "2017-04-02", count: 4 },
-        { date: "2017-03-05", count: 2 },
-        { date: "2017-02-30", count: 4 }
-    ];
 
     const chartConfig = {
-        // backgroundGradientFrom: "#1E2923",
-        // backgroundGradientFromOpacity: 0,
-        // backgroundGradientTo: "#08130D",
-        // backgroundGradientToOpacity: 0.5,
-        //  backgroundColor: "#FF5733",
         backgroundColor: "#e26a00",
         color: (opacity = 1) => `rgba(76, 168, 83, ${opacity})`,
         strokeWidth: 3, // optional, default 3
@@ -239,27 +215,6 @@ const PrayerTracker = () => {
         ],
         legend: ["All Prayers Count"] // Optional: customize the legend
     };
-
-
-    // Define the data object in the specified format
-    const data = {
-        labels: ["January", "February", "March", "April", "May", "June"],
-        datasets: [
-            {
-                data: [20, 45, 28, 80, 99, 43],
-                color: (opacity = 1) => `rgba(134, 65, 244, ${opacity})`, // optional
-                strokeWidth: 2 // optional
-            }
-        ],
-        legend: ["Rainy Days"] // optional
-    };
-
-
-    console.log("monthCounts", prayerStatus);
-
-
-
-
     return (
         <MyStack>
             <ScrollView>
@@ -363,26 +318,7 @@ const PrayerTracker = () => {
                                 />
                             </TabsContent>
                         </Tabs>
-                        {/* @ts-ignore */}
 
-                        {/* <ContributionGraph
-                                values={formattedData}
-                                endDate={new Date(dateOnly)}
-
-                                numDays={167}
-                                squareSize={13}
-                                width={screenWidth - 36}
-                                height={220}
-                                chartConfig={chartConfig} />
-                            <ProgressChart
-                                data={formattedDataChart}
-                                width={screenWidth - 36}
-                                height={200}
-                                strokeWidth={12}
-                                radius={32}
-                                chartConfig={chartConfig}
-                                hideLegend={false}
-                            /> */}
 
 
                     </YGroup>
@@ -414,25 +350,6 @@ const TabsContent = (props: TabsContentProps) => {
     )
 }
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-    },
-    slideContainer: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    slide1: {
-        backgroundColor: 'pink',
-        color: 'white',
-    },
-    slide2: {
-        backgroundColor: 'pink',
-    },
-    slide3: {
-        backgroundColor: 'pink',
-    },
-});
+
 
 export default PrayerTracker;

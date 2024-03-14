@@ -1,6 +1,4 @@
-import { LocateFixed } from "@tamagui/lucide-icons";
-import moment from "moment";
-import { Button, Card, CardProps, H2, Image, Paragraph, Spinner, Text, XStack, YStack } from "tamagui";
+import { Button, Card, Image, Paragraph, XStack } from "tamagui";
 import useGetDateHijri from "../../app/utils/useGetDateHijri";
 import { prayerImages } from "../../utils/utils";
 import { capitalizeFirstLetter } from "../../app/utils/utils";
@@ -36,9 +34,6 @@ export function CardDemo({ currentPrayer, nextPrayerTime, nextPrayerName,
                 <Paragraph fontWeight="600" fontSize={26} color="white" numberOfLines={1}>
                     {capitalizeFirstLetter(currentPrayer)}
                 </Paragraph>
-                {/* <Text fontWeight="600"  fontSize={26} color="white" numberOfLines={1}>
-                    {moment(nextPrayerTime).format('LT')} 
-                </Text> */}
 
 
                 <Paragraph color="white" fontSize={16} fontWeight="800" numberOfLines={1}>
@@ -50,8 +45,7 @@ export function CardDemo({ currentPrayer, nextPrayerTime, nextPrayerName,
                 <XStack flex={1} />
 
                 <Button display="flex" backgroundColor="#4c6c53" alignItems="center" borderRadius="$10">
-                    {/* <LocateFixed size={20} color="white" />
-                    {city} */}
+
                     <Paragraph size="$2" textAlign="center" color="white" fontWeight="600">
                         {month} {day}, {year} {designation}
                     </Paragraph>
