@@ -21,7 +21,7 @@ npm install -g expo-cli
 
 2. Clone the repository:
 
-git clone (https://github.com/mansmahamat/Al-Noor)](https://github.com/mansmahamat/Al-Noor)
+git clone https://github.com/mansmahamat/Al-Noor
 
 3. Navigate to the project directory:
 
