@@ -7,33 +7,58 @@
 
 
 
+## Overview
+
+Al Noor Prayer is a mobile application designed to help users track their prayer times and fasting status conveniently. This app is built using Expo and features a modern UI built with Tamagui.
+
 ## Quick Start
-Just run the following, changing `yourappname` to the name of your project.
-```
-npx create-expo-app yourappname -t tamagui-expo-template --no-install
-cd yourappname
+
+To get started with Al Noor Prayer, make sure you have [Node.js](https://nodejs.org/) installed on your machine. Then, follow these steps:
+
+1. Install Expo CLI globally:
+
+npm install -g expo-cli
+
+2. Clone the repository:
+
+git clone https://github.com/yourusername/al-noor-prayer.git
+
+3. Navigate to the project directory:
+
+cd al-noor-prayer
+
+4. Install dependencies:
+
 yarn install
-```
-If you have [Expo Go](https://expo.dev/client) app installed, just start your new app with `yarn start`, if not, create your own [Development Client](https://docs.expo.dev/development/build/)
 
-## What you get
-This is a starter template for [Expo](https://expo.dev) using [Tamagui](https://tamagui.dev).
-In this template you get out of the box:
-- Semantic Release already configured with everything you might want
-- Expo Router up and running
-- Tamagui, a nice and modern way of building your UIs
-- ESLint and Prettier configurations
+5. Start the Expo development server:
 
-## What you don't get
-- Expo Web support (for this, go to the [Official Tamagui Starter](https://github.com/tamagui/tamagui))
-- i18n
-- Global State management
+npx expo start
 
-## If you want to...
-1. You can build your own dev client with `eas build -p android --profile development`
-1. Develop in WSL, use the `yarn wsl` command, else `yarn start` is your default choice.
+6. Scan the QR code with Expo Go app on your mobile device to open the app.
 
-## Troubleshooting
-### I'm on WSL but my app doesn't connect
-WSL2 runs inside its own container, so it doesn't share the same IPv4 and port status as your host machine, you might need [this](https://gist.github.com/ivopr/64f974e632b7edcbe1f5e58b91e31598)
+## Features
 
+- Track prayer times for various locations.
+- Mark fasting status on a calendar.
+- Visualize fasting progress with a contribution graph.
+- Easily configurable and customizable.
+
+## Requirements
+
+- Node.js (v14.x or higher)
+- Yarn (v1.22.x or higher)
+- Expo CLI (installed globally)
+
+## Expo CLI
+
+[Expo CLI](https://docs.expo.dev/workflow/expo-cli/) is a command-line tool used for various tasks related to Expo projects. It allows you to create, develop, build, and publish Expo apps. You can use it to start a new project, run a local development server, and build standalone apps for iOS and Android platforms.
+
+
+## Contributing
+
+Contributions to Al Noor Prayer are welcome! Please feel free to open issues for bug reports, feature requests, or submit pull requests with improvements.
+
+## License
+
+This project is licensed under the [MIT License](LICENSE).
