@@ -1,0 +1,15 @@
+export interface City {
+    "latitude": number,
+    "lookupSource": string,
+    "longitude": number,
+    "localityLanguageRequested": string,
+    "continent": string,
+    "continentCode": string,
+    "countryName": string,
+    "countryCode": string,
+    "principalSubdivision": string,
+    "principalSubdivisionCode": string,
+    "city": string,
+    "locality": string,
+    "postcode": string,
+}

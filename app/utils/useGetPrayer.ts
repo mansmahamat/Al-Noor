@@ -73,6 +73,9 @@ const useGetPrayer = (date) => {
   // Get latitude and longitude from the location store
   const { latitude, longitude } = useLocationStore();
 
+  // Get the city from from the city store
+  
+
   // Calculate prayer times for today
   const prayerTimesToday = new PrayerTimes(
     new Coordinates(latitude, longitude),
