@@ -24,9 +24,7 @@
         {
           "icon": "./assets/icon.png",
           "color": "#FF5733",
-          "sounds": [
-            "./assets/a4.wav"
-          ]
+          "sounds": ["./assets/a4.wav"]
         }
       ],
       [
@@ -52,20 +50,11 @@
       "infoPlist": {
         "NSLocationWhenInUseUsageDescription": "Al Noor App uses your location to give accurate daily prayer, without that where unable to provide prayer time",
         "NSLocationAlwaysUsageDescription": "Al Noor App will use your location to give accurate daily prayer, without that where unable to provide prayer time",
-        "UIBackgroundModes": [
-          "location",
-          "fetch",
-          "remote-notification"
-        ]
+        "UIBackgroundModes": ["location", "fetch", "remote-notification"]
       }
     },
     "android": {
       "package": "com.mansjs.AlNoorPrayer"
-    },
-    "extra": {
-      "eas": {
-        "projectId": "66203f0b-b884-4e48-9bc0-88b598d2cffd"
-      }
     }
   }
 }
