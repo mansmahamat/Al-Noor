@@ -39,6 +39,11 @@
     "icon": "./assets/icon.png",
     "name": "AlNoorPrayer",
     "slug": "AlNoorPrayer",
+    "extra": {
+      "eas": {
+        "projectId": "cb46a622-55fa-4ee2-8ac0-ccc0485b0d8f"
+      }
+    },
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.mansjs.AlNoorPrayer",
