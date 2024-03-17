@@ -1,13 +1,13 @@
-import { XStack, YStack } from "tamagui";
+import { Button, XStack, YStack } from "tamagui";
 import { MyStack } from "../../../components/MyStack";
 import { CardDemo } from "../../../components/CardDemo/CardDemo";
 import { PrayerList } from "../../../components/PrayerList/PrayerList";
 import { useEffect, useRef, useState } from "react";
 import moment from "moment";
-import DateTimePicker from "@react-native-community/datetimepicker";
+import DateTimePicker from '@react-native-community/datetimepicker';
 import { XCircle } from "@tamagui/lucide-icons";
-import * as Device from "expo-device";
-import * as Notifications from "expo-notifications";
+import * as Device from 'expo-device';
+import * as Notifications from 'expo-notifications';
 import * as Location from "expo-location";
 import { Platform } from "react-native";
 import { I18n } from "i18n-js";
@@ -15,14 +15,15 @@ import fr from "../../../locales/french/fr.json";
 import en from "../../../locales/english/en.json";
 import useLanguageStore from "../../../store/languagesStore";
 import { reloadAll, setArray, setItem } from "../../../../modules/widget";
-import * as TaskManager from "expo-task-manager";
-import * as BackgroundFetch from "expo-background-fetch";
+import * as TaskManager from 'expo-task-manager';
+import * as BackgroundFetch from 'expo-background-fetch';
 import { capitalizeFirstLetter } from "../../../utils/utils";
 import { useOnboardingStore } from "../../../store/onBoardingStore";
 import useGetPrayer from "../../../utils/useGetPrayer";
 import { useLocationStore } from "../../../store/locationStore";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useCityStore } from "../../../store/cityStore";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 // Define a task name
 const BACKGROUND_FETCH_TASK = "MIDNIGHT_TASK";
@@ -62,7 +63,21 @@ const App = () => {
     calculateTimeDifference(nextPrayerTime)
   );
   const { setLatitudeLongitude } = useLocationStore();
-  const { city } = useCityStore();
+  const { city, updateCity } = useCityStore();
+
+
+
+
+  const showDatepicker = () => {
+    setShow(true);
+  };
+
+  const apiKey = ''
+
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [error, setError] = useState<Error | null>(null);
+
+
 
   useEffect(() => {
     const fetchLocation = async () => {
@@ -73,10 +88,36 @@ const App = () => {
 
       let location = await Location.getCurrentPositionAsync({});
       setLatitudeLongitude(location.coords.latitude, location.coords.longitude);
+
+      try {
+        const response = await fetch(
+          `https://geocode.maps.co/reverse?lat=${location.coords.latitude}&lon=${location.coords.longitude}&api_key=${apiKey}`
+        );
+        const data: LocationData = await response.json();
+        updateCity(data.address.city);
+        setIsLoading(false);
+      } catch (error) {
+        console.error(error);
+        setError(error);
+        setIsLoading(false);
+      }
     };
 
     fetchLocation();
   }, []);
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   const onChange = (event, selectedDate) => {
     const currentDate = selectedDate;
@@ -137,11 +178,59 @@ const App = () => {
     const date = entry.date;
     let count = 0;
 
-    // Count the number of prayers completed on this date
-    Object.values(entry).forEach((value) => {
-      if (typeof value === "boolean" && value === true) {
-        count++;
+
+
+    const { completeOnboarding } = useOnboardingStore()
+
+
+
+    const formattedPrayerTimes = prayersToday.map(prayer => ({
+      name: capitalizeFirstLetter(prayer.name),
+      time: new Date(prayer.time).toLocaleTimeString('fr-FR', { hour12: false, hour: '2-digit', minute: '2-digit' })
+    })).filter(prayer => prayer.name !== "Sunrise");
+
+
+
+    const [nextPrayerTimeHours, setnextPrayerTimeHours] = useState<number | null>()
+    const [nextPrayerTimeMinutes, setnextPrayerTimeMinutes] = useState<number | null>()
+
+
+
+
+    const [prayerStatus, setPrayerStatus] = useState([]);
+
+
+
+    const loadPrayerStatus = async () => {
+      try {
+        const savedPrayerStatus = await AsyncStorage.getItem('globalPrayerStatus');
+        if (savedPrayerStatus !== null) {
+          setPrayerStatus(JSON.parse(savedPrayerStatus));
+        } else {
+          setPrayerStatus([]);
+        }
+      } catch (error) {
+        console.error('Error loading prayer status:', error);
       }
+    };
+
+
+    const countMap = {};
+
+    // Iterate over each object in the data array
+    prayerStatus.forEach(entry => {
+      const date = entry.date;
+      let count = 0;
+
+      // Count the number of prayers completed on this date
+      Object.values(entry).forEach(value => {
+        if (typeof value === 'boolean' && value === true) {
+          count++;
+        }
+      });
+
+      // Update the count for this date in the countMap
+      countMap[date] = (countMap[date] || 0) + count;
     });
 
     // Update the count for this date in the countMap
@@ -174,70 +263,83 @@ const App = () => {
 
   // Filter the array for dates with count 5 and in the current month
 
+
+
+
+
+
+
   useEffect(() => {
     setSharedDataArray("prayerTime", formattedPrayerTimes);
     //  setSharedData("prayerTime", formattedTime);
     setSharedData("prayerName", nextPrayerName);
-    //      setSharedDataArray("streakDays", streakDays);
     reloadAll();
+
 
     const storeNextPrayer = async (nextPrayerName, nextPrayerTime) => {
       try {
-        await AsyncStorage.setItem("nextPrayerName", nextPrayerName);
-        await AsyncStorage.setItem("nextPrayerTime", nextPrayerTime.toString()); // Convert Date object to string
+        await AsyncStorage.setItem('nextPrayerName', nextPrayerName);
+        await AsyncStorage.setItem('nextPrayerTime', nextPrayerTime.toString()); // Convert Date object to string
       } catch (error) {
-        console.error("Error storing next prayer:", error);
+        console.error('Error storing next prayer:', error);
       }
     };
 
     storeNextPrayer(nextPrayerName, nextPrayerTime);
 
-    const intervalId = setInterval(() => {
-      const difference = calculateTimeDifference(nextPrayerTime);
-      setTimeDifference(difference);
 
-      const nextPrayerTimeHours = Math.floor(Math.abs(timeDifference) / 3600);
+
+    const intervalId = setInterval(() => {
+      const difference = calculateTimeDifference(nextPrayerTime)
+      setTimeDifference(difference)
+
+      const nextPrayerTimeHours = Math.floor(Math.abs(timeDifference) / 3600)
       const nextPrayerTimeMinutes = Math.floor(
         (Math.abs(timeDifference) % 3600) / 60
-      );
+      )
 
-      setnextPrayerTimeHours(nextPrayerTimeHours);
-      setnextPrayerTimeMinutes(nextPrayerTimeMinutes);
+      setnextPrayerTimeHours(nextPrayerTimeHours)
+      setnextPrayerTimeMinutes(nextPrayerTimeMinutes)
       // If the difference reaches 0, clear the interval
       if (difference <= 0) {
-        clearInterval(intervalId);
+        clearInterval(intervalId)
       }
-    }, 1000);
+    }, 1000)
     return () => {
-      clearInterval(intervalId); // Clean up the interval on unmount
-    };
-  }, [nextPrayerTime]);
+      clearInterval(intervalId) // Clean up the interval on unmount
+
+    }
+  }, [nextPrayerTime])
+
+
+
+
+
 
   useEffect(() => {
-    completeOnboarding();
-    registerForPushNotificationsAsync().then((token) =>
-      setExpoPushToken(token)
-    );
+    completeOnboarding()
+    registerForPushNotificationsAsync().then(token => setExpoPushToken(token));
     //@ts-ignore
-    notificationListener.current =
-      Notifications.addNotificationReceivedListener((notification) => {
-        //@ts-ignore
+    notificationListener.current = Notifications.addNotificationReceivedListener(notification => {
+      //@ts-ignore
 
-        setNotification(notification);
-      });
+      setNotification(notification);
+    });
+
+
 
     //@ts-ignore
 
-    responseListener.current =
-      Notifications.addNotificationResponseReceivedListener(() => {});
+    responseListener.current = Notifications.addNotificationResponseReceivedListener(() => {
+    });
 
     return () => {
-      Notifications.removeNotificationSubscription(
-        notificationListener.current
-      );
+      Notifications.removeNotificationSubscription(notificationListener.current);
       Notifications.removeNotificationSubscription(responseListener.current);
     };
   }, []);
+
+
 
   const i18n = new I18n({
     ...fr,
@@ -304,10 +406,30 @@ const App = () => {
     };
   }, []);
 
+
+  const CalendarDateTimePicker = (
+    <DateTimePicker
+      testID="dateTimePicker"
+      style={{ backgroundColor: "#4c6c53" }}
+      textColor="#ffffff"
+      themeVariant="dark"
+      collapsable={true}
+      value={date}
+      mode="date"
+      is24Hour={true}
+      onChange={onChange}
+    />
+  );
+
   return (
     <>
       <MyStack>
-        <YStack space="$4" paddingBottom="$18">
+
+        <YStack
+          space="$4"
+          paddingBottom="$18"
+        >
+
           <CardDemo
             nextPrayerTime={nextPrayerTime}
             nextPrayerName={nextPrayerName}
@@ -315,43 +437,47 @@ const App = () => {
             date={date}
             nextPrayerTimeHours={nextPrayerTimeHours}
             nextPrayerTimeMinutes={nextPrayerTimeMinutes}
-            currentPrayer={currentPrayer}
-          />
+            currentPrayer={currentPrayer} />
+
 
           <XStack
             display="flex"
             alignItems="center"
+
             justifyContent="center"
             borderColor="$color"
             borderRadius="$4"
           >
-            <DateTimePicker
-              testID="dateTimePicker"
-              style={{ backgroundColor: "#4c6c53" }}
-              textColor="#ffffff"
-              themeVariant="dark"
-              collapsable={true}
-              value={date}
-              mode="date"
-              is24Hour={true}
-              onChange={onChange}
-            />
-            {date.toDateString() !== today.toDateString() && (
-              <XCircle
-                onPress={reset}
-                style={{ marginLeft: 6 }}
-                size={24}
-                color="red"
-              />
+            {Platform.OS === "android" && (
+              <>
+                <Button onPress={showDatepicker}>
+                  Date {moment(date).format("DD/MM/YY")}
+                </Button>
+                {show && CalendarDateTimePicker}
+              </>
             )}
+            {Platform.OS === "ios" && CalendarDateTimePicker}
+            {date.toDateString() !== today.toDateString() && <TouchableOpacity onPress={reset}>
+              <XCircle style={{ marginLeft: 5 }} size={24} color="red" />
+            </TouchableOpacity>}
+
+
+
+            {date.toDateString() !== today.toDateString() && <XCircle onPress={reset} style={{ marginLeft: 6 }} size={24} color="red" />}
+
           </XStack>
 
           <PrayerList prayerList={transformedArray} />
+
+
         </YStack>
+
+
       </MyStack>
+
     </>
   );
-};
+}
 
 // Function to schedule a notification for the next prayer time
 async function scheduleNextPrayerNotification(dateTime, message) {
@@ -376,37 +502,32 @@ export default App;
 async function registerForPushNotificationsAsync() {
   let token;
 
-  if (Platform.OS === "android") {
-    await Notifications.setNotificationChannelAsync("default", {
-      name: "default",
+  if (Platform.OS === 'android') {
+    await Notifications.setNotificationChannelAsync('default', {
+      name: 'default',
       importance: Notifications.AndroidImportance.MAX,
       vibrationPattern: [0, 250, 250, 250],
-      lightColor: "#FF231F7C",
+      lightColor: '#FF231F7C',
     });
   }
 
   if (Device.isDevice) {
-    const { status: existingStatus } =
-      await Notifications.getPermissionsAsync();
+    const { status: existingStatus } = await Notifications.getPermissionsAsync();
     let finalStatus = existingStatus;
-    if (existingStatus !== "granted") {
+    if (existingStatus !== 'granted') {
       const { status } = await Notifications.requestPermissionsAsync();
       finalStatus = status;
     }
-    if (finalStatus !== "granted") {
-      alert("Failed to get push token for push notification!");
+    if (finalStatus !== 'granted') {
+      alert('Failed to get push token for push notification!');
       return;
     }
     // Learn more about projectId:
     // https://docs.expo.dev/push-notifications/push-notifications-setup/#configure-projectid
-    token = (
-      await Notifications.getExpoPushTokenAsync({
-        projectId: "9cba4f70-b7d4-4a38-afa4-9c9294a7258b",
-      })
-    ).data;
+    token = (await Notifications.getExpoPushTokenAsync({ projectId: "9cba4f70-b7d4-4a38-afa4-9c9294a7258b" })).data;
     console.log(token);
   } else {
-    alert("Must use physical device for Push Notifications");
+    alert('Must use physical device for Push Notifications');
   }
 
   return token;

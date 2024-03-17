@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Text, TouchableOpacity, Dimensions } from 'react-native';
-import { H2, ListItem, ScrollView, Separator, SizableText, Tabs, TabsContentProps, XStack, YGroup } from 'tamagui'; // Import your UI components
+import { Text, TouchableOpacity, Dimensions, Platform } from 'react-native';
+import { Button, H2, ListItem, ScrollView, Separator, SizableText, Tabs, TabsContentProps, XStack, YGroup } from 'tamagui'; // Import your UI components
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { capitalizeFirstLetter } from '../../../utils/utils';
 import { XCircle } from '@tamagui/lucide-icons';
@@ -16,13 +16,15 @@ import useLanguageStore from '../../../store/languagesStore';
 import moment from 'moment';
 import { setArray } from '../../../../modules/widget';
 
-const GROUP_NAME = "group.com.mansjs.AlNoorPrayer";
+// const GROUP_NAME = "group.com.mansjs.AlNoorPrayer";
 
 
-const setSharedDataArray = setArray(GROUP_NAME);
+// const setSharedDataArray = setArray(GROUP_NAME);
 
 const Tracker = () => {
     const [date, setDate] = useState(new Date());
+    const [show, setShow] = useState(false);
+
     const today = new Date();
     const [prayerStatus, setPrayerStatus] = useState([]);
 
@@ -139,13 +141,13 @@ const Tracker = () => {
     };
 
 
-    setSharedDataArray("streakDays", streakDays);
+    // setSharedDataArray("streakDays", streakDays);
 
-    useEffect(() => {
+    // useEffect(() => {
 
-        setSharedDataArray("streakDays", streakDays);
+    //     setSharedDataArray("streakDays", streakDays);
 
-    }, [prayerStatus]);
+    // }, [prayerStatus]);
 
 
 
@@ -289,6 +291,29 @@ const Tracker = () => {
     i18n.locale = language;
 
 
+    const onChange = (event, selectedDate) => {
+        setShow(false);
+        setDate(selectedDate || date)
+    };
+
+    const showDatepicker = () => {
+        setShow(true);
+    };
+
+    const CalendarDateTimePicker = (
+        <DateTimePicker
+            testID="dateTimePicker"
+            style={{ backgroundColor: "#4c6c53" }}
+            textColor="#ffffff"
+            themeVariant="dark"
+            collapsable={true}
+            value={date}
+            mode="date"
+            is24Hour={true}
+            onChange={onChange}
+        />
+    );
+
 
     return (
         <MyStack>
@@ -301,17 +326,15 @@ const Tracker = () => {
                         </H2>
                     </XStack>
                     <XStack alignItems="center" justifyContent="center" borderColor="$color" borderRadius="$4">
-                        <DateTimePicker
-                            testID="dateTimePicker"
-                            style={{ backgroundColor: "#4c6c53" }}
-                            textColor="#ffffff"
-                            themeVariant="dark"
-                            collapsable={true}
-                            value={date}
-                            mode="date"
-                            is24Hour={true}
-                            onChange={(event, selectedDate) => setDate(selectedDate || date)}
-                        />
+                        {Platform.OS === "android" && (
+                            <>
+                                <Button onPress={showDatepicker}>
+                                    Date {moment(date).format("DD/MM/YY")}
+                                </Button>
+                                {show && CalendarDateTimePicker}
+                            </>
+                        )}
+                        {Platform.OS === "ios" && CalendarDateTimePicker}
                         {date.toDateString() !== today.toDateString() && <TouchableOpacity onPress={resetDate}>
                             <XCircle style={{ marginLeft: 5 }} size={24} color="red" />
                         </TouchableOpacity>}
@@ -403,7 +426,7 @@ const Tracker = () => {
                 </YGroup>
             </ScrollView>
 
-        </MyStack>
+        </MyStack >
     );
 };
 
@@ -426,6 +449,7 @@ const TabsContent = (props: TabsContentProps) => {
         </Tabs.Content>
     )
 }
+
 
 
 
