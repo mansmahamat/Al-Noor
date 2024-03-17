@@ -15,11 +15,12 @@ import en from "../../../locales/english/en.json";
 import useLanguageStore from '../../../store/languagesStore';
 import moment from 'moment';
 import { setArray } from '../../../../modules/widget';
+import CalendarDateTimePicker from '../../../components/Calendar/Calendar';
 
-// const GROUP_NAME = "group.com.mansjs.AlNoorPrayer";
+const GROUP_NAME = "group.com.mansjs.AlNoorPrayer";
 
 
-// const setSharedDataArray = setArray(GROUP_NAME);
+const setSharedDataArray = setArray(GROUP_NAME);
 
 const Tracker = () => {
     const [date, setDate] = useState(new Date());
@@ -141,13 +142,13 @@ const Tracker = () => {
     };
 
 
-    // setSharedDataArray("streakDays", streakDays);
+    setSharedDataArray("streakDays", streakDays);
 
-    // useEffect(() => {
+    useEffect(() => {
 
-    //     setSharedDataArray("streakDays", streakDays);
+        setSharedDataArray("streakDays", streakDays);
 
-    // }, [prayerStatus]);
+    }, [prayerStatus]);
 
 
 
@@ -300,19 +301,6 @@ const Tracker = () => {
         setShow(true);
     };
 
-    const CalendarDateTimePicker = (
-        <DateTimePicker
-            testID="dateTimePicker"
-            style={{ backgroundColor: "#4c6c53" }}
-            textColor="#ffffff"
-            themeVariant="dark"
-            collapsable={true}
-            value={date}
-            mode="date"
-            is24Hour={true}
-            onChange={onChange}
-        />
-    );
 
 
     return (
@@ -331,10 +319,10 @@ const Tracker = () => {
                                 <Button onPress={showDatepicker}>
                                     Date {moment(date).format("DD/MM/YY")}
                                 </Button>
-                                {show && CalendarDateTimePicker}
+                                {show && <CalendarDateTimePicker date={date} onChange={onChange} />}
                             </>
                         )}
-                        {Platform.OS === "ios" && CalendarDateTimePicker}
+                        {Platform.OS === "ios" && <CalendarDateTimePicker date={date} onChange={onChange} />}
                         {date.toDateString() !== today.toDateString() && <TouchableOpacity onPress={resetDate}>
                             <XCircle style={{ marginLeft: 5 }} size={24} color="red" />
                         </TouchableOpacity>}

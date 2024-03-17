@@ -10,7 +10,7 @@ interface Props {
   nextPrayerName: string;
   nextPrayerTimeHours: number;
   nextPrayerTimeMinutes: number;
-  city: string;
+  city?: string;
   date: Date;
 }
 

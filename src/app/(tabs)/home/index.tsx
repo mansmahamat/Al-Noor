@@ -13,28 +13,42 @@ import { Platform } from "react-native";
 import { I18n } from "i18n-js";
 import fr from "../../../locales/french/fr.json";
 import en from "../../../locales/english/en.json";
-import useLanguageStore from "../../../store/languagesStore";
-import { reloadAll, setArray, setItem } from "../../../../modules/widget";
 import * as TaskManager from 'expo-task-manager';
 import * as BackgroundFetch from 'expo-background-fetch';
-import { capitalizeFirstLetter } from "../../../utils/utils";
-import { useOnboardingStore } from "../../../store/onBoardingStore";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { reloadAll, setArray, setItem } from "../../../../modules/widget";
 import useGetPrayer from "../../../utils/useGetPrayer";
 import { useLocationStore } from "../../../store/locationStore";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useOnboardingStore } from "../../../store/onBoardingStore";
+import { capitalizeFirstLetter } from "../../../utils/utils";
+import useLanguageStore from "../../../store/languagesStore";
 import { useCityStore } from "../../../store/cityStore";
+import CalendarDateTimePicker from "../../../components/Calendar/Calendar";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
+
 // Define a task name
-const BACKGROUND_FETCH_TASK = "MIDNIGHT_TASK";
+const BACKGROUND_FETCH_TASK = 'MIDNIGHT_TASK';
+
 
 TaskManager.defineTask(BACKGROUND_FETCH_TASK, async () => {
+
+
+
+
   return BackgroundFetch.BackgroundFetchResult.NewData;
 });
 
+
+
+
 const GROUP_NAME = "group.com.mansjs.AlNoorPrayer";
+
+
 const setSharedData = setItem(GROUP_NAME);
 const setSharedDataArray = setArray(GROUP_NAME);
+
+
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -44,40 +58,41 @@ Notifications.setNotificationHandler({
   }),
 });
 
+
+
 const App = () => {
+
+
+
+
   const [expoPushToken, setExpoPushToken] = useState<string>();
   const [notification, setNotification] = useState(false);
   const notificationListener = useRef();
   const responseListener = useRef();
   const [date, setDate] = useState(new Date());
   const [show, setShow] = useState(false);
-  const today = new Date();
-  const { transformedArray } = useGetPrayer(date);
+
+
+  const today = new Date()
+
+
+
+
+
   const {
-    currentPrayer,
-    nextPrayerTime,
-    nextPrayerName,
-    transformedArray: prayersToday,
-  } = useGetPrayer(today);
+    transformedArray, } = useGetPrayer(date)
+  const { currentPrayer, nextPrayerTime, nextPrayerName, transformedArray: prayersToday } = useGetPrayer(today)
+
   const [timeDifference, setTimeDifference] = useState(
     calculateTimeDifference(nextPrayerTime)
-  );
+  )
+
+
+
   const { setLatitudeLongitude } = useLocationStore();
   const { city, updateCity } = useCityStore();
 
-
-
-
-  const showDatepicker = () => {
-    setShow(true);
-  };
-
-  const apiKey = ''
-
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [error, setError] = useState<Error | null>(null);
-
-
+  const apiKey = ""
 
   useEffect(() => {
     const fetchLocation = async () => {
@@ -89,17 +104,17 @@ const App = () => {
       let location = await Location.getCurrentPositionAsync({});
       setLatitudeLongitude(location.coords.latitude, location.coords.longitude);
 
+
       try {
         const response = await fetch(
           `https://geocode.maps.co/reverse?lat=${location.coords.latitude}&lon=${location.coords.longitude}&api_key=${apiKey}`
         );
         const data: LocationData = await response.json();
-        updateCity(data.address.city);
-        setIsLoading(false);
+
+
+        updateCity(data.address.city ?? data.address.municipality);
       } catch (error) {
         console.error(error);
-        setError(error);
-        setIsLoading(false);
       }
     };
 
@@ -107,16 +122,9 @@ const App = () => {
   }, []);
 
 
-
-
-
-
-
-
-
-
-
-
+  const showDatepicker = () => {
+    setShow(true);
+  };
 
 
   const onChange = (event, selectedDate) => {
@@ -129,108 +137,57 @@ const App = () => {
     setDate(today);
   };
 
-  const { completeOnboarding } = useOnboardingStore();
 
-  const formattedPrayerTimes = prayersToday
-    .map((prayer) => ({
-      name: capitalizeFirstLetter(prayer.name),
-      time: new Date(prayer.time).toLocaleTimeString("fr-FR", {
-        hour12: false,
-        hour: "2-digit",
-        minute: "2-digit",
-      }),
-    }))
-    .filter((prayer) => prayer.name !== "Sunrise");
+  const { completeOnboarding } = useOnboardingStore()
 
-  const [nextPrayerTimeHours, setnextPrayerTimeHours] = useState<
-    number | null
-  >();
-  const [nextPrayerTimeMinutes, setnextPrayerTimeMinutes] = useState<
-    number | null
-  >();
+
+
+  const formattedPrayerTimes = prayersToday.map(prayer => ({
+    name: capitalizeFirstLetter(prayer.name),
+    time: new Date(prayer.time).toLocaleTimeString('fr-FR', { hour12: false, hour: '2-digit', minute: '2-digit' })
+  })).filter(prayer => prayer.name !== "Sunrise");
+
+
+
+  const [nextPrayerTimeHours, setnextPrayerTimeHours] = useState<number | null>()
+  const [nextPrayerTimeMinutes, setnextPrayerTimeMinutes] = useState<number | null>()
+
 
   // Format date to yyyy/mm/dd
 
   const currentMonthStreak = moment().month() + 1; // Months are 0-indexed, so add 1
   const currentYearStreak = moment().year();
 
+
   const [prayerStatus, setPrayerStatus] = useState([]);
+
 
   const loadPrayerStatus = async () => {
     try {
-      const savedPrayerStatus = await AsyncStorage.getItem(
-        "globalPrayerStatus"
-      );
+      const savedPrayerStatus = await AsyncStorage.getItem('globalPrayerStatus');
       if (savedPrayerStatus !== null) {
         setPrayerStatus(JSON.parse(savedPrayerStatus));
       } else {
         setPrayerStatus([]);
       }
     } catch (error) {
-      console.error("Error loading prayer status:", error);
+      console.error('Error loading prayer status:', error);
     }
   };
+
 
   const countMap = {};
 
   // Iterate over each object in the data array
-  prayerStatus.forEach((entry) => {
+  prayerStatus.forEach(entry => {
     const date = entry.date;
     let count = 0;
 
-
-
-    const { completeOnboarding } = useOnboardingStore()
-
-
-
-    const formattedPrayerTimes = prayersToday.map(prayer => ({
-      name: capitalizeFirstLetter(prayer.name),
-      time: new Date(prayer.time).toLocaleTimeString('fr-FR', { hour12: false, hour: '2-digit', minute: '2-digit' })
-    })).filter(prayer => prayer.name !== "Sunrise");
-
-
-
-    const [nextPrayerTimeHours, setnextPrayerTimeHours] = useState<number | null>()
-    const [nextPrayerTimeMinutes, setnextPrayerTimeMinutes] = useState<number | null>()
-
-
-
-
-    const [prayerStatus, setPrayerStatus] = useState([]);
-
-
-
-    const loadPrayerStatus = async () => {
-      try {
-        const savedPrayerStatus = await AsyncStorage.getItem('globalPrayerStatus');
-        if (savedPrayerStatus !== null) {
-          setPrayerStatus(JSON.parse(savedPrayerStatus));
-        } else {
-          setPrayerStatus([]);
-        }
-      } catch (error) {
-        console.error('Error loading prayer status:', error);
+    // Count the number of prayers completed on this date
+    Object.values(entry).forEach(value => {
+      if (typeof value === 'boolean' && value === true) {
+        count++;
       }
-    };
-
-
-    const countMap = {};
-
-    // Iterate over each object in the data array
-    prayerStatus.forEach(entry => {
-      const date = entry.date;
-      let count = 0;
-
-      // Count the number of prayers completed on this date
-      Object.values(entry).forEach(value => {
-        if (typeof value === 'boolean' && value === true) {
-          count++;
-        }
-      });
-
-      // Update the count for this date in the countMap
-      countMap[date] = (countMap[date] || 0) + count;
     });
 
     // Update the count for this date in the countMap
@@ -247,8 +204,8 @@ const App = () => {
 
     // Extract year, month, and day from the Date object
     const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, "0");
-    const day = String(date.getDate()).padStart(2, "0");
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
 
     // Return formatted date string
     return `${year}-${month}-${day}`;
@@ -256,13 +213,13 @@ const App = () => {
 
   const formattedData = Object.entries(countMap).map(([date, count]) => ({
     date: formatDateStreak(date),
-    count: count,
+    count: count
   }));
 
   // Filter the streak days for the current month with a count of 5
 
-  // Filter the array for dates with count 5 and in the current month
 
+  // Filter the array for dates with count 5 and in the current month
 
 
 
@@ -273,6 +230,7 @@ const App = () => {
     setSharedDataArray("prayerTime", formattedPrayerTimes);
     //  setSharedData("prayerTime", formattedTime);
     setSharedData("prayerName", nextPrayerName);
+    //      setSharedDataArray("streakDays", streakDays);
     reloadAll();
 
 
@@ -314,8 +272,6 @@ const App = () => {
 
 
 
-
-
   useEffect(() => {
     completeOnboarding()
     registerForPushNotificationsAsync().then(token => setExpoPushToken(token));
@@ -340,7 +296,6 @@ const App = () => {
   }, []);
 
 
-
   const i18n = new I18n({
     ...fr,
     ...en,
@@ -348,49 +303,48 @@ const App = () => {
 
   const { language } = useLanguageStore();
 
-  // const locale = getLocales();
-  // const localeCode = locale[0].languageCode;
 
   i18n.defaultLocale = "en";
   i18n.locale = language;
 
+
   function calculateTimeDifference(targetTime) {
     const currentTime = moment();
-    return moment(targetTime).diff(currentTime, "seconds");
+    const difference = moment(targetTime).diff(currentTime, "seconds");
+    return difference;
   }
+
+
 
   const difference = calculateTimeDifference(nextPrayerTime);
 
+
+
+
+
   useEffect(() => {
+
     if (difference === 0) {
       // Calculate the next prayer time after the current time
-      const nextPrayerAfterNow = prayersToday.find(
-        (prayer) => new Date(prayer.time) > new Date()
-      );
-      scheduleNextPrayerNotification(
-        nextPrayerAfterNow.time,
-        `It's time for ${nextPrayerAfterNow.name} prayer`
-      );
+      const nextPrayerAfterNow = prayersToday.find(prayer => new Date(prayer.time) > new Date());
+      scheduleNextPrayerNotification(nextPrayerAfterNow.time, `It's time for ${nextPrayerAfterNow.name} prayer`);
       // If there's a prayer time after now, use it for scheduling notification
       if (nextPrayerAfterNow) {
-        scheduleNextPrayerNotification(
-          nextPrayerAfterNow.time,
-          `It's time for ${nextPrayerAfterNow.name} prayer`
-        );
+
+        scheduleNextPrayerNotification(nextPrayerAfterNow.time, `It's time for ${nextPrayerAfterNow.name} prayer`);
       } else {
         // If no prayer time is found after now, the day's prayers have ended
         // You can handle this case as needed, maybe schedule a notification for the next day's Fajr prayer
       }
     } else {
       // If the difference is positive, schedule notification for the next prayer time
-      scheduleNextPrayerNotification(
-        nextPrayerTime,
-        `It's time for ${nextPrayerName} prayer`
-      );
+      scheduleNextPrayerNotification(nextPrayerTime, `It's time for ${nextPrayerName} prayer`);
     }
 
+
+
     // Register a background fetch task to update notifications
-    if (Platform.OS === "ios") {
+    if (Platform.OS === 'ios') {
       BackgroundFetch.setMinimumIntervalAsync(1); // Set the minimum interval for background fetch task
     }
     const task = BackgroundFetch.registerTaskAsync(BACKGROUND_FETCH_TASK, {
@@ -404,22 +358,9 @@ const App = () => {
         BackgroundFetch.unregisterTaskAsync(BACKGROUND_FETCH_TASK);
       });
     };
+
   }, []);
 
-
-  const CalendarDateTimePicker = (
-    <DateTimePicker
-      testID="dateTimePicker"
-      style={{ backgroundColor: "#4c6c53" }}
-      textColor="#ffffff"
-      themeVariant="dark"
-      collapsable={true}
-      value={date}
-      mode="date"
-      is24Hour={true}
-      onChange={onChange}
-    />
-  );
 
   return (
     <>
@@ -453,17 +394,17 @@ const App = () => {
                 <Button onPress={showDatepicker}>
                   Date {moment(date).format("DD/MM/YY")}
                 </Button>
-                {show && CalendarDateTimePicker}
+                {show && <CalendarDateTimePicker date={date} onChange={onChange} />}
               </>
             )}
-            {Platform.OS === "ios" && CalendarDateTimePicker}
+            {Platform.OS === "ios" && <CalendarDateTimePicker date={date} onChange={onChange} />}
             {date.toDateString() !== today.toDateString() && <TouchableOpacity onPress={reset}>
               <XCircle style={{ marginLeft: 5 }} size={24} color="red" />
             </TouchableOpacity>}
 
 
 
-            {date.toDateString() !== today.toDateString() && <XCircle onPress={reset} style={{ marginLeft: 6 }} size={24} color="red" />}
+
 
           </XStack>
 
@@ -487,17 +428,24 @@ async function scheduleNextPrayerNotification(dateTime, message) {
 async function schedulePushNotification(dateTime, message) {
   await Notifications.scheduleNotificationAsync({
     content: {
-      title: "Al noorPrayer Time",
+      title: 'Al noorPrayer Time',
       body: message,
-      sound: "default",
+      sound: "default"
     },
     trigger: {
       date: dateTime,
     },
   });
+
 }
 
-export default App;
+
+
+
+export default App
+
+
+
 
 async function registerForPushNotificationsAsync() {
   let token;

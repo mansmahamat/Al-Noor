@@ -12,6 +12,7 @@ interface Address {
     postcode: string;
     country: string;
     country_code: string;
+    municipality: string
   }
   
   interface LocationData {

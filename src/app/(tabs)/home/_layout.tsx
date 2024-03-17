@@ -1,6 +1,6 @@
 import { CalendarCheck, Compass, Home, List, Settings, UtensilsCrossed } from "@tamagui/lucide-icons";
 import { Tabs } from "expo-router";
-import { View } from "tamagui";
+import { Text, View } from "tamagui";
 import { I18n } from "i18n-js";
 import fr from "../../../locales/french/fr.json";
 import en from "../../../locales/english/en.json";
@@ -27,10 +27,15 @@ export default function Layout() {
                 name="index"
                 options={{
                     headerStatusBarHeight: 0,
+
                     tabBarStyle: {
                         borderTopColor: "#4c6c53",
                         borderTopWidth: 0,
                     },
+                    tabBarLabel: () => (
+                        <Text style={{ color: "#4c6c53" }} />
+                    ),
+
                     tabBarIcon() {
                         return (
                             <Home color="#4c6c53" />
@@ -54,6 +59,9 @@ export default function Layout() {
                     tabBarBackground: () => (
                         <View style={{ backgroundColor: "#4c6c53", height: 80 }} />
                     ),
+                    tabBarLabel: () => (
+                        <Text style={{ color: "#4c6c53" }} />
+                    ),
                     tabBarIcon() {
                         return (
                             <CalendarCheck color="#4c6c53" />
@@ -75,6 +83,9 @@ export default function Layout() {
                     },
                     tabBarBackground: () => (
                         <View style={{ backgroundColor: "#4c6c53", height: 80 }} />
+                    ),
+                    tabBarLabel: () => (
+                        <Text style={{ color: "#4c6c53" }} />
                     ),
                     tabBarIcon() {
                         return (
@@ -98,6 +109,9 @@ export default function Layout() {
                     tabBarBackground: () => (
                         <View style={{ backgroundColor: "#4c6c53", height: 80 }} />
                     ),
+                    tabBarLabel: () => (
+                        <Text style={{ color: "#4c6c53" }} />
+                    ),
                     tabBarIcon() {
                         return (
                             <Compass color="#4c6c53" />
@@ -115,6 +129,9 @@ export default function Layout() {
                         borderTopWidth: 0,
                     },
                     title: "99 names",
+                    tabBarLabel: () => (
+                        <Text style={{ color: "#4c6c53" }} />
+                    ),
                     tabBarIcon() {
                         return (
                             <List color="#4c6c53" />
@@ -130,11 +147,15 @@ export default function Layout() {
                         borderTopColor: "#4c6c53",
                         borderTopWidth: 0,
                     },
+                    tabBarLabel: () => (
+                        <Text style={{ color: "#4c6c53" }} />
+                    ),
                     tabBarIcon() {
                         return (
                             <Settings color="#4c6c53" />
                         );
                     },
+
                 }}
             />
         </Tabs>
