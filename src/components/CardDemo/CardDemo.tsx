@@ -57,7 +57,8 @@ export function CardDemo({
         </Paragraph>
         <Paragraph
           fontWeight="600"
-          fontSize={26}
+          fontSize='$7'
+          marginTop="$2"
           color="white"
           numberOfLines={1}
         >
