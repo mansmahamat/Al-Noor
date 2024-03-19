@@ -16,21 +16,13 @@ import nameAllahData from "../../../assets/data/99_name.json"
 import { useState } from "react"
 import { XSquare } from "@tamagui/lucide-icons"
 import useLanguageStore from "../../../store/languagesStore"
-import { I18n } from "i18n-js";
-import fr from "../../../locales/french/fr.json";
-import en from "../../../locales/english/en.json";
+import {i18n} from "../../../lib/i18n";
 
 const App = () => {
     const [open, setOpen] = useState(false)
+
     const { language } = useLanguageStore();
-
-    const i18n = new I18n({
-        ...fr,
-        ...en,
-    });
-
     i18n.locale = language;
-
 
     return (
         <ScrollView>

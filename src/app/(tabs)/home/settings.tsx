@@ -19,29 +19,21 @@ import useCalculationMethodStore from "../../../store/calculationMethodStore"
 import useCalculationMadhab from "../../../store/calculationMadhabStore"
 import { SelectMadhab } from "../../../components/SelectMadhab/SelectMadhab"
 import SelectLanguagesSheet from "../../../components/SelectLanguages/SelectLanguagesSheet"
-import { I18n } from "i18n-js";
-import fr from "../../../locales/french/fr.json";
-import en from "../../../locales/english/en.json";
-import ar from "../../../locales/arabic/ar.json";
 import useLanguageStore from "../../../store/languagesStore"
 import { itemsCalculationMethod } from "../../../data/itemCalculation"
+import {i18n} from "../../../lib/i18n";
 
 const App = () => {
     const [open, setOpen] = useState(false)
     const [openLanguageSheet, setOpenLanguageSheet] = useState(false)
     const [position, setPosition] = useState(0)
     const { language } = useLanguageStore();
+    i18n.locale = language;
 
     const { updateCalculationMethod, calculationMethod } = useCalculationMethodStore();
     const { updateCalculationMadhab, madhab } = useCalculationMadhab();
 
-    const i18n = new I18n({
-        ...fr,
-        ...en,
-        ...ar
-    });
 
-    i18n.locale = language;
 
     return (
         <>
