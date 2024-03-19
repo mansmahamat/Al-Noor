@@ -13,9 +13,9 @@ interface Address {
     country: string;
     country_code: string;
     municipality: string
-  }
+}
   
-  interface LocationData {
+interface LocationData {
     place_id: number;
     licence: string;
     osm_type: string;
@@ -25,4 +25,4 @@ interface Address {
     display_name: string;
     address: Address;
     boundingbox: [string, string, string, string];
-  }
+}
