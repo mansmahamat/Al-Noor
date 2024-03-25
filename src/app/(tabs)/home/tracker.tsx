@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Text, TouchableOpacity, Dimensions, Platform } from 'react-native';
 import { Button, H2, ListItem, ScrollView, Separator, SizableText, Tabs, TabsContentProps, XStack, YGroup } from 'tamagui'; // Import your UI components
-import DateTimePicker from '@react-native-community/datetimepicker';
 import { capitalizeFirstLetter } from '../../../utils/utils';
 import { XCircle } from '@tamagui/lucide-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -9,13 +8,11 @@ import { MyStack } from '../../../components/MyStack';
 import {
     ContributionGraph, LineChart, ProgressChart,
 } from "react-native-chart-kit";
-import { I18n } from "i18n-js";
-import fr from "../../../locales/french/fr.json";
-import en from "../../../locales/english/en.json";
 import useLanguageStore from '../../../store/languagesStore';
 import moment from 'moment';
 import { setArray } from '../../../../modules/widget';
 import CalendarDateTimePicker from '../../../components/Calendar/Calendar';
+import {i18n} from "../../../lib/i18n";
 
 const GROUP_NAME = "group.com.mansjs.AlNoorPrayer";
 
@@ -279,16 +276,7 @@ const Tracker = () => {
     };
 
 
-
-    const i18n = new I18n({
-        ...fr,
-        ...en,
-    });
-
     const { language } = useLanguageStore();
-
-
-    i18n.defaultLocale = "en";
     i18n.locale = language;
 
 

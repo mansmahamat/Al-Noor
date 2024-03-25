@@ -5,10 +5,8 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { MyStack } from "../../../components/MyStack";
 import { Calendar } from "react-native-calendars";
 import { ContributionGraph } from "react-native-chart-kit";
-import { I18n } from "i18n-js";
-import fr from "../../../locales/french/fr.json";
-import en from "../../../locales/english/en.json";
 import useLanguageStore from "../../../store/languagesStore";
+import {i18n} from "../../../lib/i18n";
 
 // Define type for fasting status entry
 type FastingStatusEntry = {
@@ -140,15 +138,7 @@ const FastingTracker = () => {
 
     const screenWidth = Dimensions.get("window").width;
 
-    const i18n = new I18n({
-        ...fr,
-        ...en,
-    });
-
     const { language } = useLanguageStore();
-
-    // Configure i18n
-    i18n.defaultLocale = "en";
     i18n.locale = language;
 
     return (

@@ -4,15 +4,11 @@ import { CardDemo } from "../../../components/CardDemo/CardDemo";
 import { PrayerList } from "../../../components/PrayerList/PrayerList";
 import { useEffect, useRef, useState } from "react";
 import moment from "moment";
-import DateTimePicker from '@react-native-community/datetimepicker';
 import { XCircle } from "@tamagui/lucide-icons";
 import * as Device from 'expo-device';
 import * as Notifications from 'expo-notifications';
 import * as Location from "expo-location";
 import { Platform } from "react-native";
-import { I18n } from "i18n-js";
-import fr from "../../../locales/french/fr.json";
-import en from "../../../locales/english/en.json";
 import * as TaskManager from 'expo-task-manager';
 import * as BackgroundFetch from 'expo-background-fetch';
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -25,6 +21,7 @@ import useLanguageStore from "../../../store/languagesStore";
 import { useCityStore } from "../../../store/cityStore";
 import CalendarDateTimePicker from "../../../components/Calendar/Calendar";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import {i18n} from "../../../lib/i18n";
 
 
 // Define a task name
@@ -296,15 +293,8 @@ const App = () => {
   }, []);
 
 
-  const i18n = new I18n({
-    ...fr,
-    ...en,
-  });
 
   const { language } = useLanguageStore();
-
-
-  i18n.defaultLocale = "en";
   i18n.locale = language;
 
 

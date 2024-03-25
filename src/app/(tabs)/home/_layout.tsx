@@ -1,21 +1,11 @@
 import { CalendarCheck, Compass, Home, List, Settings, UtensilsCrossed } from "@tamagui/lucide-icons";
 import { Tabs } from "expo-router";
 import { Text, View } from "tamagui";
-import { I18n } from "i18n-js";
-import fr from "../../../locales/french/fr.json";
-import en from "../../../locales/english/en.json";
-import ar from "../../../locales/arabic/ar.json";
 import useLanguageStore from "../../../store/languagesStore"
+import {i18n} from "../../../lib/i18n";
 
 export default function Layout() {
     const { language } = useLanguageStore();
-
-    const i18n = new I18n({
-        ...fr,
-        ...en,
-        ...ar
-    });
-
     i18n.locale = language;
 
     return (
