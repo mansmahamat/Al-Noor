@@ -15,8 +15,14 @@ web-build/
 # macOS
 .DS_Store
 
+# Webstorm
+.idea
+
 yarn-error.log
 # Expo
 .expo
 dist/
 web-build/
+
+android/
+ios/
