@@ -157,8 +157,8 @@ const FastingTracker = () => {
                     </XStack>
                     <Calendar
                         theme={{
-                            backgroundColor: "#282828",
-                            calendarBackground: "#282828",
+                            backgroundColor: "#ffffff",
+                            calendarBackground: "#ffffff",
                             textSectionTitleColor: "#F2D2BD",
                             textSectionTitleDisabledColor: "#d9e1e8",
                             selectedDayBackgroundColor: "#00adf5",
