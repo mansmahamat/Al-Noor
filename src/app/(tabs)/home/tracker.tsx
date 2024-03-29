@@ -12,7 +12,7 @@ import useLanguageStore from '../../../store/languagesStore';
 import moment from 'moment';
 import { setArray } from '../../../../modules/widget';
 import CalendarDateTimePicker from '../../../components/Calendar/Calendar';
-import {i18n} from "../../../lib/i18n";
+import { i18n } from "../../../lib/i18n";
 
 const GROUP_NAME = "group.com.mansjs.AlNoorPrayer";
 
@@ -160,8 +160,9 @@ const Tracker = () => {
 
 
     const chartConfig = {
-
         backgroundColor: "#e26a00",
+        backgroundGradientFrom: "#fff",
+        backgroundGradientTo: "#fff",
         color: (opacity = 1) => `rgba(76, 168, 83, ${opacity})`,
         strokeWidth: 3, // optional, default 3
         barPercentage: 0.5,
@@ -346,7 +347,6 @@ const Tracker = () => {
                             <Tabs.List
                                 separator={<Separator vertical />}
                                 disablePassBorderRadius="bottom"
-                                aria-label="Manage your account"
                             >
                                 <Tabs.Tab flex={1} value="tab1">
                                     <SizableText fontFamily="$body">Graph</SizableText>
@@ -365,7 +365,6 @@ const Tracker = () => {
                                 <ContributionGraph
                                     values={formattedData}
                                     endDate={new Date(dateOnly)}
-
                                     numDays={167}
                                     squareSize={13}
                                     width={screenWidth - 36}
@@ -409,7 +408,6 @@ const Tracker = () => {
 const TabsContent = (props: TabsContentProps) => {
     return (
         <Tabs.Content
-            backgroundColor="#000"
             key="tab3"
             alignItems="center"
             height={500}

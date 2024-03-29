@@ -6,7 +6,7 @@ import { MyStack } from "../../../components/MyStack";
 import { Calendar } from "react-native-calendars";
 import { ContributionGraph } from "react-native-chart-kit";
 import useLanguageStore from "../../../store/languagesStore";
-import {i18n} from "../../../lib/i18n";
+import { i18n } from "../../../lib/i18n";
 
 // Define type for fasting status entry
 type FastingStatusEntry = {
@@ -129,6 +129,8 @@ const FastingTracker = () => {
 
     const chartConfig = {
         backgroundColor: "#e26a00",
+        backgroundGradientFrom: "#fff",
+        backgroundGradientTo: "#fff",
         color: (opacity = 1) => `rgba(76, 168, 83, ${opacity})`,
         strokeWidth: 3,
         barPercentage: 0.5,

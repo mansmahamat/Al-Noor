@@ -21,7 +21,8 @@ import useLanguageStore from "../../../store/languagesStore";
 import { useCityStore } from "../../../store/cityStore";
 import CalendarDateTimePicker from "../../../components/Calendar/Calendar";
 import { TouchableOpacity } from "react-native-gesture-handler";
-import {i18n} from "../../../lib/i18n";
+import { i18n } from "../../../lib/i18n";
+import { Calendar } from "react-native-calendars";
 
 
 // Define a task name
@@ -355,10 +356,10 @@ const App = () => {
   return (
     <>
       <MyStack>
-
         <YStack
           space="$4"
           paddingBottom="$18"
+
         >
 
           <CardDemo
@@ -374,11 +375,12 @@ const App = () => {
           <XStack
             display="flex"
             alignItems="center"
-
+            marginBottom={10}
             justifyContent="center"
             borderColor="$color"
             borderRadius="$4"
           >
+
             {Platform.OS === "android" && (
               <>
                 <Button onPress={showDatepicker}>
@@ -398,12 +400,10 @@ const App = () => {
 
           </XStack>
 
-          <PrayerList prayerList={transformedArray} />
+          <PrayerList currentPrayer={currentPrayer} prayerList={transformedArray} />
 
 
         </YStack>
-
-
       </MyStack>
 
     </>
