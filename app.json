@@ -1,7 +1,7 @@
 {
   "expo": {
     "scheme": "tamagui-app",
-    "version": "1.5.7",
+    "version": "1.5.8",
     "userInterfaceStyle": "light",
     "splash": {
       "backgroundColor": "#ffffff",

@@ -14,7 +14,7 @@ interface QiblaCompassRef {
     reinitCompass: () => void;
 }
 
-const QiblaCompass = forwardRef<QiblaCompassRef, QiblaCompassProps>(({ backgroundColor = "", color = "" }, ref) => {
+const QiblaCompass = forwardRef<QiblaCompassRef, QiblaCompassProps>(({ backgroundColor = "#4c6c53", color = "" }, ref) => {
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
     const [magnetometer, setMagnetometer] = useState(0);
@@ -137,10 +137,15 @@ const QiblaCompass = forwardRef<QiblaCompassRef, QiblaCompassProps>(({ backgroun
             </View>
             <View style={styles.compassContainer}>
                 <Image
-                    source={require("../../../assets/qibla.png")}
+                    source={require("../../../assets/compass_bg.png")}
                     style={[styles.image, { transform: [{ rotate: compassRotate + "deg" }] }]}
                 />
-
+                <View style={styles.pointerContainer}>
+                    <Image
+                        source={require("../../../assets/compass_pointer.png")}
+                        style={styles.pointer}
+                    />
+                </View>
             </View>
             <View style={styles.qiblaDirection}>
                 <Text textAlign="center"

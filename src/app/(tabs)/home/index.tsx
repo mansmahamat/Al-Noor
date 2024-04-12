@@ -1,4 +1,4 @@
-import { Button, XStack, YStack } from "tamagui";
+import { Button, ScrollView, XStack, YStack } from "tamagui";
 import { MyStack } from "../../../components/MyStack";
 import { CardDemo } from "../../../components/CardDemo/CardDemo";
 import { PrayerList } from "../../../components/PrayerList/PrayerList";
@@ -356,54 +356,60 @@ const App = () => {
   return (
     <>
       <MyStack>
-        <YStack
-          space="$4"
-          paddingBottom="$18"
+        <ScrollView>
 
-        >
+          <YStack
+            space="$4"
+            paddingBottom="$18"
 
-          <CardDemo
-            nextPrayerTime={nextPrayerTime}
-            nextPrayerName={nextPrayerName}
-            city={city}
-            date={date}
-            nextPrayerTimeHours={nextPrayerTimeHours}
-            nextPrayerTimeMinutes={nextPrayerTimeMinutes}
-            currentPrayer={currentPrayer} />
-
-
-          <XStack
-            display="flex"
-            alignItems="center"
-            marginBottom={10}
-            justifyContent="center"
-            borderColor="$color"
-            borderRadius="$4"
           >
 
-            {Platform.OS === "android" && (
-              <>
-                <Button onPress={showDatepicker}>
-                  Date {moment(date).format("DD/MM/YY")}
-                </Button>
-                {show && <CalendarDateTimePicker date={date} onChange={onChange} />}
-              </>
-            )}
-            {Platform.OS === "ios" && <CalendarDateTimePicker date={date} onChange={onChange} />}
-            {date.toDateString() !== today.toDateString() && <TouchableOpacity onPress={reset}>
-              <XCircle style={{ marginLeft: 5 }} size={24} color="red" />
-            </TouchableOpacity>}
+            <CardDemo
+              nextPrayerTime={nextPrayerTime}
+              nextPrayerName={nextPrayerName}
+              city={city}
+              date={date}
+              nextPrayerTimeHours={nextPrayerTimeHours}
+              nextPrayerTimeMinutes={nextPrayerTimeMinutes}
+              currentPrayer={currentPrayer} />
+
+
+            <XStack
+              display="flex"
+              alignItems="center"
+              marginBottom={10}
+              justifyContent="center"
+              borderColor="$color"
+              borderRadius="$4"
+            >
+
+              {Platform.OS === "android" && (
+                <>
+                  <Button onPress={showDatepicker}>
+                    Date {moment(date).format("DD/MM/YY")}
+                  </Button>
+                  {show && <CalendarDateTimePicker date={date} onChange={onChange} />}
+                </>
+              )}
+              {Platform.OS === "ios" && <CalendarDateTimePicker date={date} onChange={onChange} />}
+              {date.toDateString() !== today.toDateString() && <TouchableOpacity onPress={reset}>
+                <XCircle style={{ marginLeft: 5 }} size={24} color="red" />
+              </TouchableOpacity>}
 
 
 
 
 
-          </XStack>
+            </XStack>
 
-          <PrayerList currentPrayer={currentPrayer} prayerList={transformedArray} />
+            <PrayerList currentPrayer={currentPrayer} prayerList={transformedArray} />
 
 
-        </YStack>
+          </YStack>
+        </ScrollView>
+
+
+
       </MyStack>
 
     </>
