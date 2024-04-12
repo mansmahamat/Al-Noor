@@ -2,7 +2,7 @@ import { CalendarCheck, Compass, Home, List, Settings, UtensilsCrossed } from "@
 import { Tabs } from "expo-router";
 import { Text, View } from "tamagui";
 import useLanguageStore from "../../../store/languagesStore"
-import {i18n} from "../../../lib/i18n";
+import { i18n } from "../../../lib/i18n";
 
 export default function Layout() {
     const { language } = useLanguageStore();
@@ -62,26 +62,8 @@ export default function Layout() {
             <Tabs.Screen
                 name="fasting"
                 options={{
+                    tabBarButton: () => null,
                     headerStatusBarHeight: 0,
-                    tabBarAccessibilityLabel: "Qibla",
-                    headerBackground: () => (
-                        <View style={{ backgroundColor: "#4c6c53", height: 80 }} />
-                    ),
-                    tabBarStyle: {
-                        borderTopColor: "#4c6c53",
-                        borderTopWidth: 0,
-                    },
-                    tabBarBackground: () => (
-                        <View style={{ backgroundColor: "#4c6c53", height: 80 }} />
-                    ),
-                    tabBarLabel: () => (
-                        <Text style={{ color: "#4c6c53" }} />
-                    ),
-                    tabBarIcon() {
-                        return (
-                            <UtensilsCrossed color="#4c6c53" />
-                        );
-                    },
                 }}
             />
             <Tabs.Screen
@@ -113,20 +95,8 @@ export default function Layout() {
             <Tabs.Screen
                 name="nameAllah"
                 options={{
+                    tabBarButton: () => null,
                     headerStatusBarHeight: 0,
-                    tabBarStyle: {
-                        borderTopColor: "#4c6c53",
-                        borderTopWidth: 0,
-                    },
-                    title: "99 names",
-                    tabBarLabel: () => (
-                        <Text style={{ color: "#4c6c53" }} />
-                    ),
-                    tabBarIcon() {
-                        return (
-                            <List color="#4c6c53" />
-                        );
-                    },
                 }}
             />
             <Tabs.Screen

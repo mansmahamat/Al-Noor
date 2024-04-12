@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Text, TouchableOpacity, Dimensions, Platform } from 'react-native';
-import { Button, H2, ListItem, ScrollView, Separator, SizableText, Tabs, TabsContentProps, XStack, YGroup } from 'tamagui'; // Import your UI components
+import { Text, TouchableOpacity, Dimensions, Platform, StyleSheet, View } from 'react-native';
+import { Button, H2, ListItem, Paragraph, ScrollView, Separator, SizableText, Tabs, TabsContentProps, XStack, YGroup, YStack } from 'tamagui'; // Import your UI components
 import { capitalizeFirstLetter } from '../../../utils/utils';
 import { XCircle } from '@tamagui/lucide-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -13,6 +13,9 @@ import moment from 'moment';
 import { setArray } from '../../../../modules/widget';
 import CalendarDateTimePicker from '../../../components/Calendar/Calendar';
 import { i18n } from "../../../lib/i18n";
+import { Link, useRouter } from 'expo-router';
+
+
 
 const GROUP_NAME = "group.com.mansjs.AlNoorPrayer";
 
@@ -22,9 +25,12 @@ const setSharedDataArray = setArray(GROUP_NAME);
 const Tracker = () => {
     const [date, setDate] = useState(new Date());
     const [show, setShow] = useState(false);
+    const router = useRouter();
+
 
     const today = new Date();
     const [prayerStatus, setPrayerStatus] = useState([]);
+
 
     useEffect(() => {
         loadPrayerStatus();
@@ -302,6 +308,25 @@ const Tracker = () => {
                             {i18n.t('prayerTracker.title')}
                         </H2>
                     </XStack>
+
+                    <YStack
+
+
+                        width="100%" maxWidth={300} marginHorizontal={15}>
+                        <Separator marginVertical={15} />
+                        <Paragraph fontWeight="800">
+                            {i18n.t("fasting.title")}
+                        </Paragraph>
+                        <Link href="/home/fasting">
+                            <Paragraph>
+                                {i18n.t("fasting.description")}
+                            </Paragraph>
+                        </Link>
+
+                        <Separator marginVertical={15} />
+
+                    </YStack>
+
                     <XStack alignItems="center" justifyContent="center" borderColor="$color" borderRadius="$4">
                         {Platform.OS === "android" && (
                             <>
@@ -315,7 +340,11 @@ const Tracker = () => {
                         {date.toDateString() !== today.toDateString() && <TouchableOpacity onPress={resetDate}>
                             <XCircle style={{ marginLeft: 5 }} size={24} color="red" />
                         </TouchableOpacity>}
+
+
                     </XStack>
+
+
 
                     <YGroup separator={<Separator />} alignSelf="center" height="80%" width="100%">
                         {prayerList.map((prayer, index) => (

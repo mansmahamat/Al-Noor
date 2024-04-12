@@ -11,5 +11,7 @@
   "ar.qibla.facing": "توجه القبلة",
   "ar.nameAllah.title": "99 اسمًا",
   "ar.prayerTracker.title": "تتبع الصلاة",
-  "ar.fasting.title": "الصيام"
+  "ar.prayerTracker.description": "يمكنك تتبع صلواتك اليومية بالنقر أدناه.",
+  "ar.fasting.title": "الصيام",
+  "ar.fasting.description": "يمكنك تتبع أيام الصوم الخاصة بك بالنقر أدناه."
 }

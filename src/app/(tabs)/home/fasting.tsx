@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { Dimensions } from "react-native";
-import { H2, ScrollView, XStack, YGroup } from "tamagui";
+import { H2, Paragraph, ScrollView, Separator, XStack, YGroup, YStack } from "tamagui";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { MyStack } from "../../../components/MyStack";
 import { Calendar } from "react-native-calendars";
 import { ContributionGraph } from "react-native-chart-kit";
 import useLanguageStore from "../../../store/languagesStore";
 import { i18n } from "../../../lib/i18n";
+import { Link } from "expo-router";
 
 // Define type for fasting status entry
 type FastingStatusEntry = {
@@ -155,6 +156,23 @@ const FastingTracker = () => {
                     >
                         <H2 textAlign="center">{i18n.t("fasting.title")}</H2>
                     </XStack>
+                    <YStack
+
+
+                        width="100%" maxWidth={300} marginHorizontal={15}>
+                        <Separator marginVertical={15} />
+                        <Paragraph fontWeight="800">
+                            {i18n.t("prayerTracker.title")}
+                        </Paragraph>
+                        <Link href="/home/tracker">
+                            <Paragraph>
+                                {i18n.t("prayerTracker.description")}
+                            </Paragraph>
+                        </Link>
+
+                        <Separator marginVertical={15} />
+
+                    </YStack>
                     <Calendar
                         theme={{
                             backgroundColor: "#ffffff",

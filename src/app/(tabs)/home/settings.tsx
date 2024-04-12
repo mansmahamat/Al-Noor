@@ -21,7 +21,8 @@ import { SelectMadhab } from "../../../components/SelectMadhab/SelectMadhab"
 import SelectLanguagesSheet from "../../../components/SelectLanguages/SelectLanguagesSheet"
 import useLanguageStore from "../../../store/languagesStore"
 import { itemsCalculationMethod } from "../../../data/itemCalculation"
-import {i18n} from "../../../lib/i18n";
+import { i18n } from "../../../lib/i18n";
+import { Link } from "expo-router"
 
 const App = () => {
     const [open, setOpen] = useState(false)
@@ -42,11 +43,9 @@ const App = () => {
                     {i18n.t('settings.title')}
                 </H2>
                 <YGroup alignSelf="center" width="100%" size="$5">
-                    <YGroup.Item>
+                    <YGroup.Item >
                         <ListItem
 
-                            color="white"
-                            style={{ color: "#fff" }}
                             backgroundColor="#4c6c53"
                             marginBottom="$5"
                             title={i18n.t('settings.prayer_times')}
@@ -58,14 +57,23 @@ const App = () => {
 
                     <YGroup.Item>
                         <ListItem
-
                             backgroundColor="#4c6c53"
+                            marginBottom="$5"
                             title={i18n.t('settings.language')}
-
-                            // subTitle="Subtitle"
                             iconAfter={ChevronRight}
                             onPress={() => setOpenLanguageSheet(true)}
                         />
+                    </YGroup.Item>
+
+                    <YGroup.Item>
+                        <Link href="/home/nameAllah">
+                            <ListItem
+                                backgroundColor="#4c6c53"
+                                title={i18n.t('nameAllah.title')}
+                                iconAfter={ChevronRight}
+                            />
+                        </Link>
+
                     </YGroup.Item>
                 </YGroup>
             </YStack>

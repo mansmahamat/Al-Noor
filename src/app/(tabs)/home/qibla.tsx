@@ -137,15 +137,10 @@ const QiblaCompass = forwardRef<QiblaCompassRef, QiblaCompassProps>(({ backgroun
             </View>
             <View style={styles.compassContainer}>
                 <Image
-                    source={require("../../../assets/compass_bg.png")}
+                    source={require("../../../assets/qibla.png")}
                     style={[styles.image, { transform: [{ rotate: compassRotate + "deg" }] }]}
                 />
-                <View style={styles.pointerContainer}>
-                    <Image
-                        source={require("../../../assets/compass_pointer.png")}
-                        style={styles.pointer}
-                    />
-                </View>
+
             </View>
             <View style={styles.qiblaDirection}>
                 <Text textAlign="center"

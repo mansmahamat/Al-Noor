@@ -11,5 +11,7 @@
   "en.qibla.facing": "Facing Mekkah",
   "en.nameAllah.title": "99 Names of Allah",
   "en.prayerTracker.title": "Prayer Tracker",
-  "en.fasting.title": "Fasting"
+  "en.prayerTracker.description": "You can track your prayers by clicking here.",
+  "en.fasting.title": "Fasting",
+  "en.fasting.description": "You can track your fasting days by clicking here."
 }

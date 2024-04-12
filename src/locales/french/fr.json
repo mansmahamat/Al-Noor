@@ -11,5 +11,7 @@
   "fr.qibla.facing": "Face à La Mecque",
   "fr.nameAllah.title": "99 Noms d'Allah",
   "fr.prayerTracker.title": "Suivi de prière",
-  "fr.fasting.title": "Jeûne"
+  "fr.prayerTracker.description": "Vous pouvez suivre vos prières quotidiennes en cliquant ici.",
+  "fr.fasting.title": "Jeûne",
+  "fr.fasting.description": "Vous pouvez suivre vos jours de jeûne en cliquant ici."
 }
