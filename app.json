@@ -55,7 +55,7 @@
       "infoPlist": {
         "NSLocationWhenInUseUsageDescription": "Al Noor App uses your location to give accurate daily prayer, without that where unable to provide prayer time",
         "NSLocationAlwaysUsageDescription": "Al Noor App will use your location to give accurate daily prayer, without that where unable to provide prayer time",
-        "UIBackgroundModes": ["location", "fetch", "remote-notification"]
+        "UIBackgroundModes": ["fetch", "remote-notification"]
       }
     },
     "android": {
