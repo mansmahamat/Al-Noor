@@ -356,14 +356,19 @@ const App = () => {
   return (
     <>
       <MyStack>
-        <ScrollView>
-
+        <ScrollView 
+          showsVerticalScrollIndicator={false}
+          bounces={true}
+          overScrollMode="never"
+          contentContainerStyle={{
+            flexGrow: 1,
+            paddingBottom: 100
+          }}
+        >
           <YStack
             space="$4"
-            paddingBottom="$18"
-
+            paddingHorizontal="$2"
           >
-
             <CardDemo
               nextPrayerTime={nextPrayerTime}
               nextPrayerName={nextPrayerName}
@@ -407,11 +412,7 @@ const App = () => {
 
           </YStack>
         </ScrollView>
-
-
-
       </MyStack>
-
     </>
   );
 }

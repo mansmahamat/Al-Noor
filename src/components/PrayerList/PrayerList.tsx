@@ -57,27 +57,47 @@ export function PrayerList({ prayerList, currentPrayer }: PrayerListProps) {
   const isCurrentPrayer = (prayerName) => prayerName.toLowerCase() === currentPrayerFormatted
 
   return (
-    <YGroup alignSelf="center" height="90%" width="100%" >
-
-      {prayerList.map((prayer, index) => {
-        return (
-
-          <React.Fragment key={index}>
-
-            <YGroup.Item >
-              <ListItem
-                style={{ borderWidth: isCurrentPrayer(prayer.name) ? 1 : 0, borderColor: '#4c6c53', borderRadius: 10 }}
-                color="#4c6c53"
-                borderColor="red"
-                icon={getPrayerIcon(prayer.name)}
-                height="$6"
-                title={capitalizeFirstLetter(prayer.name)}
-                subTitle={moment(prayer.time).format('LT')} />
-            </YGroup.Item>
-          </React.Fragment>
-        )
-
-      })}
+    <YGroup 
+      alignSelf="center" 
+      height="90%" 
+      width="100%"
+      separator={<Separator />}
+      backgroundColor="$background"
+      padding="$2"
+      borderRadius="$4"
+    >
+      {prayerList.map((prayer, index) => (
+        <YGroup.Item key={index}>
+          <ListItem
+            pressStyle={{ opacity: 0.8, scale: 0.98 }}
+            animation="lazy"
+            style={{
+              borderWidth: isCurrentPrayer(prayer.name) ? 2 : 0,
+              borderColor: '#4c6c53',
+              borderRadius: 12,
+              marginVertical: 4,
+              backgroundColor: isCurrentPrayer(prayer.name) ? '$green1' : 'transparent',
+            }}
+            iconAfter={getPrayerIcon(prayer.name)}
+            height="$7"
+            gap="$3"
+          >
+            <Text 
+              color="#4c6c53" 
+              fontSize="$5" 
+              fontWeight={isCurrentPrayer(prayer.name) ? "bold" : "normal"}
+            >
+              {capitalizeFirstLetter(prayer.name)}
+            </Text>
+            <Text 
+              color="#666666" 
+              fontSize="$4"
+            >
+              {moment(prayer.time).format('LT')}
+            </Text>
+          </ListItem>
+        </YGroup.Item>
+      ))}
     </YGroup>
   )
 }
