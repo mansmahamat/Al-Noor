@@ -14,6 +14,9 @@ import {
     Sheet,
     YGroup,
     YStack,
+    XStack,
+    Separator,
+    Text,
 } from "tamagui"
 import useCalculationMethodStore from "../../../store/calculationMethodStore"
 import useCalculationMadhab from "../../../store/calculationMadhabStore"
@@ -22,9 +25,10 @@ import SelectLanguagesSheet from "../../../components/SelectLanguages/SelectLang
 import useLanguageStore from "../../../store/languagesStore"
 import { itemsCalculationMethod } from "../../../data/itemCalculation"
 import { i18n } from "../../../lib/i18n";
-import { Link } from "expo-router"
+import { useRouter } from 'expo-router'
 
 const App = () => {
+    const router = useRouter()
     const [open, setOpen] = useState(false)
     const [openLanguageSheet, setOpenLanguageSheet] = useState(false)
     const [position, setPosition] = useState(0)
@@ -34,46 +38,89 @@ const App = () => {
     const { updateCalculationMethod, calculationMethod } = useCalculationMethodStore();
     const { updateCalculationMadhab, madhab } = useCalculationMadhab();
 
-
-
     return (
-        <>
-            <YStack paddingVertical="$4" paddingHorizontal="$4">
-                <H2 marginBottom="$5">
+        <YStack flex={1} backgroundColor="#f2f2f7">
+            <YStack paddingVertical="$4" paddingHorizontal="$4" space="$5">
+                <H2 
+                    fontSize={34} 
+                    fontWeight="700" 
+                    color="#000"
+                    marginBottom="$2"
+                >
                     {i18n.t('settings.title')}
                 </H2>
-                <YGroup alignSelf="center" width="100%" size="$5">
-                    <YGroup.Item >
-                        <ListItem
 
-                            backgroundColor="#4c6c53"
-                            marginBottom="$5"
-                            title={i18n.t('settings.prayer_times')}
-                            // subTitle="Subtitle"
-                            iconAfter={ChevronRight}
+                <YGroup 
+                    backgroundColor="$background"
+                    borderRadius="$6"
+                    separator={<Separator style={{ backgroundColor: '#e5e5ea' }} />}
+                    size="$5"
+                >
+                    <YGroup.Item>
+                        <ListItem
+                            pressStyle={{ 
+                                backgroundColor: 'rgba(0,0,0,0.05)',
+                            }}
+                            animation="quick"
+                            height={54}
+                            paddingHorizontal="$4"
                             onPress={() => setOpen(true)}
-                        />
+                        >
+                            <XStack flex={1} alignItems="center" justifyContent="space-between">
+                                <Text fontSize={17} fontWeight="400" color="#000">
+                                    {i18n.t('settings.prayer_times')}
+                                </Text>
+                                <XStack space="$2" alignItems="center">
+                                    <Text fontSize={17} color="#8E8E93">
+                                        {calculationMethod}
+                                    </Text>
+                                    <ChevronRight size={20} color="#C7C7CC" />
+                                </XStack>
+                            </XStack>
+                        </ListItem>
                     </YGroup.Item>
 
                     <YGroup.Item>
                         <ListItem
-                            backgroundColor="#4c6c53"
-                            marginBottom="$5"
-                            title={i18n.t('settings.language')}
-                            iconAfter={ChevronRight}
+                            pressStyle={{ 
+                                backgroundColor: 'rgba(0,0,0,0.05)',
+                            }}
+                            animation="quick"
+                            height={54}
+                            paddingHorizontal="$4"
                             onPress={() => setOpenLanguageSheet(true)}
-                        />
+                        >
+                            <XStack flex={1} alignItems="center" justifyContent="space-between">
+                                <Text fontSize={17} fontWeight="400" color="#000">
+                                    {i18n.t('settings.language')}
+                                </Text>
+                                <XStack space="$2" alignItems="center">
+                                    <Text fontSize={17} color="#8E8E93">
+                                        {language}
+                                    </Text>
+                                    <ChevronRight size={20} color="#C7C7CC" />
+                                </XStack>
+                            </XStack>
+                        </ListItem>
                     </YGroup.Item>
 
                     <YGroup.Item>
-                        <Link href="/home/nameAllah">
-                            <ListItem
-                                backgroundColor="#4c6c53"
-                                title={i18n.t('nameAllah.title')}
-                                iconAfter={ChevronRight}
-                            />
-                        </Link>
-
+                        <ListItem
+                            pressStyle={{ 
+                                backgroundColor: 'rgba(0,0,0,0.05)',
+                            }}
+                            animation="quick"
+                            height={54}
+                            paddingHorizontal="$4"
+                            onPress={() => router.push('/home/nameAllah')}
+                        >
+                            <XStack flex={1} alignItems="center" justifyContent="space-between">
+                                <Text fontSize={17} fontWeight="400" color="#000">
+                                    {i18n.t('nameAllah.title')}
+                                </Text>
+                                <ChevronRight size={20} color="#C7C7CC" />
+                            </XStack>
+                        </ListItem>
                     </YGroup.Item>
                 </YGroup>
             </YStack>
@@ -119,13 +166,11 @@ const App = () => {
                 setOpenLanguageSheet={setOpenLanguageSheet}
                 openLanguageSheet={openLanguageSheet}
             />
-        </>
+        </YStack>
     )
 }
 
 export default App
-
-
 
 export function SelectDemoItem(props) {
 

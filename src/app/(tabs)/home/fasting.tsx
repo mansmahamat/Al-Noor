@@ -146,64 +146,87 @@ const FastingTracker = () => {
 
     return (
         <MyStack>
-            <ScrollView>
-                <YGroup space="$4">
-                    <XStack
-                        alignItems="center"
-                        justifyContent="center"
-                        borderColor="$color"
-                        borderRadius="$4"
-                    >
-                        <H2 textAlign="center">{i18n.t("fasting.title")}</H2>
+            <ScrollView showsVerticalScrollIndicator={false}>
+                <YGroup space="$4" paddingHorizontal="$4">
+                    <XStack paddingVertical="$4">
+                        <H2 textAlign="center" fontSize={28} fontWeight="600">
+                            {i18n.t('fasting.title')}
+                        </H2>
                     </XStack>
-                    <YStack
 
-
-                        width="100%" maxWidth={300} marginHorizontal={15}>
-                        <Separator marginVertical={15} />
-                        <Paragraph fontWeight="800">
-                            {i18n.t("prayerTracker.title")}
-                        </Paragraph>
-                        <Link href="/home/tracker">
-                            <Paragraph>
-                                {i18n.t("prayerTracker.description")}
-                            </Paragraph>
+                    <YStack 
+                        backgroundColor="rgba(76, 108, 83, 0.08)"
+                        padding="$4"
+                        borderRadius="$6"
+                        width="100%"
+                        borderWidth={1}
+                        borderColor="rgba(76, 108, 83, 0.15)"
+                        pressStyle={{
+                            opacity: 0.8,
+                            scale: 0.98,
+                        }}
+                        animation="quick"
+                        elevation={2}
+                        shadowColor="rgba(76, 108, 83, 0.15)"
+                        shadowRadius={8}
+                        shadowOffset={{ width: 0, height: 2 }}
+                    >
+                        <Link href="/home/tracker" asChild>
+                            <YStack space="$2">
+                                <Paragraph 
+                                    fontWeight="700" 
+                                    fontSize={18} 
+                                    color="#4c6c53"
+                                    textAlign="left"
+                                >
+                                    {i18n.t("prayerTracker.title")} →
+                                </Paragraph>
+                                <Paragraph 
+                                    fontSize={15} 
+                                    opacity={0.9}
+                                    color="#4c6c53"
+                                    lineHeight={20}
+                                >
+                                    {i18n.t("prayerTracker.description")}
+                                </Paragraph>
+                            </YStack>
                         </Link>
-
-                        <Separator marginVertical={15} />
-
                     </YStack>
+
                     <Calendar
                         theme={{
                             backgroundColor: "#ffffff",
                             calendarBackground: "#ffffff",
-                            textSectionTitleColor: "#F2D2BD",
-                            textSectionTitleDisabledColor: "#d9e1e8",
-                            selectedDayBackgroundColor: "#00adf5",
+                            textSectionTitleColor: "#4c6c53",
+                            textSectionTitleDisabledColor: "rgba(76, 108, 83, 0.2)",
+                            selectedDayBackgroundColor: "#4c6c53",
                             selectedDayTextColor: "#ffffff",
-                            todayTextColor: "#00adf5",
-                            dayTextColor: "#F2D2BD",
-                            textDisabledColor: "#d9e1e8",
-                            dotColor: "#00adf5",
+                            todayTextColor: "#4c6c53",
+                            dayTextColor: "#4c6c53",
+                            textDisabledColor: "rgba(76, 108, 83, 0.2)",
+                            dotColor: "#4c6c53",
                             selectedDotColor: "#ffffff",
                             arrowColor: "#4c6c53",
-                            disabledArrowColor: "#d9e1e8",
+                            disabledArrowColor: "rgba(76, 108, 83, 0.2)",
                             monthTextColor: "#4c6c53",
                             indicatorColor: "#4c6c53",
-                            textDayFontFamily: "monospace",
-                            textMonthFontFamily: "monospace",
-                            textDayHeaderFontFamily: "monospace",
-                            textDayFontWeight: "300",
-                            textMonthFontWeight: "bold",
-                            textDayHeaderFontWeight: "300",
+                            textDayFontFamily: "Inter",
+                            textMonthFontFamily: "Inter",
+                            textDayHeaderFontFamily: "Inter",
+                            textDayFontWeight: "400",
+                            textMonthFontWeight: "600",
+                            textDayHeaderFontWeight: "600",
                             textDayFontSize: 16,
                             textMonthFontSize: 16,
-                            textDayHeaderFontSize: 16,
+                            textDayHeaderFontSize: 14,
                         }}
                         style={{
                             borderWidth: 1,
-                            borderColor: "gray",
-                            height: 450,
+                            borderColor: "rgba(76, 108, 83, 0.1)",
+                            borderRadius: 12,
+                            padding: 10,
+                            backgroundColor: "white",
+                            marginVertical: 10,
                         }}
                         onDayPress={handleDayPress}
                         markedDates={formattedMarkedDates}
@@ -211,14 +234,42 @@ const FastingTracker = () => {
                         enableSwipeMonths={true}
                         markingType="dot"
                     />
-                    {/* @ts-ignore */}
+
                     <ContributionGraph
                         values={formattedFastingData}
                         endDate={new Date(dateOnly)}
                         numDays={105}
-                        width={screenWidth - 50}
+                        width={screenWidth - 32}
                         height={220}
-                        chartConfig={chartConfig}
+                        tooltipDataAttrs={(value) => ({
+                            'data-tip': `${value.date}: ${value.count} fasts`,
+                        })}
+                        chartConfig={{
+                            backgroundColor: "#ffffff",
+                            backgroundGradientFrom: "#ffffff",
+                            backgroundGradientTo: "#ffffff",
+                            decimalPlaces: 1,
+                            color: (opacity = 1) => `rgba(76, 108, 83, ${opacity})`,
+                            labelColor: (opacity = 1) => `rgba(76, 108, 83, 0.8)`,
+                            style: {
+                                borderRadius: 16,
+                            },
+                            propsForDots: {
+                                r: "6",
+                                strokeWidth: "2",
+                                stroke: "rgba(76, 108, 83, 0.2)"
+                            },
+                            strokeWidth: 2,
+                            barPercentage: 0.7,
+                            useShadowColorFromDataset: false
+                        }}
+                        style={{
+                            borderRadius: 12,
+                            padding: 10,
+                            backgroundColor: "white",
+                            borderWidth: 1,
+                            borderColor: "rgba(76, 108, 83, 0.1)",
+                        }}
                     />
                 </YGroup>
             </ScrollView>

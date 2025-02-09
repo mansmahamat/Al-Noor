@@ -12,16 +12,29 @@ export function SelectLanguagesForm() {
 
     return (
         <>
-            <Label>
-                Language
+            <Label
+                color="#000000"
+                fontSize={16}
+                fontWeight="600"
+                marginBottom="$2"
+            >
+                Select Language
             </Label>
             <Select
                 value={language}
                 onValueChange={updateLanguage}
                 disablePreventBodyScroll
             >
-                <Select.Trigger width="100%" color="white" iconAfter={ChevronDown}>
-                    <Select.Value placeholder="Something" />
+                <Select.Trigger 
+                    width="100%" 
+                    color="#000000"
+                    backgroundColor="#F5F5F5"
+                    borderRadius={10}
+                    padding="$3"
+                    borderWidth={0}
+                    iconAfter={ChevronDown}
+                >
+                    <Select.Value placeholder="Choose a language" />
                 </Select.Trigger>
 
                 <Adapt when="sm" platform="touch">
@@ -64,9 +77,10 @@ export function SelectLanguagesForm() {
 
                     <Select.Viewport
                         minWidth={200}
+                        backgroundColor="#FFFFFF"
                     >
-                        <Select.Group>
-                            <Select.Label>Languages  </Select.Label>
+                        <Select.Group space="$2">
+                            <Select.Label color="#666666" fontSize={14}>Languages</Select.Label>
                             {/* for longer lists memoizing these is useful */}
                             <Select.Item
                                 value="en"

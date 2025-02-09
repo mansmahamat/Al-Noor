@@ -1,6 +1,6 @@
 import { CloudSun, Moon, MoonStar, Sun, Sunrise, Sunset } from '@tamagui/lucide-icons'
 import React from 'react'
-import { ListItem, Separator, Text, YGroup } from 'tamagui'
+import { ListItem, Separator, Text, YGroup, XStack } from 'tamagui'
 import moment from 'moment'
 import { capitalizeFirstLetter } from '../../utils/utils'
 
@@ -14,42 +14,23 @@ interface PrayerListProps {
   currentPrayer: string
 }
 
-
 export function PrayerList({ prayerList, currentPrayer }: PrayerListProps) {
   const getPrayerIcon = (prayerName) => {
     switch (prayerName.toLowerCase()) {
       case 'fajr':
-        return <Moon
-          color="#4c6c53"
-          size="$1"
-        />;
+        return <Moon color="#8E8E93" size={24} />;
       case 'sunrise':
-        return <Sunrise
-          color="#4c6c53"
-          size="$1"
-        />;
+        return <Sunrise color="#8E8E93" size={24} />;
       case 'dhuhr':
-        return <Sun
-          color="#4c6c53"
-          size="$1"
-        />;
+        return <Sun color="#8E8E93" size={24} />;
       case 'asr':
-        return <CloudSun
-          color="#4c6c53"
-          size="$1"
-        />;
+        return <CloudSun color="#8E8E93" size={24} />;
       case 'maghrib':
-        return <Sunset
-          color="#4c6c53"
-          size="$1"
-        />;
+        return <Sunset color="#8E8E93" size={24} />;
       case 'isha':
-        return <MoonStar
-          color="#4c6c53"
-          size="$1"
-        />;
+        return <MoonStar color="#8E8E93" size={24} />;
       default:
-        return null; // You can set a default icon or handle the case differently
+        return null;
     }
   };
 
@@ -59,42 +40,39 @@ export function PrayerList({ prayerList, currentPrayer }: PrayerListProps) {
   return (
     <YGroup 
       alignSelf="center" 
-      height="90%" 
       width="100%"
-      separator={<Separator />}
-      backgroundColor="$background"
+      separator={<Separator opacity={0.2} />}
+      backgroundColor="white"
       padding="$2"
-      borderRadius="$4"
+      borderRadius="$6"
     >
       {prayerList.map((prayer, index) => (
         <YGroup.Item key={index}>
           <ListItem
-            pressStyle={{ opacity: 0.8, scale: 0.98 }}
+            pressStyle={{ opacity: 0.7 }}
             animation="lazy"
-            style={{
-              borderWidth: isCurrentPrayer(prayer.name) ? 2 : 0,
-              borderColor: '#4c6c53',
-              borderRadius: 12,
-              marginVertical: 4,
-              backgroundColor: isCurrentPrayer(prayer.name) ? '$green1' : 'transparent',
-            }}
+            backgroundColor={isCurrentPrayer(prayer.name) ? '#F2F2F7' : 'white'}
+            borderRadius={12}
+            marginVertical={6}
+            height="$6"
             iconAfter={getPrayerIcon(prayer.name)}
-            height="$7"
-            gap="$3"
           >
-            <Text 
-              color="#4c6c53" 
-              fontSize="$5" 
-              fontWeight={isCurrentPrayer(prayer.name) ? "bold" : "normal"}
-            >
-              {capitalizeFirstLetter(prayer.name)}
-            </Text>
-            <Text 
-              color="#666666" 
-              fontSize="$4"
-            >
-              {moment(prayer.time).format('LT')}
-            </Text>
+            <XStack flex={1} alignItems="center" justifyContent="space-between">
+              <Text 
+                color={isCurrentPrayer(prayer.name) ? "#4C6C53" : "#000000"}
+                fontSize={16}
+                fontWeight={isCurrentPrayer(prayer.name) ? "600" : "400"}
+              >
+                {capitalizeFirstLetter(prayer.name)}
+              </Text>
+              <Text 
+                color="#8E8E93"
+                fontSize={15}
+                fontWeight="400"
+              >
+                {moment(prayer.time).format('h:mm A')}
+              </Text>
+            </XStack>
           </ListItem>
         </YGroup.Item>
       ))}

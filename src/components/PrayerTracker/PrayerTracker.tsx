@@ -216,39 +216,72 @@ const PrayerTracker = () => {
         legend: ["All Prayers Count"] // Optional: customize the legend
     };
     return (
-        <MyStack>
-            <ScrollView>
-
-                <YGroup space="$4" >
-                    <XStack alignItems="center" justifyContent="center" borderColor="$color" borderRadius="$4">
+        <MyStack backgroundColor="#FFFFFF">
+            <ScrollView showsVerticalScrollIndicator={false}>
+                <YGroup space="$4" padding="$4">
+                    <XStack 
+                        alignItems="center" 
+                        justifyContent="center" 
+                        backgroundColor="#F5F5F5"
+                        padding="$3"
+                        borderRadius={16}
+                    >
                         <DateTimePicker
                             testID="dateTimePicker"
-                            style={{ backgroundColor: "#4c6c53" }}
-                            textColor="#ffffff"
-                            themeVariant="dark"
-                            collapsable={true}
+                            style={{ 
+                                backgroundColor: "#FFFFFF",
+                                borderRadius: 12
+                            }}
+                            textColor="#000000"
                             value={date}
                             mode="date"
                             is24Hour={true}
                             onChange={(event, selectedDate) => setDate(selectedDate || date)}
                         />
-                        {date.toDateString() !== today.toDateString() && <TouchableOpacity onPress={resetDate}>
-                            <XCircle style={{ marginLeft: 5 }} size={24} color="red" />
-                        </TouchableOpacity>}
+                        {date.toDateString() !== today.toDateString() && (
+                            <TouchableOpacity 
+                                onPress={resetDate}
+                                style={{ 
+                                    marginLeft: 12,
+                                    padding: 8,
+                                    backgroundColor: '#FFE5E5',
+                                    borderRadius: 20
+                                }}
+                            >
+                                <XCircle size={20} color="#FF3B30" />
+                            </TouchableOpacity>
+                        )}
                     </XStack>
 
-                    <YGroup separator={<Separator />} alignSelf="center" height="80%" width="100%">
+                    <YGroup separator={<Separator />} width="100%">
                         {prayerList.map((prayer, index) => (
                             <YGroup.Item key={index}>
                                 <ListItem
-                                    backgroundColor="#4c6c53"
-                                    color="white"
-                                    borderColor="#ffffff"
+                                    backgroundColor="#FFFFFF"
+                                    pressStyle={{ backgroundColor: '#F5F5F5' }}
+                                    color="#000000"
                                     height="$6"
-                                    title={capitalizeFirstLetter(prayer.name)}
+                                    borderRadius={12}
+                                    marginVertical="$1"
                                     onPress={() => togglePrayerStatus(date, prayer.name)}
                                 >
-                                    {prayerStatus.find(status => status.date === formatDate(date))?.[prayer.name.toLowerCase()] && <Text>✓</Text>}
+                                    <Text style={{ 
+                                        fontSize: 16,
+                                        fontWeight: '500'
+                                    }}>
+                                        {capitalizeFirstLetter(prayer.name)}
+                                    </Text>
+                                    {prayerStatus.find(status => 
+                                        status.date === formatDate(date)
+                                    )?.[prayer.name.toLowerCase()] && (
+                                        <Text style={{ 
+                                            color: '#34C759',
+                                            marginLeft: 'auto',
+                                            fontSize: 20 
+                                        }}>
+                                            ✓
+                                        </Text>
+                                    )}
                                 </ListItem>
                             </YGroup.Item>
                         ))}
@@ -257,28 +290,37 @@ const PrayerTracker = () => {
                             defaultValue="tab1"
                             orientation="horizontal"
                             flexDirection="column"
-                            width={400}
-                            height={300}
-                            marginTop="$8"
-                            borderRadius="$4"
-                            borderWidth="$0.25"
+                            width="100%"
+                            height={350}
+                            marginTop="$6"
+                            borderRadius={16}
                             overflow="hidden"
-                            borderColor="$borderColor"
+                            backgroundColor="#FFFFFF"
                         >
                             <Tabs.List
-                                separator={<Separator vertical />}
-                                disablePassBorderRadius="bottom"
-                                aria-label="Manage your account"
+                                backgroundColor="#F5F5F5"
+                                padding="$2"
+                                borderRadius={12}
+                                margin="$2"
                             >
-                                <Tabs.Tab flex={1} value="tab1">
-                                    <SizableText fontFamily="$body">Graph</SizableText>
-                                </Tabs.Tab>
-                                <Tabs.Tab flex={1} value="tab2">
-                                    <SizableText fontFamily="$body">Progress</SizableText>
-                                </Tabs.Tab>
-                                <Tabs.Tab flex={1} value="tab3">
-                                    <SizableText fontFamily="$body">All</SizableText>
-                                </Tabs.Tab>
+                                {["Graph", "Progress", "All"].map((tab, index) => (
+                                    <Tabs.Tab 
+                                        key={`tab${index + 1}`}
+                                        value={`tab${index + 1}`}
+                                        flex={1}
+                                        backgroundColor={tab === "tab1" ? "#FFFFFF" : "transparent"}
+                                        borderRadius={8}
+                                        padding="$2"
+                                    >
+                                        <SizableText 
+                                            fontFamily="$body"
+                                            color="#000000"
+                                            fontWeight="500"
+                                        >
+                                            {tab}
+                                        </SizableText>
+                                    </Tabs.Tab>
+                                ))}
                             </Tabs.List>
                             <Separator />
                             <TabsContent value="tab1">

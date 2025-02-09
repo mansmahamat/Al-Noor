@@ -20,7 +20,7 @@ export default function SelectLanguagesSheet(
             modal={true}
             open={openLanguageSheet}
             onOpenChange={setOpenLanguageSheet}
-            snapPoints={[45]}
+            snapPoints={[35]}
             snapPointsMode={"percent"}
             dismissOnSnapToBottom
             position={position}
@@ -32,17 +32,18 @@ export default function SelectLanguagesSheet(
                 animation="lazy"
                 enterStyle={{ opacity: 0 }}
                 exitStyle={{ opacity: 0 }}
+                backgroundColor="rgba(0,0,0,0.5)"
             />
-            <Sheet.Handle />
+            <Sheet.Handle backgroundColor="#E1E1E1" />
             <Sheet.Frame
-                padding="$4"
-                justifyContent="center"
-                backgroundColor="#4c6c53"
-                space="$1"
+                padding="$5"
+                justifyContent="flex-start"
+                backgroundColor="#FFFFFF"
+                space="$3"
+                borderTopLeftRadius={20}
+                borderTopRightRadius={20}
             >
-
                 <SelectLanguagesForm />
-
             </Sheet.Frame>
         </Sheet>
     )

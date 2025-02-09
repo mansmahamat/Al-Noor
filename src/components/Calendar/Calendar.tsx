@@ -1,28 +1,35 @@
 import React from 'react';
 import DateTimePicker, { DateTimePickerEvent } from '@react-native-community/datetimepicker';
-
+import { Button, Text } from 'tamagui';
+import moment from 'moment';
 
 interface CalendarDateTimePickerProps {
     date: Date;
     onChange: (event: DateTimePickerEvent, date?: Date) => void;
+    showPicker: boolean;
+    onPress: () => void;
 }
 
 const CalendarDateTimePicker: React.FC<CalendarDateTimePickerProps> = ({
     date,
     onChange,
+    showPicker,
+    onPress,
 }) => {
     return (
-        <DateTimePicker
-            testID="dateTimePicker"
-            style={{ backgroundColor: "#4c6c53" }}
-            textColor="#ffffff"
-            themeVariant="dark"
-            collapsable={true}
-            value={date}
-            mode="date"
-            is24Hour={true}
-            onChange={onChange}
-        />
+        <>
+            {showPicker && (
+                <DateTimePicker
+                    testID="dateTimePicker"
+                    value={date}
+                    mode="date"
+                    display="default"
+                    themeVariant="light"
+                    accentColor="#007AFF"
+                    onChange={onChange}
+                />
+            )}
+        </>
     );
 };
 

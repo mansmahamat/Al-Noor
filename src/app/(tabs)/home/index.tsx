@@ -1,4 +1,4 @@
-import { Button, ScrollView, XStack, YStack } from "tamagui";
+import { Button, ScrollView, XStack, YStack, Text } from "tamagui";
 import { MyStack } from "../../../components/MyStack";
 import { CardDemo } from "../../../components/CardDemo/CardDemo";
 import { PrayerList } from "../../../components/PrayerList/PrayerList";
@@ -379,32 +379,49 @@ const App = () => {
               currentPrayer={currentPrayer} />
 
 
-            <XStack
-              display="flex"
-              alignItems="center"
-              marginBottom={10}
-              justifyContent="center"
-              borderColor="$color"
-              borderRadius="$4"
+            <XStack 
+              alignItems="center" 
+              justifyContent="center" 
+              marginVertical="$2"
+              space="$2"
             >
-
-              {Platform.OS === "android" && (
-                <>
-                  <Button onPress={showDatepicker}>
-                    Date {moment(date).format("DD/MM/YY")}
-                  </Button>
-                  {show && <CalendarDateTimePicker date={date} onChange={onChange} />}
-                </>
+              <Button
+                size="$3"
+                backgroundColor={Platform.OS === "android" ? "#007AFF" : "#F2F2F7"}
+                borderRadius="$4"
+                pressStyle={{ opacity: 0.8 }}
+                onPress={showDatepicker}
+              >
+                <Text 
+                  color={Platform.OS === "android" ? "white" : "#007AFF"} 
+                  fontSize={15} 
+                  fontWeight="500"
+                >
+                  {moment(date).format("MMM D, YYYY")}
+                </Text>
+              </Button>
+              
+              {show && <CalendarDateTimePicker 
+                date={date} 
+                onChange={onChange}
+                showPicker={show}
+                onPress={showDatepicker}
+              />}
+              
+              {date.toDateString() !== today.toDateString() && (
+                <Button
+                  size="$3"
+                  backgroundColor="#FF3B30"
+                  borderRadius="$4"
+                  pressStyle={{ opacity: 0.8 }}
+                  onPress={reset}
+                  paddingHorizontal="$3"
+                >
+                  <Text color="white" fontSize={15} fontWeight="500">
+                    Today
+                  </Text>
+                </Button>
               )}
-              {Platform.OS === "ios" && <CalendarDateTimePicker date={date} onChange={onChange} />}
-              {date.toDateString() !== today.toDateString() && <TouchableOpacity onPress={reset}>
-                <XCircle style={{ marginLeft: 5 }} size={24} color="red" />
-              </TouchableOpacity>}
-
-
-
-
-
             </XStack>
 
             <PrayerList currentPrayer={currentPrayer} prayerList={transformedArray} />
